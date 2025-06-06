@@ -1,0 +1,12 @@
+<div class="admin__page-section-title">
+    <span class="title"><%- data.title %></span>
+</div>
+<div id="order-shipping-method-summary"
+     class="order-shipping-method-summary">
+    <a href="#"
+       onclick="return quote.loadShippingRates();"
+       class="action-default">
+        <span><%- data.linkText %></span>
+    </a>
+    <input type="hidden" name="quote[has_shipping]" value="" class="required-entry" />
+</div>

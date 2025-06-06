@@ -1,0 +1,60 @@
+<?php
+/**
+ * MB "Vienas bitas" (Magetrend.com)
+ *
+ * PHP version 5.3 or later
+ *
+ * @category MageTrend
+ * @package  Magetend/AbandonedCart
+ * @author   Edvinas Stulpinas <edwin@magetrend.com>
+ * @license  http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+ * @link     https://www.magetrend.com/magento-2-abandoned-cart
+ */
+// @codingStandardsIgnoreFile
+?>
+<?php /** @var $block \Magento\Catalog\Block\Adminhtml\Product\Edit\Tab\Options\Type\Select */ ?>
+<script id="custom-option-select-type-template" type="text/x-magento-template">
+    <div id="field_option_<%- data.option_id %>_type_<%- data.group %>" class="fieldset">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th class="col-draggable">&nbsp;</th>
+                    <th class="col-name required">
+                        <?php echo $block->escapeHtml(__('Value')); ?><span class="required">*</span>
+                    </th>
+                    <th class="col-label required"><?php echo $block->escapeHtml(__('Label')); ?></th>
+                    <th class="col-actions">&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody id="select_option_type_row_<%- data.option_id %>"></tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="6"><?php echo $block->getAddButtonHtml() ?>
+                        <input name="validation_<%- data.option_id %>_result"
+                               class="required-option-select-type-rows"
+                               type="hidden" value="">
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</script>
+<script id="custom-option-select-type-row-template" type="text/x-magento-template">
+    <tr id="field_option_<%- data.id %>_select_<%- data.select_id %>">
+        <td class="col-draggable">
+            <div data-role="draggable-handle" class="draggable-handle"
+                 value="<?php echo __('Sort Custom Option'); ?>"></div>
+            <input name="field[options][<%- data.id %>][values][<%- data.select_id %>][sort_order]" type="hidden" value="<%- data.sort_order %>">
+        </td>
+        <td class="col-name select-opt-value">
+            <input name="field[options][<%- data.id %>][values][<%- data.select_id %>][option_type_id]" type="hidden" value="<%- data.option_type_id %>">
+            <input name="field[options][<%- data.id %>][values][<%- data.select_id %>][option_id]" type="hidden" value="<%- data.option_id %>">
+            <input id="field_option_<%- data.id %>_select_<%- data.select_id %>_is_delete" name="field[options][<%- data.id %>][values][<%- data.select_id %>][is_delete]" type="hidden" value="">
+            <input id="field_option_<%- data.id %>_select_<%- data.select_id %>_value" <% if (typeof data.scopeTitleDisabled != 'undefined' && data.scopeTitleDisabled != null) { %> disabled="disabled" <% } %> name="field[options][<%- data.id %>][values][<%- data.select_id %>][value]" class="required-entry input-text select-type-value <% if (typeof data.scopeTitleDisabled != 'undefined' && data.scopeTitleDisabled != null) { %> disabled <% } %>" type="text" value="<%- data.value %>" data-store-label="<%- data.value %>"><%- data.checkboxScopeTitle %>
+        </td>
+        <td class="col-label">
+            <input name="field[options][<%- data.id %>][values][<%- data.select_id %>][label]" class="input-text" type="text" value="<%- data.label %>">
+        </td>
+        <td class="col-actions col-delete"> <?php echo $block->getDeleteButtonHtml() ?></td>
+    </tr>
+</script>

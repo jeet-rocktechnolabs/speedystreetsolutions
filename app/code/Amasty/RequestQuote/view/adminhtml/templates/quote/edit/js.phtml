@@ -1,0 +1,27 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Request a Quote Base for Magento 2
+ */ /** @var \Amasty\RequestQuote\Block\Adminhtml\Quote\Configuration $block */ ?>
+
+<input type="hidden" id="quote-config" value="<?= $escaper->escapeHtml($block->getQuoteConfigJson()) ?>">
+<input type="hidden" id="base-url" value="<?= $escaper->escapeUrl($block->getUrl('amasty_quote/quote_edit/loadBlock')) ?>">
+<script>
+require([
+    'mage/apply/main',
+    "Amasty_RequestQuote/quote/edit/form",
+    "Magento_Catalog/catalog/product/composite/configure",
+    "domReady!"
+], function(mage){
+    mage.apply();
+    if (window.productConfigure) {
+        productConfigure.addListType('product_to_add', {
+            urlFetch: '<?= $escaper->escapeUrl($block->getUrl('amasty_quote/quote_edit/configureProductToAdd')) ?>'
+        });
+        productConfigure.addListType('quote_items', {
+            urlFetch: '<?= $escaper->escapeUrl($block->getUrl('amasty_quote/quote_edit/configureQuoteItems')) ?>'
+        });
+    }
+});
+</script>

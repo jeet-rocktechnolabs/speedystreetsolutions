@@ -1,0 +1,20 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Request a Quote Base for Magento 2
+ */
+?>
+<div class="admin__page-section-title <?= $escaper->escapeHtml($block->getHeaderCssClass()) ?>">
+    <span class="title"><?= $escaper->escapeHtml($block->getHeaderText()) ?></span>
+    <div class="actions" style="float: right;"></div>
+</div>
+<div id="customer_account_fieds" class="admin__page-section-content customer-account-fields">
+    <?= $block->getForm()->getHtml() ?>
+</div>
+
+<script>
+    require(["prototype", "Amasty_RequestQuote/quote/edit/form"], function(){
+        quote.accountFieldsBind($('customer_account_fieds'));
+    });
+</script>

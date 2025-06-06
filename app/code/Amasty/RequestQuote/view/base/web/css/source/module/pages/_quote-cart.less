@@ -1,0 +1,54 @@
+//
+//  Quote Cart Page
+//  _____________________________________________
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .amasty_quote-cart-index .cart.actions .action {
+        flex-basis: 100%;
+        margin: 0 0 @amquote__indent__l 0;
+        text-align: center;
+    }
+}
+
+//
+//  Mobile
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .amasty_quote-cart-index .cart.main.actions {
+        .action {
+            padding: @amquote__indent__m;
+            width: 100%;
+        }
+
+        button.action:last-of-type {
+            margin: 0;
+        }
+    }
+}
+
+//
+//  Desktop
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .amasty_quote-cart-index .cart.main.actions {
+        .action {
+            & {
+                flex-basis: auto;
+            }
+
+            &:not(:last-child):not(:first-child) {
+                margin: 0 @amquote__indent / 2 0 0;
+            }
+        }
+
+        button.action:not(:first-child):last-of-type {
+            margin: 0;
+        }
+    }
+}

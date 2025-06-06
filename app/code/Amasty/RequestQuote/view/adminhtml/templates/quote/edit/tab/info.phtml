@@ -1,0 +1,99 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Request a Quote Base for Magento 2
+ */ /** @var $block \Amasty\RequestQuote\Block\Adminhtml\Quote\Edit\Tab\Info */ ?>
+<?php
+/** @var \Amasty\RequestQuote\Model\Quote $quote */
+$quote = $block->getQuote();
+$allowedAddressHtmlTags = ['b', 'br', 'em', 'i', 'li', 'ol', 'p', 'strong', 'sub', 'sup', 'ul'];
+?>
+
+<div id="order-messages">
+    <?= $block->getChildHtml('quote_messages') ?>
+</div>
+
+<?= $block->getChildHtml('quote_info') ?>
+<input type="hidden" id="quote_id" name="quote_id" value="<?= $escaper->escapeHtml($quote->getId()) ?>"/>
+
+<?= $block->getChildHtml('order_additional_info') ?>
+
+<?= $block->getGiftOptionsHtml() ?>
+
+<div id="quote-search" style="display: none" class="admin__page-section quote-search-items">
+    <?= $block->getChildHtml('search') ?>
+</div>
+
+<section class="admin__page-section" id="quote-items">
+    <?= $block->getItemsHtml() ?>
+</section>
+
+<?php $attributesHtml = $block->getAttributesHtml(); ?>
+<?php if ($attributesHtml): ?>
+    <section class="admin__page-section" id="quote-attributes">
+        <div class="admin__page-section-title">
+            <span class="title"><?= $escaper->escapeHtml(__('Additional Information')) ?></span>
+        </div>
+        <?= /** @noEscape  */ $attributesHtml ?>
+    </section>
+<?php endif; ?>
+
+<div class="admin__field admin__field-option">
+    <input name="quote[shipping_configured]" type="checkbox" id="shipping_configured" value="1"<?php if ($block->isShippingConfigured()): ?> checked="checked"<?php endif; ?>
+           class="admin__control-checkbox"
+           onchange="quote.configureShipping(this.checked) "/>
+    <label for="shipping_configured" class="admin__field-label"><?= $escaper->escapeHtml(__('Configure Shipping')) ?></label>
+</div>
+
+<section id="quote-addresses" class="admin__page-section order-addresses" data-amquote-js="quote_addresses"
+         style="<?= !$quote->isShippingConfigure() ? 'display: none;' : '' ?>">
+    <div class="admin__page-section-title">
+        <span class="title"><?= $escaper->escapeHtml(__('Address Information')) ?></span>
+    </div>
+    <div class="admin__page-section-content">
+        <div id="quote-billing_address" class="admin__page-section-item order-billing-address">
+            <?= $block->getChildHtml('billing_address') ?>
+        </div>
+        <div id="quote-shipping_address" class="admin__page-section-item order-shipping-address">
+            <?= $block->getChildHtml('shipping_address') ?>
+        </div>
+    </div>
+</section>
+
+<section id="quote-methods" class="admin__page-section order-methods" data-amquote-js="shipping_methods">
+    <div class="admin__page-section-title">
+        <span class="title"><?= $escaper->escapeHtml(__('Shipping Information')) ?></span>
+    </div>
+    <div class="admin__page-section-content">
+        <div id="quote-shipping_method" class="admin__page-section-item quote-shipping-method">
+            <?= $block->getChildHtml('shipping_method') ?>
+        </div>
+    </div>
+</section>
+
+<section class="admin__page-section">
+    <div class="admin__page-section-title">
+        <span class="title"><?= $escaper->escapeHtml(__('Quote Total')) ?></span>
+    </div>
+    <div class="admin__page-section-content">
+        <div class="admin__page-section-item order-comments-history">
+            <div class="admin__page-section-item-title">
+                <span class="title"><?= $escaper->escapeHtml(__('Remarks for this Quote')) ?></span>
+            </div>
+            <?= $block->getChildHtml('quote_history') ?>
+        </div>
+
+        <div class="admin__page-section-item order-totals">
+            <div class="admin__page-section-item-title">
+                <span class="title"><?= $escaper->escapeHtml(__('Quote Totals')) ?></span>
+            </div>
+            <div id="quote-totals">
+                <table class="data-table admin__table-secondary order-subtotal-table">
+                    <?= $block->getChildHtml('quote_totals') ?>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+

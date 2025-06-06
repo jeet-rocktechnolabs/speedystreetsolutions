@@ -1,0 +1,26 @@
+{
+    "name": "amasty/module-request-quote",
+    "description": "Request a Quote by Amasty",
+    "require": {
+        "php": ">=7.3",
+        "amasty/base": ">=1.14.7"
+    },
+    "suggest": {
+        "dompdf/dompdf": "^0.8.5",
+        "amasty/module-hide-price": "Install Hide Price extension to hide the original prices of products in quote requests",
+        "amasty/module-request-quote-mftf-3": "Install module-request-quote-mftf-3 module to be able to run Request a Quote MFTF tests for Magento 2.4.0+ version"
+    },
+    "type": "magento2-module",
+    "version": "2.7.2",
+    "license": [
+        "proprietary"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Amasty\\RequestQuote\\": ""
+        }
+    }
+}

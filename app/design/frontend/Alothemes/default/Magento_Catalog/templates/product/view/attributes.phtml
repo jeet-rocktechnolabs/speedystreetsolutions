@@ -1,0 +1,144 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php 
+$_helper = $this->helper(Magento\Catalog\Helper\Output::class);
+$_product = $block->getProduct();
+//$proscons_tag_txt = $_product->getName();
+//$cons_tag_txt = $_product->getName();
+$product_overview = $_product->getShortDescription();
+$product_spec = $_product->getProductspec();
+if(!empty($product_spec)){
+$product_spec = strip_tags($product_spec, '<ul><li>');
+}
+$product_dimensions = $_product->getProductDimensions();
+if(!empty($product_dimensions)){
+$product_dimensions = strip_tags($product_dimensions, '<ul><li>');
+}
+$bespoke_requirements = $_product->getBespokeRequirements();
+$ins_guide_video = $_product->getInsGuideVideo();
+$categoryIds = $_product->getCategoryIds();
+$bollard_category_arr = array(18, 19, 75, 26, 22);
+?>
+<div class="row">
+    <div class="<?php if(!empty($ins_guide_video)){ echo 'col-lg-8'; } else { echo 'col-lg-12';}?>">
+<div class="product-spec">
+<?php if(!empty($product_dimensions) || !empty($product_spec)){ ?>
+<div class="h2">Product Specification</div>
+    <?php
+
+if(!empty($product_dimensions)){
+            $liItems = [];
+            $dom = new DOMDocument();
+            @$dom->loadHTML($product_dimensions, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+            $liElements = $dom->getElementsByTagName('li');
+            foreach ($liElements as $li) {
+                $liItems[] = $dom->saveHTML($li);
+            }
+            echo '<ul><li>Dimensions</li>';
+            foreach ($liItems as $item) {
+$item = strip_tags($item);
+                if (strpos($item, ':') !== false) {
+                    $parts = explode(':', $item, 2);
+                    $formattedItem = '<span>' . trim($parts[0]) . ':</span> <span>' . trim($parts[1]) . '</span>';
+                } else {
+                    $formattedItem = '<span>&nbsp;</span><span>'.$item.'</span>';
+                }
+if(!empty($formattedItem)){
+
+                echo '<li>' . $formattedItem . '</li>';
+}
+            }
+            echo '</ul>';
+        }
+
+        if(!empty($product_spec)){
+            $liItems = [];
+            $dom = new DOMDocument();
+            @$dom->loadHTML($product_spec, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+            $liElements = $dom->getElementsByTagName('li');
+            foreach ($liElements as $li) {
+                $liItems[] = $dom->saveHTML($li);
+            }
+            echo '<ul><li>Other</li>';
+            foreach ($liItems as $item) {
+$item = strip_tags($item);
+                if (strpos($item, ':') !== false) {
+                    $parts = explode(':', $item, 2);
+                    $formattedItem = '<span>' . trim($parts[0]) . ':</span> <span>' . trim($parts[1]) . '</span>';
+                } else {
+                    $formattedItem = '<span>&nbsp;</span><span>'.$item.'</span>';
+                }
+if(!empty($formattedItem)){
+
+                echo '<li>' . $formattedItem . '</li>';
+}
+            }
+            echo '</ul>';
+        }
+}
+        ?>
+</div>
+        <?php
+        if(!empty($product_overview)){
+            echo $product_overview;
+        }
+        ?>
+    </div>        
+    <?php
+        if(!empty($ins_guide_video) || !empty($bespoke_requirements)){
+            ?>
+    <div class="col-lg-4 ps-lg-5">
+<?php if(!empty($ins_guide_video)){ ?>
+            <div class="video-block">
+            <div class="heading">Installation Guide Video</div>
+            <a href="<?php echo $ins_guide_video;?>" target="_blank" rel="noopener nofollow" class="btn primary-btn btn-blue"><span class="icon icon-play"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16">
+  <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393"/>
+</svg></span>Watch Video</a>
+        </div>
+<?php } ?>
+<?php if(!empty($bespoke_requirements)){ ?>
+            <div class="bespoke-req-block">
+            <div class="heading">Bespoke Requirements</div>
+            <div class="text"><?php echo $bespoke_requirements; ?></div>
+        </div>
+<?php } ?>
+    </div>
+            <?php
+        }
+        ?>
+</div>
+<div class="promotion-section row">
+<?php
+$coln='12';
+$pname = $_product->getName();
+$bollard_promotion='';
+$bollard_promotion = $this->getLayout()
+          ->createBlock('Magento\Cms\Block\Block')
+          ->setBlockId('bollard_promotion')
+          ->toHtml();
+if(count(array_intersect($bollard_category_arr,$categoryIds))){
+if($bollard_promotion!='' && $pname!="Padlock & 3 Keys" && $pname!="Bollard Chain Plastic - White/Red" && $pname!="Bollard Chain Plastic - Black/Yellow" && $pname!="Bollard Chain Steel" && $pname="Reflective Tape"){
+$coln='6 ps-lg-5';
+?>
+<div class="col-lg-6">
+<div class="product-promotion">
+<?php echo $bollard_promotion; ?>
+</div>
+</div>
+<?php } } ?>
+<div class="col-lg-<?php echo $coln; ?>">
+<div class="bulk-promotion row align-items-center justify-content-center">
+    <div class="text col-lg-7">Bespoke Products & Bulk Discounts Available On Request</div>
+    <div class="cta text-center col-lg-5">
+        <a href="/contact/" class="btn primary-btn btn-yellow d-flex align-items-center justify-content-center"><span class="icon icon-mail"><em class="hidden">hidden</em></span> <span>Get In Touch</span></a>
+    </div>
+</div>
+</div>
+</div>

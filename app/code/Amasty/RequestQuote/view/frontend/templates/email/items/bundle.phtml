@@ -1,0 +1,37 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Request a Quote Base for Magento 2
+ */ $item = $block->getItem() ?>
+<?php $_quote = $block->getQuote() ?>
+
+<?php if ($block->getOptionList() || $item->getDescription()): ?>
+    <?php $_showlastRow = true ?>
+<?php else: ?>
+    <?php $_showlastRow = false ?>
+<?php endif; ?>
+
+<tr class="bundle-item bundle-parent">
+    <td class="item-info" colspan="3">
+        <p class="product-name"><?= $escaper->escapeHtml($item->getName()) ?></p>
+        <p class="sku"><?= /* @noEscape */ __('SKU') ?>: <?= $escaper->escapeHtml($item->getSku()) ?></p>
+    </td>
+    <td class="item-qty"><?= /* @noEscape */ $item->getQty() * 1 ?></td>
+    <td class="item-price"><?= /* @noEscape */ $block->getUnitPriceHtml($item) ?></td>
+</tr>
+
+<?php if ($_showlastRow): ?>
+    <tr>
+        <td colspan="3" class="item-extra">
+            <?php if ($block->getOptionList()): ?>
+                <dl>
+                    <?php foreach ($block->getOptionList() as $option): ?>
+                        <dt><strong><em><?= /* @noEscape */  $option['label'] ?></em></strong></dt>
+                        <dd><?= /* @noEscape */  implode(',', $option['value']) ?></dd>
+                    <?php endforeach; ?>
+                </dl>
+            <?php endif; ?>
+        </td>
+    </tr>
+<?php endif; ?>

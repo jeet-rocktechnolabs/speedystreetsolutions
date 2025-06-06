@@ -1,0 +1,114 @@
+<style type="text/css">
+    .cart-summary > .title, .shipping-estimator h3, .quote-details .title {
+    font-weight: bold !important;
+    font-size: 1.8rem !important;
+}
+.shipping-estimator h3 {
+    border-bottom: 1px solid #ccc;
+    margin: 12px 0;
+    padding-bottom: 5px;
+}
+.shipping-estimator label {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: normal;
+    margin-top: 10px;
+}
+.shipping-estimator .required {
+    color: #e02b27;
+    font-size: 1.2rem;
+    margin: 0 0 0 5px;
+}
+.amquote-summary-details textarea {
+    border-radius: 20px;
+}
+
+#customer-email-fieldset .fieldset.hidden-fields {
+    display: none !important;
+}
+</style>
+<div class="shipping-estimator">
+    <h3 class="title">Shipping Address</h3>
+    <form id="shipping-estimator-form">
+        <label for="address">Address:<span class="required">*</span></label>
+        <input type="text" id="address" name="address" required />
+        
+        <label for="city">City:<span class="required">*</span></label>
+        <input type="text" id="city" name="city" required />
+        
+        <label for="postcode">Postcode:<span class="required">*</span></label>
+        <input type="text" id="postcode" name="postcode" required />
+        
+        <label for="country">Country:<span class="required">*</span></label>
+        <select id="scountry" name=scountry" disabled>
+            <option vlue="GB">United Kingdom</option>
+        </select>
+        <input style="display:none;" type="text" id="country" name="country" value="GB" required />
+        <label style="display:none;" for="region">Region:</label>
+        <input style="display:none;" type="text" id="region" name="region" />
+    </form>
+    <div style="padding:10px 0px;" id="shipping-cost-result"></div>
+</div>
+
+<script>
+require(['jquery'], function ($) {
+    function isValidUKPostcode(postcode) {
+        var postcodeRegex = /^([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9]?[A-Za-z]))))\s?[0-9][A-Za-z]{2})$/;
+        return postcodeRegex.test(postcode);
+    }
+
+    $('#postcode').on('blur', function () {
+        var postcode = $(this).val().trim();
+        if (isValidUKPostcode(postcode)) {
+            $('#shipping-cost-result').empty();
+            $('#shipping-estimator-form').submit();
+        } else {
+            $('#shipping-cost-result').html('<p>Invalid UK postcode.</p>');
+        }
+    });
+
+    $('#shipping-estimator-form').on('submit', function (e) {
+        e.preventDefault();
+
+        var formData = $(this).serialize();
+
+        $.ajax({
+            url: '<?php echo $this->getUrl('shipping_estimator/index/estimate'); ?>',
+            type: 'GET',
+            data: formData,
+            success: function (response) {
+                if (response.success) {
+                    var rates = response.rates;
+                    var totalTax = response.totalTax;
+                    var grandTotal = response.grandTotal;
+                    var shippingCost = response.rates[0].cost;
+
+                    /*var ratesHtml = '<ul>';
+                    rates.forEach(function(rate) {
+                        ratesHtml += '<li>' + rate.carrier_title + ' - ' + rate.method_title + ': £' + parseFloat(rate.cost).toFixed(2) + '</li>';
+                    });
+                    ratesHtml += '</ul>';
+                    $('#shipping-cost-result').html(ratesHtml);*/
+
+                    if ($('#cart-totals .totals-shipping').length === 0) {
+                        // Insert the shipping cost row before the tax row
+                        $('<tr class="totals-shipping"><th class="mark" colspan="1" scope="row">UK Shipping</th><td class="amount" data-th="Shipping"><span class="price"></span></td></tr>').insertBefore('#cart-totals .totals-tax');
+                    }
+
+                    // Update the shipping cost
+                    $('#cart-totals .totals-shipping .price').text('£' + parseFloat(shippingCost).toFixed(2));
+
+                    // Update the tax and grand total
+                    $('#cart-totals .totals-tax .price').text('£' + parseFloat(totalTax).toFixed(2));
+                    $('#cart-totals .grand.totals .price').text('£' + parseFloat(grandTotal).toFixed(2));
+                } else {
+                    $('#shipping-cost-result').html('<p>' + response.message + '</p>');
+                }
+            },
+            error: function () {
+                $('#shipping-cost-result').html('Unable to estimate shipping cost.');
+            }
+        });
+    });
+});
+</script>

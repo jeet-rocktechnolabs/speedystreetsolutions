@@ -1,0 +1,202 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Request a Quote Base for Magento 2
+ */
+/**
+ * @var $block \Amasty\RequestQuote\Block\Adminhtml\Quote\Edit\Items\Grid
+ */
+?>
+<?php $items = $block->getItems() ?>
+<?php if (empty($items)): ?>
+    <div id="order-items_grid">
+        <div class="admin__table-wrapper">
+            <table class="data-table admin__table-primary order-tables">
+                <thead>
+                    <tr class="headings">
+                        <th class="col-product"><span><?= $escaper->escapeHtml(__('Product')) ?></span></th>
+                        <th class="col-price"><span><?= $escaper->escapeHtml(__('Price')) ?></span></th>
+                        <th class="col-qty"><span><?= $escaper->escapeHtml(__('Qty')) ?></span></th>
+                        <th class="col-subtotal"><span><?= $escaper->escapeHtml(__('Subtotal')) ?></span></th>
+                        <th class="col-row-total"><span><?= $escaper->escapeHtml(__('Row Subtotal')) ?></span></th>
+                        <th class="col-action"><span><?= $escaper->escapeHtml(__('Action')) ?></span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="even">
+                        <td class="empty-text" colspan="100"><?= $escaper->escapeHtml(__('No ordered items')) ?></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+<?php else: ?>
+    <div class="admin__table-wrapper" id="order-items_grid">
+    <?php if (count($items) > 10): ?>
+        <div class="actions update actions-update">
+            <?= $block->getButtonHtml(__('Update Items and Quantities'), 'quote.itemsUpdate()', 'action-secondary') ?>
+        </div>
+    <?php endif; ?>
+        <table class="data-table admin__table-primary order-tables">
+            <thead>
+                <tr class="headings">
+                    <th class="col-product"><span><?= $escaper->escapeHtml(__('Product')) ?></span></th>
+                    <th class="col-cost"><span><?= $escaper->escapeHtml(__('Cost')) ?></span></th>
+                    <th class="col-price"><span><?= $escaper->escapeHtml(__('Price') . ' ('
+                            . ($block->priceIncludesTax() ? __('Incl. Tax') : __('Excl. Tax')) . ')') ?></span></th>
+                    <th class="col-qty"><span><?= $escaper->escapeHtml(__('Qty')) ?></span></th>
+                    <th class="col-subtotal"><span><?= $escaper->escapeHtml(__('Subtotal')) ?></span></th>
+                    <th class="col-row-total"><span><?= $escaper->escapeHtml(__('Row Subtotal')) ?></span></th>
+                    <th class="col-action"><span><?= $escaper->escapeHtml(__('Action')) ?></span></th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <td class="col-total"><?= $escaper->escapeHtml(__('Total %1 product(s)', count($items))) ?></td>
+                    <td colspan="2" class="col-subtotal"><?= $escaper->escapeHtml(__('Subtotal:')) ?></td>
+                    <td class="col-price"><strong><?= /* @noEscape */ $block->formatPrice($block->getSubtotal()) ?></strong></td>
+                    <td class="col-price"><strong><?= /* @noEscape */ $block->formatPrice($block->getSubtotalWithDiscount()); ?></strong></td>
+                    <td colspan="2">&nbsp;</td>
+                </tr>
+            </tfoot>
+                <?php $i = 0 ?>
+                <?php foreach ($items as $item): $i++ ?>
+                <tbody class="<?= /* @noEscape */ ($i%2) ? 'even' : 'odd' ?>">
+                    <tr>
+                        <td class="col-product">
+                            <span id="order_item_<?= $escaper->escapeHtml($item->getId()) ?>_title"><?= $escaper->escapeHtml($item->getName()) ?></span>
+                            <div class="product-sku-block">
+                                <span><?= $escaper->escapeHtml(__('SKU')) ?>:</span>
+                                <?= $block->getSkuHtml($item->getSku()) ?>
+                            </div>
+                            <div class="product-configure-block">
+                                <?= $block->getConfigureButtonHtml($item) ?>
+                            </div>
+                        </td>
+                        <td class="col-cost">
+                            <?= $block->getCostHtml($item) ?>
+                        </td>
+                        <td class="col-price">
+                            <div class="price-excl-tax">
+                                <?= /* @noEscape */ $block->formatPrice($item->getProduct()->getFinalPrice(), true); ?>
+                            </div>
+                            <?php if ($tier = $block->getTierHtml($item)): ?>
+                                <div id="item_tier_block_<?= $escaper->escapeHtml($item->getId()) ?>">
+                                    <a href="#" onclick="$('item_tier_<?= $escaper->escapeHtml($item->getId()) ?>').toggle();return false;"><?= $escaper->escapeHtml(__('Tier Pricing')) ?></a>
+                                    <div style="display:none" id="item_tier_<?= $escaper->escapeHtml($item->getId()) ?>"><?= /* @noEscape */ $tier ?></div>
+                                </div>
+                            <?php endif; ?>
+                            <input id="itemprice_<?= $escaper->escapeHtml($item->getId()) ?>"
+                                   name="item[<?= $escaper->escapeHtml($item->getId()) ?>][price]"
+                                   value="<?= $escaper->escapeHtml(sprintf("%.2f", $block->getItemEditablePrice($item))) ?>"
+                                   class="input-text item-price admin__control-text"/>
+                        </td>
+                        <td class="col-qty">
+                            <input name="item[<?= $escaper->escapeHtml($item->getId()) ?>][qty]"
+                                   class="input-text item-qty admin__control-text"
+                                   value="<?= $item->getQty()*1 ?>"
+                                   maxlength="12" />
+                        </td>
+                        <td class="col-subtotal col-price">
+                            <div class="price-excl-tax">
+                                <span class="label">Excl. Tax:</span>
+                                <span class="price"><?= $block->getItemRowTotalHtml($item) ?></span>
+                            </div>
+                            <div class="price-incl-tax">
+                                <span class="label">Incl. Tax:</span>
+                                <span class="price"><?= $block->getItemInclTotalHtml($item) ?></span>
+                            </div>
+                        </td>
+                        <td class="col-price col-row-subtotal">
+                            <div class="price-excl-tax">
+                                <span class="label">Excl. Tax:</span>
+                                <span class="price"><?= $block->getItemRowTotalWithDiscountHtml($item) ?></span>
+                            </div>
+                            <div class="price-incl-tax">
+                                <span class="label">Incl. Tax:</span>
+                                <span class="price"><?= $block->getItemInclTotalWithDiscountHtml($item) ?></span>
+                            </div>
+                        </td>
+                        <td class="col-actions last">
+                            <select class="admin__control-select" name="item[<?= $escaper->escapeHtml($item->getId()) ?>][action]">
+                                <option value=""><?= $escaper->escapeHtml(__('Please select')) ?></option>
+                                <option value="remove"><?= $escaper->escapeHtml(__('Remove')) ?></option>
+                            </select>
+                        </td>
+                    </tr>
+                    <?php if ($itemQuestion = $block->getItemQuestion($item)): ?>
+                        <tr class="row-notes-error">
+                            <td colspan="2">
+                                <strong><?= $escaper->escapeHtml(__('Customer Note:')) ?></strong>
+                                <div class="customer-note">
+                                    <?= /* @noEscape */ nl2br($escaper->escapeHtml($itemQuestion)) ?>
+                                </div>
+                            </td>
+                            <td colspan="10">
+                                <?php if ($answer = $block->getItemAnswer($item)): ?>
+                                    <strong><?= $escaper->escapeHtml(__('Administrator Note:')) ?></strong>
+                                    <div class="customer-note">
+                                        <?= /* @noEscape */ nl2br($escaper->escapeHtml($answer)) ?>
+                                    </div>
+                                <?php else: ?>
+                                    <strong><?= $escaper->escapeHtml(__('Administrator Note:')) ?></strong>
+                                    <div class="control">
+                                        <a class="add-note-quote-item"><?= $escaper->escapeHtml(__('Add Note')) ?></a>
+                                        <div class="textarea-control" style="display: none;">
+                                            <textarea name="item[<?= $escaper->escapeHtml($item->getId()) ?>][note]" rows="2" cols="50"></textarea>
+                                        </div>
+                                    </div>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                    <?php endif; ?>
+
+                    <?php $hasMessageError = false; ?>
+                    <?php foreach ($item->getMessage(false) as $messageError): ?>
+                        <?php if (!empty($messageError)) {
+                            $hasMessageError = true;
+                        }
+                        ?>
+                    <?php endforeach; ?>
+
+                    <?php if ($hasMessageError): ?>
+                        <tr class="row-messages-error">
+                            <td colspan="100"> <!-- ToDo UI: remove the 100 -->
+                                <?php foreach ($item->getMessage(false) as $message):
+                                    if (empty($message)) {
+                                        continue;
+                                    }
+                                    ?>
+                                    <div class="message <?php if ($item->getHasError()): ?>message-error<?php else: ?>message-notice<?php endif; ?>">
+                                        <?= $escaper->escapeHtml($message) ?>
+                                    </div>
+                                <?php endforeach; ?>
+                            </td>
+                        </tr>
+                    <?php endif;?>
+                </tbody>
+                <?php endforeach; ?>
+        </table>
+    </div>
+
+    <?php if ($block->getAppliedDiscount() || $block->getAppliedSurcharge()): ?>
+    <div class="amquote-line-block amquote-approved-title">
+        <p class="amquote-title">
+            <?= $escaper->escapeHtml(__('Applied') . ' ' . ($block->getAppliedSurcharge() ? __('surcharge') : __('discount')) . ': ') ?>
+            <strong>
+                <?= /* @noEscape */ ($block->getAppliedSurcharge() ? $block->getAppliedSurcharge() : $block->getAppliedDiscount()) . '%' ?>
+            </strong>
+        </p>
+
+        <button class="action-secondary" type="button" onclick="quote.removeModificators()">
+            <?= $escaper->escapeHtml(__('Remove') . ' ' . ($block->getAppliedSurcharge() ? __('surcharge') : __('discount'))) ?>
+        </button>
+    </div>
+    <?php endif; ?>
+
+    <div class="amquote-order-discount">
+        <div id="order-coupons" class="amquote-coupons"><?= $block->getChildHtml() ?></div>
+        <?= $block->getButtonHtml(__('Update Items and Quantities'), 'quote.itemsUpdate()', 'action-secondary') ?>
+    </div>
+<?php endif; ?>

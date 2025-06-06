@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magmodules.eu. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<include xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_include.xsd">
+    <group id="advanced" translate="label comment" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+        <label>Additional Configuration</label>
+        <comment>Configure extra data Fields, Shipping information and Google Analytics Tracking.</comment>
+        <field id="heading_extra" translate="label comment" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Extra Fields</label>
+            <frontend_model>Magmodules\GoogleShopping\Block\Adminhtml\Design\Heading</frontend_model>
+            <comment>You can add custom fields to your feed when needed. Please make sure that you are using the latest custom field standards to prevent error messages in the feed. The guidelines for the custom fields can be found in our knowledgebase.</comment>
+        </field>
+        <field id="extra_fields" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Extra Fields</label>
+            <frontend_model>Magmodules\GoogleShopping\Block\Adminhtml\System\Config\Form\Field\ExtraFields</frontend_model>
+            <backend_model>Magmodules\GoogleShopping\Model\Config\Backend\Serialized\ExtraFields</backend_model>
+        </field>
+        <field id="heading_shipping" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Shipping Prices</label>
+            <frontend_model>Magmodules\GoogleShopping\Block\Adminhtml\Design\Heading</frontend_model>
+            <comment>Add the shipping rates directly into the feed to meet the Google Merchant requirements. You can set different shipping costs based on the price range of products using the ‘From’ and ‘To’ fields. Enter the shipping price for the range in the ‘Price’ field.</comment>
+        </field>
+        <field id="shipping" translate="label comment" type="select" sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Shipping Settings</label>
+            <frontend_model>Magmodules\GoogleShopping\Block\Adminhtml\System\Config\Form\Field\ShippingPrices</frontend_model>
+            <backend_model>Magmodules\GoogleShopping\Model\Config\Backend\Serialized\ShippingPrices</backend_model>
+            <comment>This calculation table sets the shipping costs based on a products price range. If you want to create more advanced rules using calculations based on country, category or weight, you can configure this directly in your Google Merchant account. </comment>
+        </field>
+        <field id="heading_utm" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Google Analytics Tracking</label>
+            <frontend_model>Magmodules\GoogleShopping\Block\Adminhtml\Design\Heading</frontend_model>
+            <comment>When you are using Google Analytics you can add your UTM tags eg. utm_source=googleshopping&amp;utm_medium=cpc&amp;utm_campaign=googleshopping</comment>
+        </field>
+        <field id="url_utm" translate="label" type="text" sortOrder="21" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>UTM Code</label>
+        </field>
+        <field id="heading_tax" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Tax</label>
+            <frontend_model>Magmodules\GoogleShopping\Block\Adminhtml\Design\Heading</frontend_model>
+        </field>
+        <field id="tax" translate="label" type="select" sortOrder="31" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Tax calculation</label>
+            <source_model>Magmodules\GoogleShopping\Model\System\Config\Source\Tax</source_model>
+        </field>
+        <field id="heading_weight" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Weight</label>
+            <comment>This is the weight of the product used to calculate the shipping cost of the item. If you have specified a global shipping method that is dependent on shipping weight (Merchant Dashboard), this attribute will be used to calculate the shipping cost of the item automatically.</comment>
+            <frontend_model>Magmodules\GoogleShopping\Block\Adminhtml\Design\Heading</frontend_model>
+        </field>
+        <field id="weight" translate="label" type="select" sortOrder="41" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Include Weight</label>
+            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="heading_advanced" translate="label comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Advanced Settings</label>
+            <frontend_model>Magmodules\GoogleShopping\Block\Adminhtml\Design\Heading</frontend_model>
+        </field>
+        <field id="force_secure" translate="label" type="select" sortOrder="51" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Force secure URLs</label>
+            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+            <comment>If enabled, the product and image URLs will be forced over HTTPS.</comment>
+        </field>
+    </group>
+</include>

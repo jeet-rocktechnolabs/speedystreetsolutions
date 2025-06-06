@@ -1,0 +1,34 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Request a Quote Base for Magento 2
+ */
+/**
+ * @var \Magento\Framework\Escaper $escaper
+ */
+// phpcs:ignoreFile
+$skus = $this->helper(\Magento\Catalog\Helper\Data::class)->splitSku($escaper->escapeHtml($block->getItem()->getSku()));
+?>
+
+<?= /* @noEscape */ $block->getItem()->getName() ?>
+<div>
+    <strong><?= /* @noEscape */ __('SKU') ?>:</strong>
+    <?= /* @noEscape */ implode('<br />', $skus) ?>
+</div>
+<?php if ($block->getOrderOptions()): ?>
+    <ul class="item-options">
+    <?php foreach ($block->getOrderOptions() as $option): ?>
+        <li><strong><?= /* @noEscape */ $option['label'] ?>:</strong><br />
+        <?php if (is_array($option['value'])): ?>
+        <?php foreach ($option['value'] as $item): ?>
+            <?= $block->getValueHtml($item) ?><br />
+            <?php endforeach; ?>
+        <?php else: ?>
+            <?= $escaper->escapeHtml($option['value']) ?>
+        <?php endif; ?>
+        </li>
+    <?php endforeach; ?>
+    </ul>
+<?php endif; ?>
+<?= $escaper->escapeHtml($block->getItem()->getDescription()) ?>

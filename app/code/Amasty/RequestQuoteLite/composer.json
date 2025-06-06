@@ -1,0 +1,24 @@
+{
+    "name": "amasty/module-request-a-quote-lite",
+    "description": "Request a Quote Lite by Amasty",
+    "require": {
+        "php": ">=7.3",
+        "amasty/base": ">=1.14.7",
+        "amasty/module-request-quote": "*",
+        "amasty/module-hide-price": "*"
+    },
+    "homepage": "https://amasty.com/",
+    "type": "magento2-module",
+    "version": "2.8.0",
+    "license": [
+        "proprietary"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Amasty\\RequestQuoteLite\\": ""
+        }
+    }
+}

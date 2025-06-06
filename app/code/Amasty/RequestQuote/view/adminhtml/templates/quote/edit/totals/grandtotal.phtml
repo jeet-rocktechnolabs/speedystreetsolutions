@@ -1,0 +1,33 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Request a Quote Base for Magento 2
+ */ if ($block->includeTax() && $block->getTotalExclTax() >= 0):?>
+<tr class="row-totals">
+    <td style="<?= /* @noEscape */ $block->getStyle() ?>" class="admin__total-mark" colspan="<?= /* @noEscape */ $block->getColspan() ?>">
+        <strong><?= /* @noEscape */ __('Grand Total Excl. Tax') ?></strong>
+    </td>
+    <td style="<?= /* @noEscape */ $block->getStyle() ?>" class="admin__total-amount">
+        <strong><?= /* @noEscape */ $block->formatPrice($block->getTotalExclTax()) ?></strong>
+    </td>
+</tr>
+<?= /* @noEscape */ $block->renderTotals('taxes', $block->getColspan()) ?>
+<tr class="row-totals">
+    <td style="<?= /* @noEscape */ $block->getStyle() ?>" class="admin__total-mark" colspan="<?= /* @noEscape */ $block->getColspan() ?>">
+        <strong><?= /* @noEscape */ __('Grand Total Incl. Tax') ?></strong>
+    </td>
+    <td style="<?= /* @noEscape */ $block->getStyle() ?>" class="admin__total-amount">
+        <strong><?= /* @noEscape */ $block->formatPrice($block->getTotal()->getValue()) ?></strong>
+    </td>
+</tr>
+<?php else:?>
+<tr class="row-totals">
+    <td style="<?= /* @noEscape */ $block->getStyle() ?>" class="admin__total-mark" colspan="<?= /* @noEscape */ $block->getColspan() ?>">
+        <strong><?= /* @noEscape */ $block->getTotal()->getTitle() ?></strong>
+    </td>
+    <td style="<?= /* @noEscape */ $block->getStyle() ?>" class="admin__total-amount">
+        <strong><?= /* @noEscape */ $block->formatPrice($block->getTotal()->getValue()) ?></strong>
+    </td>
+</tr>
+<?php endif;?>

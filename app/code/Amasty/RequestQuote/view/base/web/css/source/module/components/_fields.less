@@ -1,0 +1,91 @@
+//
+//  Inputs Styles
+//  ___________________________________________
+
+//
+//  Common
+//  -------------------------------------------
+
+& when (@media-common = true) {
+    .amquote-field-block {
+        & {
+            .am-flex(center, center);
+
+            margin: 0 @amquote__indent__xl 0 0;
+            position: relative;
+        }
+
+        .amquote-field {
+            .am-flex(space-between, center);
+
+            position: relative;
+        }
+
+        .amquote-label {
+            margin-right: @amquote__indent;
+            max-width: 100px;
+        }
+
+        .mage-error {
+            position: absolute;
+            top: 100%;
+        }
+    }
+
+    // Fixed Magento 2.3.4 asterisk
+    #product_composite_configure_form_fields .amasty-composite-fieldset .admin__field.required .admin__field-label:after {
+        content: '';
+        margin: 0;
+    }
+    // end Fixed Magento 2.3.4 asterisk
+
+    .quote-shipping-method .admin__page-section-title > span:after {
+        color: #e22626;
+        content: '*';
+        font-weight: 400;
+        margin-left: 3px;
+    }
+
+    .admin__fieldset .quote-choose-address .admin__field-shipping-same-as-billing .admin__field-label {
+        width: 100%;
+    }
+
+    .amquote-order-table.-additional,
+    .amquote-order-view .amquote-order-table {
+        .am-word-break;
+    }
+
+    .customer-account-fields .admin__field {
+        max-width: 50%;
+    }
+
+    .quote-custom-shipping-fee {
+        padding: 0 @amquote__indent;
+    }
+
+    .amquote-shipping-choose {
+        .amquote-title {
+            .am-flex(none, center);
+
+            line-height: 1;
+        }
+
+        .amquote-label {
+            margin-right: @amquote__indent;
+        }
+
+        .amquote-options-list .amquote-option .amquote-label {
+            .am-flex();
+        }
+
+        .amquote-inner {
+            font-weight: 600;
+            margin-left: @amquote__indent / 2;
+        }
+    }
+
+    .amquote-customfee-block {
+        bottom: 2px;
+        position: relative;
+    }
+}

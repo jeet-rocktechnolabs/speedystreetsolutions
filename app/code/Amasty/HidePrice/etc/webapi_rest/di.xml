@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Hide Price (Call for Price) for Magento 2
+ */-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\Pricing\Price\AbstractPrice">
+        <plugin name="Amasty_HidePrice::webapi_hide_price" type="Amasty\HidePrice\Plugin\Framework\Pricing\Price\AbstractPrice" />
+    </type>
+    <type name="Magento\Catalog\Pricing\Price\FinalPrice">
+        <plugin name="Amasty_HidePrice::webapi_hide_final_price" type="Amasty\HidePrice\Plugin\Catalog\Pricing\Price\FinalPrice\HideMinAndMaxPrice" />
+    </type>
+    <type name="Magento\GiftCard\Ui\DataProvider\Product\Collector\Price">
+        <plugin name="Amasty_HidePrice::HidePrice"
+                type="Amasty\HidePrice\Plugin\GiftCard\Ui\DataProvider\Product\Collector\Price\HidePrice" />
+    </type>
+</config>

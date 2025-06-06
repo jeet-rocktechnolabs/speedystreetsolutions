@@ -1,0 +1,13 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Request a Quote Base for Magento 2
+ */
+/** @var \Amasty\RequestQuote\Block\Adminhtml\Quote\Create\Items\Grid $block */
+
+$_item = $block->getItem();
+?>
+
+<?php $_rowTotalWithoutDiscount = $_item->getRowTotal() - $_item->getTotalDiscountAmount(); ?>
+<?= /* @noEscape */ $block->formatPrice(max(0, $_rowTotalWithoutDiscount)) ?>

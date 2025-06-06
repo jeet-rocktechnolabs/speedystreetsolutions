@@ -1,0 +1,25 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Request a Quote Base for Magento 2
+ */
+// @codingStandardsIgnoreFile
+
+/** @var \Amasty\RequestQuote\Block\Adminhtml\Quote\Create\Form $block */
+?>
+<form id="edit_form" data-order-config='<?= $escaper->escapeHtml($block->getOrderDataJson()) ?>' data-load-base-url="<?= /* @noEscape */ $block->getLoadBlockUrl() ?>" action="<?= /* @noEscape */ $block->getSaveUrl() ?>" method="post" enctype="multipart/form-data">
+    <?= $block->getBlockHtml('formkey') ?>
+    <div id="quote-message">
+        <?= $block->getChildHtml('message') ?>
+    </div>
+    <div id="quote-customer-selector" class="fieldset-wrapper order-customer-selector" style="display:<?= /* @noEscape */ $block->getCustomerSelectorDisplay() ?>">
+        <?= $block->getChildHtml('customer.grid.container') ?>
+    </div>
+    <div id="quote-store" class="fieldset-wrapper" style="display:<?= /* @noEscape */ $block->getStoreSelectorDisplay() ?>">
+        <?= $block->getChildHtml('store') ?>
+    </div>
+    <div id="quote-data" style="display:<?= /* @noEscape */ $block->getDataSelectorDisplay() ?>">
+        <?= $block->getChildHtml('data') ?>
+    </div>
+</form>

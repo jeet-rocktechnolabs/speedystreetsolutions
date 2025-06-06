@@ -1,0 +1,21 @@
+<?php
+/**
+ * Copyright © Magmodules.eu. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+use Magmodules\GoogleShopping\Block\Adminhtml\System\Config\Button\CheckButtonWrapper;
+
+/**
+ * @see \Magmodules\GoogleShopping\Block\Adminhtml\System\Config\Button\CheckButtonWrapper
+ * @var CheckButtonWrapper $block
+ */
+?>
+
+<div class="mm-ui-debug-button-wrapper">
+    <?= $block->getLayout()->createBlock(\Magmodules\GoogleShopping\Block\Adminhtml\System\Config\Button\DebugCheck::class)
+              ->setTemplate("Magmodules_GoogleShopping::system/config/button/debug.phtml")->toHtml(); ?>
+
+    <?= $block->getLayout()->createBlock(\Magmodules\GoogleShopping\Block\Adminhtml\System\Config\Button\ErrorCheck::class)
+              ->setTemplate("Magmodules_GoogleShopping::system/config/button/error.phtml")->toHtml(); ?>
+</div>

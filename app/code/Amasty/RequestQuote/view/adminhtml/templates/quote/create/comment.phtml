@@ -1,0 +1,24 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Request a Quote Base for Magento 2
+ */
+// @codingStandardsIgnoreFile
+ ?>
+
+<?php /* <h4 class="icon-head fieldset-legend <?= $block->getHeaderCssClass() ?>"><?= $block->getHeaderText() ?></h4> */ ?>
+<div class="admin__field field-comment">
+    <label for="order-comment" class="admin__field-label"><span><?= /* @noEscape */ __('Quote Comments') ?></span></label>
+    <div class="admin__field-control">
+        <textarea
+            id="order-comment"
+            name="quote[note]"
+            class="admin__control-textarea"><?= /* @noEscape */ $block->getCommentNote() ?></textarea>
+    </div>
+</div>
+<script>
+    require(["Amasty_RequestQuote/quote/create/form"], function(){
+        quote.commentFieldsBind('order-comment')
+    });
+</script>

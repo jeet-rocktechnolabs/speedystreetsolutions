@@ -1,0 +1,25 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Request a Quote Base for Magento 2
+ */
+// @codingStandardsIgnoreFile
+?>
+<script>
+    require([
+        "prototype",
+        "Amasty_RequestQuote/quote/create/form",
+        "Magento_Catalog/catalog/product/composite/configure",
+        "domReady!"
+    ], function(){
+        if (window.productConfigure) {
+            productConfigure.addListType('product_to_add', {
+                urlFetch: '<?= /* @noEscape */ $block->getUrl('amasty_quote/quote_create/configureProductToAdd') ?>'
+            });
+            productConfigure.addListType('quote_items', {
+                urlFetch: '<?= /* @noEscape */ $block->getUrl('amasty_quote/quote_create/configureQuoteItems') ?>'
+            });
+        }
+    });
+</script>

@@ -1,0 +1,30 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Request a Quote Base for Magento 2
+ */ /** @var \Amasty\RequestQuote\Block\Adminhtml\Quote\Edit\Items\Discounts $block */ ?>
+<div class="amquote-field-block">
+    <label for="discount" class="amquote-label"><?= $escaper->escapeHtml(__('Additional Discount (%)')) ?></label>
+    <input id="discount"
+           name="quote[discount]"
+           data-price-modificator="discount"
+           value="<?= $escaper->escapeHtml(sprintf("%.2f", $block->getAppliedDiscount())) ?>"
+           class="amquote-input admin__control-text validate-digits-range digits-range-0-100"
+           type="number"
+           min="0"
+           max="100"
+        <?= /* @noEscape */ $block->getAppliedSurcharge() ? 'disabled' : '' ?> />
+</div>
+<div class="amquote-field-block">
+    <label for="surcharge" class="amquote-label"><?= $escaper->escapeHtml(__('Additional Surcharge (%)')) ?></label>
+    <input id="surcharge"
+           name="quote[surcharge]"
+           data-price-modificator="surcharge"
+           value="<?= $escaper->escapeHtml(sprintf("%.2f", $block->getAppliedSurcharge())) ?>"
+           class="amquote-input admin__control-text validate-digits-range digits-range-0-100"
+           type="number"
+           min="0"
+           max="100"
+        <?= /* @noEscape */ $block->getAppliedDiscount() ? 'disabled' : '' ?> />
+</div>

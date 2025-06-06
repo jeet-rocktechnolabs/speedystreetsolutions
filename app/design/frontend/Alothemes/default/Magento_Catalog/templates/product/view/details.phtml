@@ -1,0 +1,54 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php 
+//$_product = $block->getProduct();
+//$proscons_tag_txt = $_product->getName();
+//$cons_tag_txt = $_product->getName();
+?>
+<?php if ($detailedInfoGroup = $block->getGroupChildNames('detailed_info', 'getChildHtml')):?>
+    <div class="product info detailed detail-extent">
+        <?php $layout = $block->getLayout(); ?>
+        <div class="product data items" data-mage-init='{"tabs":{"openedState":"active"}}'>
+            <?php foreach ($detailedInfoGroup as $name):?>
+                <?php
+                    $html = $layout->renderElement($name);
+                    if (!trim($html)) {
+                        continue;
+                    }
+                    $alias = $layout->getElementAlias($name);
+                    $label = $block->getChildData($alias, 'title');
+                ?>
+                <div class="data item title"
+                     aria-labeledby="tab-label-<?php echo $alias;?>-title"
+                     data-role="collapsible" id="tab-label-<?php echo $alias;?>">
+                    <a class="data switch"
+                       tabindex="-1"
+                       data-toggle="switch"
+                       href="#<?php echo $alias; ?>"
+                       id="tab-label-<?php echo $alias;?>-title">
+                       <?php
+                       if($label=='Overview'){
+                        echo 'Specification';
+                       } else if($label=='Details'){
+                        echo 'Product Description';
+                       } ?>
+                    </a>
+                </div>
+                <div class="data item content" id="<?php echo $alias; ?>" data-role="content">
+                    <?php echo $html; ?>
+<?php 
+//echo $proscons_tag_txt;
+//echo $cons_tag_txt;
+?>
+                </div>
+            <?php endforeach;?>
+        </div>
+    </div>
+<?php endif; ?>

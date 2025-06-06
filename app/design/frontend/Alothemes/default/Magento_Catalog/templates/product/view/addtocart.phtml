@@ -1,0 +1,238 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var $block \Magento\Catalog\Block\Product\View */
+?>
+<?php $_product = $block->getProduct(); ?>
+<?php $buttonTitle = __('Add to Cart'); ?>
+<?php 
+
+$categoryIds = $_product->getCategoryIds();
+$bollard_category_arr = array(18, 19, 75, 26, 22);
+
+//$isInBollardCategory = in_array(16, $categoryIds);
+
+$product_delivery_info ='';
+$hide_price = $_product->getHidePrice();
+$proscons_tag_txt = $_product->getProsconsTag();
+$cons_tag_txt = $_product->getConsTag();
+$product_delivery_info = $_product->getProductDeliveryInfo();
+?>
+<?php if($hide_price==1): ?>
+<style type="text/css">
+        .product-essential .product-info-main .price-box, .catalog-product-view .product-options-wrapper {
+            display: none;
+        }
+        .p-enquiry {
+            font-weight: bold;
+font-size: 20px;
+        }
+        .p-enquiry a {
+            color:#507de4 !important;
+        }
+    </style>
+<p class="p-enquiry">Email us for a quote <a href="mailto:sales@speedystreetsolutions.com">sales@speedystreetsolutions.com</a></p>
+<?php endif; ?>
+<?php if($hide_price==0): ?>
+<?php if ($_product->isSaleable()): ?>
+<div class="box-tocart">
+    <div class="fieldset">
+<div class="actions">
+        <?php if ($block->shouldRenderQuantity()): ?>
+        <div class="field qty">
+            <label class="label" for="qty"><span><?php /* @escapeNotVerified */ echo __('Quantity: ') ?></span></label>
+            <div class="control">
+            	<button type="button" class="reduced items" onclick="var result = document.getElementById('qty'); var qty = result.value; if( !isNaN( qty ) &amp;&amp; qty > 1 ) result.value--;return false;">
+					<i class="fa fa-minus"></i>
+				</button>
+                <input type="number"
+                       name="qty"
+                       id="qty"
+                       maxlength="12"
+                       value="<?php /* @escapeNotVerified */ echo $block->getProductDefaultQty() * 1 ?>"
+                       title="<?php /* @escapeNotVerified */ echo __('Qty') ?>" class="input-text qty"
+                       data-validate="<?php echo $block->escapeHtml(json_encode($block->getQuantityValidators())) ?>"
+                       />
+                <button type="button" class="increase items" onclick="var result = document.getElementById('qty'); var qty = result.value; if( !isNaN( qty )) result.value++;return false;">
+					<i class="fa fa-plus"></i>
+				</button>
+            </div>
+        </div>
+        <?php endif; ?>
+            <button type="submit"
+                    title="<?php /* @escapeNotVerified */ echo $buttonTitle ?>"
+                    class="action primary tocart"
+                    id="product-addtocart-button">
+                <i class="icon icon-add-to-cart"></i>
+                	<span><?php echo $buttonTitle ?></span>
+            </button>
+            <?php echo $block->getChildHtml('', true) ?>
+        </div>
+    </div>
+</div>
+<?php
+$trade_account_cta = $this->getLayout()
+          ->createBlock('Magento\Cms\Block\Block')
+          ->setBlockId('trade_account_cta')
+          ->toHtml();
+$pay_opt_cta = $this->getLayout()
+          ->createBlock('Magento\Cms\Block\Block')
+          ->setBlockId('pay_opt_cta')
+          ->toHtml();
+?>
+<?php if(!empty($trade_account_cta)){ ?>
+    <div class="trade-account-cta"><?php echo $trade_account_cta; ?></div>
+<?php } ?>
+<?php if(!empty($pay_opt_cta)){ ?>
+    <div class="pay-opt-cta"><?php echo $pay_opt_cta; ?></div>
+<?php } ?>
+<?php endif; ?>
+<?php endif; ?>
+<?php
+$delivery_info='';
+$delivery_info = $this->getLayout()
+          ->createBlock('Magento\Cms\Block\Block')
+          ->setBlockId('delivery_info')
+          ->toHtml();
+if($delivery_info!='' || !empty($product_delivery_info)){
+?>
+<div class="delivery-information">
+<div class="label"><strong>Delivery Information: </strong> <span class="t-icon">+</span></div>
+<div class="delivery-text">
+<?php
+if(!empty($product_delivery_info)){
+echo $product_delivery_info;
+}
+if(!empty($delivery_info)){
+echo '<div>'.$delivery_info.'</div>';
+}
+ ?>
+</div>
+</div>
+<?php
+}
+?>
+<div class="pd-btn"><span>Product Description & Data Sheets</span><span class="t-icon">+</span></div>
+<?php
+if($proscons_tag_txt && $cons_tag_txt){
+
+    $proscons_tag_array = explode("#", $proscons_tag_txt);
+    foreach ($proscons_tag_array as $key => $val) {
+        $proscons_tag_array[$key] = strip_tags($val);
+    }
+    $cons_tag_array = explode("#", $cons_tag_txt);
+    foreach ($cons_tag_array as $key => $val) {
+        $cons_tag_array[$key] = strip_tags($val);
+    }
+    ?>
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "Product",
+        "name": "<?php echo $_product->getName(); ?>",
+        "review": {
+          "@type": "Review",
+          "name": "<?php echo $_product->getName(); ?> review",
+          "author": {
+            "@type": "Person",
+            "name": "Jason Roy"
+          },
+          "positiveNotes": {
+            "@type": "ItemList",
+            "itemListElement": [
+                <?php $j=1; ?><?php foreach ($proscons_tag_array as $key => $val) { ?><?php if($j>1){ echo ','; } ?>{
+                "@type": "ListItem",
+                "position": <?php echo $j; ?>,
+                "name": "<?php echo $val;?>"
+              }
+              <?php $j++; } ?>
+            ]
+          },
+          "negativeNotes": {
+            "@type": "ItemList",
+            "itemListElement": [
+                <?php $j=1; ?><?php foreach ($cons_tag_array as $key => $val) { ?><?php if($j>1){ echo ','; } ?>{
+                "@type": "ListItem",
+                "position": <?php echo $j; ?>,
+                "name": "<?php echo $val;?>"
+              }
+              <?php $j++; } ?>
+            ]
+          }
+        }
+      }
+    </script>
+    <?php
+
+}
+
+?>
+<?php if ($block->isRedirectToCartEnabled()) : ?>
+<script type="text/x-magento-init">
+    {
+        "#product_addtocart_form": {
+            "Magento_Catalog/product/view/validation": {
+                "radioCheckboxClosest": ".nested"
+            }
+        }
+    }
+</script>
+<?php else : ?>
+<script type="text/x-magento-init">
+        {
+            "#product_addtocart_form": {
+                "Magento_Catalog/js/validate-product": {}
+            }
+        }
+    </script>
+<script>
+    require([
+        'jquery'
+    ], function ($) {
+        'use strict';
+$('.pd-btn').click(function() {
+        // Toggle the display of the description element
+        $('.product-info-main .product.description').toggle();
+    });
+$('.delivery-information .label').on('click', function () {
+$('.delivery-information .delivery-text').toggle();
+        });
+
+});
+</script>
+<?php /* ?><script>
+    require([
+        'jquery',
+        'mage/mage',
+        'Magento_Catalog/product/view/validation',
+        'Magento_Catalog/js/catalog-add-to-cart'
+    ], function ($) {
+        'use strict';
+
+        $('#product_addtocart_form').mage('validation', {
+            radioCheckboxClosest: '.nested',
+            submitHandler: function (form) {
+                var widget = $(form).catalogAddToCart({
+                    bindSubmit: false
+                });
+
+                widget.catalogAddToCart('submitForm', $(form));
+
+                return false;
+            }
+        });
+$('.pd-btn').click(function() {
+        // Toggle the display of the description element
+        $('.product-info-main .product.description').toggle();
+    });
+$('.delivery-information .label').on('click', function () {
+$('.delivery-information .delivery-text').toggle();
+        });
+    });
+</script><?php */ ?>
+<?php endif; ?>

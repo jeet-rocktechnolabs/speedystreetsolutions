@@ -1,0 +1,12 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Request a Quote Base for Magento 2
+ */
+
+if ($block->getItemsCount()) {
+    echo $block->getChildHtml('with-items');
+} else {
+    echo $block->getChildHtml('no-items');
+}

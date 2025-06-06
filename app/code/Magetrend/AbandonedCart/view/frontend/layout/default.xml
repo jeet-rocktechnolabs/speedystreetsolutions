@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * MB "Vienas bitas" (Magetrend.com)
+ *
+ * PHP version 5.3 or later
+ *
+ * @category MageTrend
+ * @package  Magetend/AbandonedCart
+ * @author   Edvinas Stulpinas <edwin@magetrend.com>
+ * @license  http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+ * @link     https://www.magetrend.com/magento-2-abandoned-cart
+ */
+ -->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Magetrend_AbandonedCart::css/bar.css"/>
+    </head>
+    <body>
+        <referenceContainer name="root">
+            <block class="Magetrend\AbandonedCart\Block\Bar"
+                   template="Magetrend_AbandonedCart::bar.phtml"
+                   name="magetrend.abandonedCart" after="-"/>
+        </referenceContainer>
+    </body>
+</page>

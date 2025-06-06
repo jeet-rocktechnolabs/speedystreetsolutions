@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magmodules.eu. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<include xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_include.xsd">
+    <group id="filter" translate="label comment" type="text" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
+        <label>Filter Options</label>
+        <comment>This option allows you to include/exclude products from the Google Shopping feed based on the product visibility or stock information.</comment>
+        <field id="heading_visibility" translate="label comment" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Filter on Visibility</label>
+            <frontend_model>Magmodules\GoogleShopping\Block\Adminhtml\Design\Heading</frontend_model>
+            <comment>Include or exclude products based on the visibility.</comment>
+        </field>
+        <field id="visbility_enabled" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Enable</label>
+            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="visbility" translate="label comment" type="multiselect" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Only add products with the following Visibility</label>
+            <source_model>Magmodules\GoogleShopping\Model\System\Config\Source\ProductVisibility</source_model>
+            <comment>Add products with the selected visibility.</comment>
+            <depends>
+                <field id="visbility_enabled">1</field>
+            </depends>
+        </field>
+        <field id="heading_category" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Filter by Category</label>
+            <frontend_model>Magmodules\GoogleShopping\Block\Adminhtml\Design\Heading</frontend_model>
+            <comment><![CDATA[Include or Exclude products based on the category.<br><strong><br>Note for Include:</strong><br>Simple products within a bundled, configurable or grouped product are treated as own entities, so these should also be present in the included categories.<br><br><strong>Note for Exclude: </strong><br>Exclude the products from these categories. Products that are available within different categories need to be excluded from all of the categories they are assigned to.]]></comment>
+        </field>
+        <field id="category_enabled" translate="label" type="select" sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Enable</label>
+            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="category_type" translate="label" type="select" sortOrder="12" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Type of filter</label>
+            <source_model>Magmodules\GoogleShopping\Model\System\Config\Source\CategoryTypeList</source_model>
+            <depends>
+                <field id="category_enabled">1</field>
+            </depends>
+        </field>
+        <field id="category" translate="label" type="multiselect" sortOrder="13" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Category</label>
+            <source_model>Magmodules\GoogleShopping\Model\System\Config\Source\CategoryList</source_model>
+            <depends>
+                <field id="category_enabled">1</field>
+            </depends>
+        </field>
+        <field id="heading_stock" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Exclude Out of Stock</label>
+            <frontend_model>Magmodules\GoogleShopping\Block\Adminhtml\Design\Heading</frontend_model>
+            <comment>Exclude products that are out of stock in your store.</comment>
+        </field>
+        <field id="stock" translate="label" type="select" sortOrder="21" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Enable</label>
+            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="heading_filters" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Advanced Filters</label>
+            <frontend_model>Magmodules\GoogleShopping\Block\Adminhtml\Design\Heading</frontend_model>
+            <comment>Configure the advanced filter using your attributes and different filter options.</comment>
+        </field>
+        <field id="filters" translate="label" type="select" sortOrder="31" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Enabled</label>
+            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="filters_data" translate="label" type="select" sortOrder="32" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Filter Conditions</label>
+            <frontend_model>Magmodules\GoogleShopping\Block\Adminhtml\System\Config\Form\Field\Filters</frontend_model>
+            <backend_model>Magmodules\GoogleShopping\Model\Config\Backend\Serialized\Filters</backend_model>
+            <depends>
+                <field id="filters">1</field>
+            </depends>
+        </field>
+    </group>
+</include>

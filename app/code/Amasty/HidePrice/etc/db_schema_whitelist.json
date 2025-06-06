@@ -1,0 +1,19 @@
+{
+    "amasty_hideprice_request": {
+        "column": {
+            "request_id": true,
+            "name": true,
+            "email": true,
+            "phone": true,
+            "product_id": true,
+            "store_id": true,
+            "comment": true,
+            "created_at": true,
+            "status": true,
+            "message_text": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

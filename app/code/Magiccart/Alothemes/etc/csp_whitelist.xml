@@ -1,0 +1,162 @@
+<?xml version="1.0"?>
+<csp_whitelist xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Csp/etc/csp_whitelist.xsd">
+    <policies>
+        <policy id="script-src">
+            <values>
+                <!-- Google -->
+                <value id="google" type="host">*.google.com</value>
+		<value id="googlecouk" type="host">*.google.co.uk</value>
+		<value id="doubleclick" type="host">*.doubleclick.net</value>
+		<value id="gservices" type="host">*.googleadservices.com</value>
+                <!-- G Static -->
+                <value id="g-static" type="host">*.gstatic.com</value>
+                <value id="g-apis" type="host">*.googleapis.com</value>
+                <value id="h-apis" type="host">*.hotjar.com</value>
+		<value id="cardinal_commerce_geo_stag" type="host">geostag.cardinalcommerce.com</value>
+                <value id="cardinal_commerce_1eaf_stag" type="host">1eafstag.cardinalcommerce.com</value>
+                <value id="cardinal_commerce_geo" type="host">geoapi.cardinalcommerce.com</value>
+                <value id="cardinal_commerce_1eaf" type="host">1eafapi.cardinalcommerce.com</value>
+                <value id="cardinal_commerce_songbird" type="host">songbird.cardinalcommerce.com</value>
+                <value id="cardinal_commerce_test" type="host">includestest.ccdc02.com</value>
+                <value id="jsdelivr-apis" type="host">*.jsdelivr.net</value>
+		<value id="livechatinc-apis" type="host">*.livechatinc.com</value>
+                <value id="cloudflare-apis" type="host">*.cloudflare.com</value>
+                <value id="nitrocdn-apis" type="host">*.nitrocdn.com</value>
+                <value id="yotpo-apis" type="host">*.yotpo.com</value>
+                <value id="clarity-apis" type="host">*.clarity.ms</value>
+                <value id="tawk-apis" type="host">*.tawk.to</value>
+                <value id="bootstrap" type="host">*.bootstrapcdn.com</value>
+            </values>
+        </policy>
+        <policy id="style-src">
+            <values>
+                <!-- Google APIs -->
+                <value id="googlecouk-style" type="host">*.google.co.uk</value>
+                <value id="doubleclick-style" type="host">*.doubleclick.net</value>
+                <value id="gservices-style" type="host">*.googleadservices.com</value>
+                <value id="google-apis" type="host">*.googleapis.com</value>
+                <value id="bootstrapcdn-apis" type="host">*.bootstrapcdn.com</value>
+                <value id="paypal-style" type="host">*.paypal.com</value>
+                <value id="cardi-style" type="host">*.cardinalcommerce.com</value>
+                <value id="jsdelivr-style" type="host">*.jsdelivr.net</value>
+                <value id="livechatinc-style" type="host">*.livechatinc.com</value>
+                <value id="cloudflare-style" type="host">*.cloudflare.com</value>
+                <value id="nitrocdn-style" type="host">*.nitrocdn.com</value>
+                <value id="yotpo-style" type="host">*.yotpo.com</value>
+                <value id="tawk-style" type="host">*.tawk.to</value>
+            </values>
+        </policy>
+        <policy id="img-src">
+            <values>
+                <!-- Data Scheme - Base64 Encoded Images -->
+                <value id="data-image" type="host">'self' data:</value>
+                <value id="googlecom-img" type="host">*.google.com</value>
+                <value id="googlecouk-img" type="host">*.google.co.uk</value>
+                <value id="doubleclick-img" type="host">*.doubleclick.net</value>
+                <value id="gservices-img" type="host">*.googleadservices.com</value>
+                <value id="g-staticimg" type="host">*.gstatic.com</value>
+                <value id="g-apisimg" type="host">*.googleapis.com</value>
+                <value id="paypal-img" type="host">*.paypal.com</value>
+                <value id="h-images" type="host">*.hotjar.com</value>
+		<value id="cardi-img" type="host">*.cardinalcommerce.com</value>
+                <value id="jsdelivr-img" type="host">*.jsdelivr.net</value>
+                <value id="livechatinc-img" type="host">*.livechatinc.com</value>
+                <value id="cloudflare-img" type="host">*.cloudflare.com</value>
+                <value id="nitrocdn-img" type="host">*.nitrocdn.com</value>
+                <value id="yotpo-img" type="host">*.yotpo.com</value>
+                <value id="clarity-img" type="host">*.clarity.ms</value>
+                <value id="bing-img" type="host">*.bing.com</value>
+                <value id="tawk-img" type="host">*.tawk.to</value>
+            </values>
+        </policy>
+        <policy id="connect-src">
+            <values>
+                <!-- Google Analytics -->
+                <value id="google-analytics" type="host">*.google-analytics.com</value>
+		<value id="googlecom-connect" type="host">*.google.com</value>
+                <value id="googlecouk-connect" type="host">*.google.co.uk</value>
+                <value id="doubleclick-connect" type="host">*.doubleclick.net</value>
+                <value id="googleadservices-connect" type="host">*.googleadservices.com</value>
+                <value id="paypal" type="host">*.paypal.com</value>
+                <value id="hotjar-wss" type="host">wss://*.hotjar.com</value>
+                <value id="hotjar-io" type="host">*.hotjar.io</value>
+                <value id="hotjar" type="host">*.hotjar.com</value>
+                <value id="cardinal_commerce_geo_stag" type="host">geostag.cardinalcommerce.com</value>
+                <value id="cardinal_commerce_geo" type="host">geo.cardinalcommerce.com</value>
+                <value id="cardinal_commerce_1eaf_stag" type="host">1eafstag.cardinalcommerce.com</value>
+                <value id="cardinal_commerce_1eaf" type="host">1eaf.cardinalcommerce.com</value>
+                <value id="cardinal_commerce_cent_stag" type="host">centinelapistag.cardinalcommerce.com</value>
+                <value id="cardinal_commerce_cent" type="host">centinelapi.cardinalcommerce.com</value>
+                <value id="jsdelivr-connect" type="host">*.jsdelivr.net</value>
+                <value id="livechatinc-connect" type="host">*.livechatinc.com</value>
+                <value id="cloudflare-connect" type="host">*.cloudflare.com</value>
+                <value id="getnitropack-connect" type="host">*.getnitropack.com</value>
+                <value id="nitrocdn-connect" type="host">*.nitrocdn.com</value>
+                <value id="yotpo-connect" type="host">*.yotpo.com</value>
+                <value id="clarity-connect" type="host">*.clarity.ms</value>
+                <value id="tawk-connect" type="host">*.tawk.to</value>
+                <value id="tawk-wss" type="host">wss://*.tawk.to</value>
+            </values>
+        </policy>
+        <policy id="font-src">
+            <values>
+                <!-- G Static -->
+                <value id="g-static" type="host">*.gstatic.com</value>
+                <value id="bootstrapcdn" type="host">*.bootstrapcdn.com</value>
+                <value id="cardi-font" type="host">*.cardinalcommerce.com</value>
+                <!-- Data Scheme - Base64 Encoded Fonts -->
+                <value id="data-font" type="host">'self' data:</value>
+                <value id="jsdelivr-font" type="host">*.jsdelivr.net</value>
+                <value id="livechatinc-font" type="host">*.livechatinc.com</value>
+                <value id="cloudflare-font" type="host">*.cloudflare.com</value>
+                <value id="nitrocdn-font" type="host">*.nitrocdn.com</value>
+                <value id="yotpo-font" type="host">*.yotpo.com</value>
+                <value id="tawk-font" type="host">*.tawk.to</value>
+            </values>
+        </policy>
+        <policy id="frame-src">
+            <values>
+                <!-- Google -->
+                <value id="google" type="host">*.google.com</value>
+                <value id="googlecouk-frame" type="host">*.google.co.uk</value>
+                <value id="doubleclick-frame" type="host">*.doubleclick.net</value>
+                <value id="gservices-frame" type="host">*.googleadservices.com</value>
+                <value id="youtue" type="host">*.youtube.com</value>
+                <value id="paypal-frame" type="host">*.paypal.com</value>
+		<value id="cardinal_commerce_geo_stag" type="host">geostag.cardinalcommerce.com</value>
+                <value id="cardinal_commerce_geo" type="host">geo.cardinalcommerce.com</value>
+                <value id="cardinal_commerce_1eaf_stag" type="host">1eafstag.cardinalcommerce.com</value>
+                <value id="cardinal_commerce_1eaf" type="host">1eaf.cardinalcommerce.com</value>
+                <value id="cardinal_commerce_cent_stag" type="host">centinelapistag.cardinalcommerce.com</value>
+                <value id="cardinal_commerce_cent" type="host">centinelapi.cardinalcommerce.com</value>
+                <value id="h-frame" type="host">*.hotjar.com</value>
+                <value id="livechatinc-frame" type="host">*.livechatinc.com</value>
+                <value id="cloudflare-frame" type="host">*.cloudflare.com</value>
+                <value id="nitrocdn-frame" type="host">*.nitrocdn.com</value>
+                <value id="yotpo-frame" type="host">*.yotpo.com</value>
+                <value id="tawk-frame" type="host">*.tawk.to</value>
+            </values>
+        </policy>
+        <policy id="media-src">
+            <values>
+                <value id="livechatinc-media" type="host">*.livechatinc.com</value>
+                <value id="tawk-media" type="host">*.tawk.to</value>
+            </values>
+        </policy>
+        <policy id="form-action">
+            <values>
+                <value id="cardinal_commerce_geo_stag" type="host">geostag.cardinalcommerce.com</value>
+                <value id="cardinal_commerce_geo" type="host">geo.cardinalcommerce.com</value>
+                <value id="cardinal_commerce_1eaf_stag" type="host">1eafstag.cardinalcommerce.com</value>
+                <value id="cardinal_commerce_1eaf" type="host">1eaf.cardinalcommerce.com</value>
+                <value id="cardinal_commerce_cent_stag" type="host">centinelapistag.cardinalcommerce.com</value>
+                <value id="cardinal_commerce_cent" type="host">centinelapi.cardinalcommerce.com</value>
+                <value id="livechatinc-form" type="host">*.livechatinc.com</value>
+                <value id="utp-form" type="host">*.universaltp.com</value>
+                <value id="yotpo-form" type="host">*.yotpo.com</value>
+                <value id="tawk-form" type="host">*.tawk.to</value>
+            </values>
+        </policy>
+    </policies>
+</csp_whitelist>

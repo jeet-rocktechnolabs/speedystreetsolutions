@@ -1,0 +1,35 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Request a Quote Base for Magento 2
+ */
+/** @var $block \Amasty\RequestQuote\Block\Adminhtml\Quote\Create\Totals\Subtotal */
+?>
+<?php if ($block->displayBoth()):?>
+<tr class="row-totals">
+    <td style="<?= /* @noEscape */ $block->getStyle() ?>" class="admin__total-mark" colspan="<?= /* @noEscape */ $block->getColspan() ?>">
+        <?= /* @noEscape */ __('Subtotal (Excl. Tax)') ?>
+    </td>
+    <td style="<?= /* @noEscape */ $block->getStyle() ?>" class="admin__total-amount">
+        <?= /* @noEscape */ $block->formatPrice($block->getTotal()->getValueExclTax()) ?>
+    </td>
+</tr>
+<tr class="row-totals">
+    <td style="<?= /* @noEscape */ $block->getStyle() ?>" class="admin__total-mark" colspan="<?= /* @noEscape */ $block->getColspan() ?>">
+        <?= /* @noEscape */ __('Subtotal (Incl. Tax)') ?>
+    </td>
+    <td style="<?= /* @noEscape */ $block->getStyle() ?>" class="admin__total-amount">
+        <?= /* @noEscape */ $block->formatPrice($block->getTotal()->getValueInclTax()) ?>
+    </td>
+</tr>
+<?php else: ?>
+<tr class="row-totals">
+    <td style="<?= /* @noEscape */ $block->getStyle() ?>" class="admin__total-mark" colspan="<?= /* @noEscape */ $block->getColspan() ?>">
+        <?= /* @noEscape */ $block->getTotal()->getTitle() ?>
+    </td>
+    <td style="<?= /* @noEscape */ $block->getStyle() ?>" class="admin__total-amount">
+        <?= /* @noEscape */ $block->formatPrice($block->getTotal()->getValue()) ?>
+    </td>
+</tr>
+<?php endif;?>

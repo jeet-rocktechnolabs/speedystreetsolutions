@@ -1,0 +1,11 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Request a Quote Base for Magento 2
+ */ if ($block->getCanDisplayTotalRefunded()): ?>
+<tr>
+    <td class="label"><strong><?= /* @noEscape */ __('Total Refunded') ?></strong></td>
+    <td class="emph"><?= /* @noEscape */ $block->displayPriceAttribute('total_refunded', true) ?></td>
+</tr>
+<?php endif; ?>

@@ -1,0 +1,128 @@
+<?php
+/**
+ * MB "Vienas bitas" (Magetrend.com)
+ *
+ * PHP version 5.3 or later
+ *
+ * @category MageTrend
+ * @package  Magetend/AbandonedCart
+ * @author   Edvinas Stulpinas <edwin@magetrend.com>
+ * @license  http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+ * @link     https://www.magetrend.com/magento-2-abandoned-cart
+ */
+// @codingStandardsIgnoreFile
+?>
+<?php echo $block->getTemplatesHtml() ?>
+<script id="custom-option-base-template" type="text/x-magento-template">
+    <div class="fieldset-wrapper admin__collapsible-block-wrapper opened" id="option_<%- data.id %>">
+        <div class="fieldset-wrapper-title">
+            <strong
+                class="admin__collapsible-title"
+                data-toggle="collapse"
+                data-target="#<%- data.id %>-content">
+                <span id="option_<%- data.id %>_header_title"><%- data.title %></span>
+            </strong>
+            <div class="actions">
+                <button type="button" title="<?php echo __('Delete Custom Option'); ?>" class="action-delete" id="<?php echo $block->getFieldId() ?>_<%- data.id %>_delete">
+                    <span><?php echo __('Delete Custom Option'); ?></span>
+                </button>
+            </div>
+            <div id="<?php echo $block->getFieldId() ?>_<%- data.id %>_move" data-role="draggable-handle" class="draggable-handle"
+                 title="<?php echo __('Sort Custom Options'); ?>"></div>
+        </div>
+        <div class="fieldset-wrapper-content in collapse" id="<%- data.id %>-content">
+            <fieldset class="fieldset">
+                <fieldset class="fieldset-alt" id="<?php echo $block->getFieldId() ?>_<%- data.id %>">
+                    <input id="<?php echo $block->getFieldId() ?>_<%- data.id %>_is_delete" name="<?php echo $block->getFieldName() ?>[<%- data.id %>][is_delete]" type="hidden" value=""/>
+                    <input id="<?php echo $block->getFieldId() ?>_<%- data.id %>_entity_id" name="<?php echo $block->getFieldName() ?>[<%- data.id %>][entity_id]" type="hidden" value="<%- data.entity_id %>"/>
+                    <input class="option-field-id" id="<?php echo $block->getFieldId() ?>_<%- data.id %>_id" name="<?php echo $block->getFieldName() ?>[<%- data.id %>][id]" type="hidden" value="<%- data.id %>"/>
+                    <input name="<?php echo $block->getFieldName() ?>[<%- data.id %>][sort_order]" type="hidden" value="<%- data.sort_order %>"/>
+
+                    <div class="field field-option-input-type required">
+                        <label class="label" for="<?php echo $block->getFieldId() ?>_<%- data.id %>_title">
+                            <?php echo __('Email Template') ?>
+                        </label>
+                        <div class="control opt-type">
+                            <?php echo $block->getEmailTemplateSelectHtml() ?>
+                        </div>
+                    </div>
+
+                    <div class="field field-option-time required">
+                        <label class="label" for="<?php echo $block->getFieldId() ?>_<%- data.id %>_email_template">
+                            <?php echo __('Send After/Email Delay') ?>
+                        </label>
+                        <div class="control">
+                            <div class="control-days">
+
+                                <input id="<?php echo $block->getFieldId() ?>_<%- data.id %>_day"
+                                       name="<?php echo $block->getFieldName() ?>[<%- data.id %>][delay_day]"
+                                       class="required-entry input-text change-title"
+                                       type="text"
+                                       value="<%- data.name %>"
+                                       data-store-label="<%- data.name %>"
+                                <% if (typeof data.scopeTitleDisabled != 'undefined' && data.scopeTitleDisabled != null) { %> disabled="disabled" <% } %>
+                                >
+                                <span><b>day(s)</b></span>
+                            </div>
+                            <div class="control-hours">
+                                <?php echo $block->getHoursSelectHtml() ?>
+                            </div>
+                            <div class="control-minutes">
+                                <?php echo $block->getMinutesSelectHtml() ?>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field field-option-rule required">
+                        <label class="label" for="<?php echo $block->getFieldId() ?>_<%- data.id %>_label">
+                            <?php echo __('Discount Rule') ?>
+                        </label>
+                        <div class="control">
+                            <?php echo $block->getCartPriceRuleSelectHtml() ?>
+                        </div>
+                        <div class="note"><?php echo __('Create New Rule:'); ?>
+                            <a target="_blank" href="<?php echo $block->getUrl('sales_rule/promo_quote/new') ?>">
+                                <?php echo __('Marketing >> Cart Price Rules >> Add New Rule'); ?>
+                            </a>
+                        </div>
+                    </div>
+                </fieldset>
+            </fieldset>
+        </div>
+    </div>
+</script>
+
+<div id="import-container" style="display: none;"></div>
+
+<script>
+
+require([
+    "jquery",
+    "Magetrend_AbandonedCart/js/schedule"
+], function(jQuery){
+
+jQuery(function ($) {
+    var fieldSet = $('#field-custom-options-wrapper');
+    fieldSet.customOptions(<?php echo $this->helper('Magento\Framework\Json\Helper\Data')->jsonEncode(
+        [
+            'fieldId' => $block->getFieldId(),
+            'fieldGridUrl' => $block->getProductGridUrl(),
+            'formKey' => $block->getFormKey(),
+            'customOptionsUrl' => $block->getCustomOptionsUrl(),
+            'isReadonly' => $block->isReadonly(),
+            'itemCount' => $block->getItemCount(),
+        ]
+    )?>);
+    //adding data to templates
+    <?php /** @var $_value \Magento\Framework\Object */ ?>
+    <?php foreach ($block->getOptionValues() as $_value): ?>
+        fieldSet.customOptions('addOption', <?php echo $_value->toJson() ?>);
+    <?php endforeach; ?>
+
+    <?php if (empty($block->getOptionValues())) : ?>
+        jQuery('#add_new_defined_option').trigger('click');
+    <?php endif; ?>
+});
+
+});
+</script>

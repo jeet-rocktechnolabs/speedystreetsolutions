@@ -1,0 +1,11 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Request a Quote Base for Magento 2
+ */ if ($block->getCanDisplayTotalDue()): ?>
+<tr>
+    <td class="label"><big><strong><?= /* @noEscape */ __('Total Due') ?></strong></big></td>
+    <td class="emph"><big><?= /* @noEscape */ $block->displayPriceAttribute('total_due', true) ?></big></td>
+</tr>
+<?php endif; ?>

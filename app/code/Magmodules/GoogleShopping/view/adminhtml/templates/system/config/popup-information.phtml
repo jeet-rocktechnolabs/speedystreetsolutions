@@ -1,0 +1,74 @@
+<!-- Content for Information modal -->
+<div id="conditionalInfo" style="display: none" class="googleshopping-information">
+    <h2><?= $block->escapeUrl(__('Use Conditional Attributes')); ?></h2>
+
+    <div class="content">
+        <div>
+            <div>
+                <?= $block->escapeUrl(__('Use conditional attributes to generate a value with an if then construction.')); ?>
+            </div>
+            <div>
+                <?= $block->escapeUrl(__('You can generate an if then else construction using the question mark ? and the colon:')); ?>
+            </div>
+        </div>
+
+        <div>
+            <h3><?= $block->escapeUrl(__('For example, if you use the following value:')); ?></h3>
+            <div class="comment">
+                <div>
+                    <?= $block->escapeUrl(__('If the short description exists, then show short description or else description:')); ?>
+                </div>
+                <?= $block->escapeUrl(__('{{short_description}} ? {{short_description}} : {{description}}')); ?>
+            </div>
+        </div>
+
+        <div>
+            <h3><?= $block->escapeUrl(__('Another example;')); ?></h3>
+            <div class="comment">
+                <div>
+                    <?= $block->escapeUrl(__('If description exists, then show description, else show name + ska + short description')); ?>
+                </div>
+                <?= $block->escapeUrl(__('{{description}} ? {{description}} : {{name}} {{sku}} {{short_description}}')); ?>
+            </div>
+        </div>
+    </div>
+
+
+    
+
+
+
+</div>
+
+<!-- Content for Information modal -->
+<div id="multisourceInfo" style="display: none" class="googleshopping-information">
+    <h2><?= $block->escapeUrl(__('Use Multiple Attributes')); ?></h2>
+
+    <div class="content">
+        <div>
+            <div>
+                <?= $block->escapeUrl(__('Use multiple attributes to generate a value with the first attribute that contains data.')); ?>
+            </div>
+            <div>
+                <?= $block->escapeUrl(__('You can separate them by using, the comma, for example this can be:')); ?>
+            </div>
+        </div>
+
+        <b><?= $block->escapeUrl(__('Description, short-description, name')); ?></b>
+
+        <div>
+            <h3><?= $block->escapeUrl(__('This will tell that:')); ?></h3>
+            <div class="comment">
+                <div>
+                    <?= $block->escapeUrl(__('If there is no description available; check the short-description;')); ?>
+                </div>
+                <div>
+                    <?= $block->escapeUrl(__('If there is no short-description available; check the name;')); ?>
+                </div>
+                <div>
+                    <?= $block->escapeUrl(__('If there is a name available; use the name')); ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

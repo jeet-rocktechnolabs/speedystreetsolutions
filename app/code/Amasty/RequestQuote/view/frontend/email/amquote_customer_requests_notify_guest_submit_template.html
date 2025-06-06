@@ -1,0 +1,31 @@
+<!--@subject {{trans "Email alert for submitted quote request"}} @-->
+<!--@vars
+{
+"var customerName":"Customer Name",
+"var quote.increment_id":"Quote Increment ID",
+"var store.getFrontendName()":"Store Name",
+"var quote.submitted_date_formatted":"Quote Submitted Date",
+"layout handle=\"amasty_quote_email_items\" quote_id=$quote.getEntityId() area=\"frontend\"":"Quote Items Grid",
+"var quote":"Quote object"
+"var shippingAddress":"Shipping Address"
+"var shippingAddressd":"Shipping Address"
+}
+@-->
+{{template config_path="design/email/header_template"}}
+
+<table>
+    <tr class="email-intro">
+        <td>
+            <p class="greeting">{{trans "Hello, %customer_name" customer_name=$customerName}}</p>
+            <p>{{trans 'Thank you for your quote request from %store_name.' store_name=$store.getFrontendName()}}</p>
+        </td>
+    </tr>
+    <tr class="email-summary">
+        <td>
+            <h1>{{trans 'Your Quote Request <span class="no-link">#%increment_id</span>' increment_id=$quote.increment_id |raw}}</h1>
+            <p>{{trans 'Placed on <span class="no-link">%submitted_date</span>' submitted_date=$quote.submitted_date_formatted |raw}}</p>
+        </td>
+    </tr>
+{{layout handle="amasty_quote_email_items" quote_id=$quote.getEntityId() area="frontend"}}
+</table>
+{{template config_path="design/email/footer_template"}}

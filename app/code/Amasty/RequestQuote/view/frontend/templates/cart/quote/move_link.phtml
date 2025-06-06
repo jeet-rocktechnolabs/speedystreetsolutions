@@ -1,0 +1,13 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Request a Quote Base for Magento 2
+ */
+/** @var \Amasty\RequestQuote\Block\Cart\Quote\Move $block */
+?>
+<a href="#"
+   data-post='<?= /* @noEscape */ $block->getPostData() ?>'
+   class="amquote-addto-button amasty-quote-link"
+   amcart-observed="true"><?= $escaper->escapeHtml(__('Request a Quote')) ?>
+</a>

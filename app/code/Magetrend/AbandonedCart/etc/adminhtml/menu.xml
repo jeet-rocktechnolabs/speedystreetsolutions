@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * MB "Vienas bitas" (Magetrend.com)
+ *
+ * PHP version 5.3 or later
+ *
+ * @category MageTrend
+ * @package  Magetend/AbandonedCart
+ * @author   Edvinas Stulpinas <edwin@magetrend.com>
+ * @license  http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+ * @link     https://www.magetrend.com/magento-2-abandoned-cart
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Backend/etc/menu.xsd">
+    <menu>
+        <add id="Magetrend_AbandonedCart::abandoned_cart"
+             title="Abandoned Cart"
+             module="Magetrend_AbandonedCart"
+             sortOrder="100"
+             parent="Magento_Sales::sales"
+             resource="Magetrend_AbandonedCart::abandoned_cart"
+        />
+        <add id="Magetrend_AbandonedCart::cart_rule_index"
+             title="Cart Rules"
+             module="Magetrend_AbandonedCart"
+             sortOrder="100"
+             parent="Magetrend_AbandonedCart::abandoned_cart"
+             action="abandonedcart/rule/cart_index"
+             resource="Magetrend_AbandonedCart::cart_rule_index"
+        />
+        <add id="Magetrend_AbandonedCart::order_rule_index"
+             title="Order Rules"
+             module="Magetrend_AbandonedCart"
+             sortOrder="100"
+             parent="Magetrend_AbandonedCart::abandoned_cart"
+             action="abandonedcart/rule/order_index"
+             resource="Magetrend_AbandonedCart::order_rule_index"
+        />
+
+        <add id="Magetrend_AbandonedCart::bar_rule_index"
+             title="Bar Rules"
+             module="Magetrend_AbandonedCart"
+             sortOrder="100"
+             parent="Magetrend_AbandonedCart::abandoned_cart"
+             action="abandonedcart/rule/bar_index"
+             resource="Magetrend_AbandonedCart::bar_rule_index"
+        />
+
+        <add id="Magetrend_AbandonedCart::queue_index"
+             title="Schedules"
+             module="Magetrend_AbandonedCart"
+             sortOrder="100"
+             parent="Magetrend_AbandonedCart::abandoned_cart"
+             action="abandonedcart/queue/index"
+             resource="Magetrend_AbandonedCart::queue"
+        />
+
+        <add id="Magetrend_AbandonedCart::settings"
+             title="Settings"
+             parent="Magetrend_AbandonedCart::abandoned_cart"
+             module="Magetrend_AbandonedCart"
+             sortOrder="999"
+             action="adminhtml/system_config/edit/section/abandonedcart"
+             resource="Magento_Config::config"
+        />
+
+    </menu>
+</config>

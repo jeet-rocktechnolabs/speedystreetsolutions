@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Hide Price (Call for Price) for Magento 2
+ */-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Amasty\HidePrice\Model\ApplyValidator\CustomerGroupResolver">
+        <arguments>
+            <argument name="session" xsi:type="object">Magento\Customer\Model\Session\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Amasty\HidePrice\Model\ApplyValidator\IgnoreConfigurationValidation">
+        <arguments>
+            <argument name="session" xsi:type="object">Magento\Customer\Model\Session\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Amasty\HidePrice\Model\ApplyValidator">
+        <arguments>
+            <argument name="validationPool" xsi:type="array">
+                <item name="IgnoreConfiguration" sortOrder="10"
+                      xsi:type="object">Amasty\HidePrice\Model\ApplyValidator\IgnoreConfigurationValidation</item>
+                <item name="ProductSettings" sortOrder="20"
+                      xsi:type="object">Amasty\HidePrice\Model\ApplyValidator\ProductSettingsValidation</item>
+                <item name="CategorySettings" sortOrder="30"
+                      xsi:type="object">Amasty\HidePrice\Model\ApplyValidator\CategorySettingsValidation</item>
+                <item name="StockStatus" sortOrder="40"
+                      xsi:type="object">Amasty\HidePrice\Model\ApplyValidator\StockStatusValidation</item>
+                <item name="GlobalConfiguration" sortOrder="50"
+                      xsi:type="object">Amasty\HidePrice\Model\ApplyValidator\GlobalConfigurationValidation</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Amasty\HidePrice\Model\ApplyValidator\CategorySettingsProvider">
+        <arguments>
+            <argument name="cache" xsi:type="object">Magento\Framework\App\Cache\Type\Collection</argument>
+        </arguments>
+    </type>
+</config>

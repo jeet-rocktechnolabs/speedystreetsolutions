@@ -1,0 +1,13 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Request a Quote Base for Magento 2
+ */ /** @var $block \Amasty\RequestQuote\Block\Quote\Success */ ?>
+
+<?php if ($block->getCanViewOrder() && $block->getCanPrintOrder()): ?>
+    <a href="<?= /* @noEscape */ $block->getPrintUrl() ?>" target="_blank" class="print">
+        <?= /* @noEscape */ __('Print receipt') ?>
+    </a>
+    <?= $block->getChildHtml() ?>
+<?php endif;?>

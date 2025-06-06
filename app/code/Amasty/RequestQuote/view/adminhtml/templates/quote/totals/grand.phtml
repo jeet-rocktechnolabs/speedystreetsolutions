@@ -1,0 +1,20 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Request a Quote Base for Magento 2
+ */ $source  = $block->getSource() ?>
+<?php $block->setPriceDataObject($source) ?>
+
+<tr>
+    <td class="label">
+        <strong><big>
+        <?php if ($block->getGrandTotalTitle()): ?>
+            <?= /* @noEscape */ $block->getGrandTotalTitle() ?>
+        <?php else: ?>
+            <?= /* @noEscape */ __('Grand Total') ?>
+        <?php endif; ?>
+        </big></strong>
+    </td>
+    <td class="emph"><big><?= /* @noEscape */ $block->displayPriceAttribute('grand_total', true) ?></big></td>
+</tr>

@@ -1,0 +1,59 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Request a Quote Base for Magento 2
+ */
+/** @var $block \Amasty\RequestQuote\Block\Cart\Sidebar */
+
+$isLoggedIn = $block->isLoggedIn();
+?>
+<?php if ($isLoggedIn): ?>
+<div data-block="quotecart" class="amquote-cart-wrapper minicart-wrapper">
+    <a class="amquote-showcart action" href="<?= /* @noEscape */ $block->getQuoteCartUrl() ?>"
+       data-bind="scope: 'quotecart_content'" title="<?= /* @noEscape */ __('My Quote') ?>">
+        <span class="text"><svg xmlns="http://www.w3.org/2000/svg" width="23" height="30" viewBox="0 0 317.45 382"><defs><style>.qcls-1{fill:#231f20;stroke-width:0px;}</style></defs><path class="qcls-1" d="M248,320H8c-4.42,0-8-3.58-8-8V40c0-2.12.84-4.16,2.34-5.66L34.34,2.34c1.5-1.5,3.54-2.34,5.66-2.34h208c4.42,0,8,3.58,8,8v304c0,4.42-3.58,8-8,8ZM16,304h224V16H43.31l-27.31,27.31v260.69ZM286.63,374.77l30.78-316.49c.43-4.4-2.79-8.31-7.19-8.74l-35.42-3.45c-4.4-.42-8.31,2.79-8.74,7.19-.43,4.4,2.79,8.31,7.19,8.74l27.46,2.67-29.23,300.57-227.53-22.13.49-5.01c.43-4.4-2.79-8.31-7.19-8.74-4.4-.43-8.31,2.79-8.74,7.19l-1.26,12.98c-.21,2.11.44,4.22,1.78,5.86,1.35,1.64,3.29,2.67,5.4,2.88l243.46,23.68c.26.03.52.04.78.04,4.07,0,7.55-3.09,7.95-7.23ZM64.45,55.65l.08-24c.01-4.42-3.55-8.01-7.97-8.03h-.03c-4.41,0-7.98,3.56-8,7.97l-.05,16-16-.05h-.03c-4.41,0-7.98,3.56-8,7.97-.01,4.42,3.55,8.01,7.97,8.03l24,.08h.03c4.41,0,7.98-3.56,8-7.97ZM200,136c0-4.42-3.58-8-8-8h-120c-4.42,0-8,3.58-8,8s3.58,8,8,8h120c4.42,0,8-3.58,8-8ZM200,168c0-4.42-3.58-8-8-8h-120c-4.42,0-8,3.58-8,8s3.58,8,8,8h120c4.42,0,8-3.58,8-8ZM160,200c0-4.42-3.58-8-8-8h-80c-4.42,0-8,3.58-8,8s3.58,8,8,8h80c4.42,0,8-3.58,8-8Z"/></svg></span>
+        <span class="counter qty empty"
+              data-bind="css: { empty: !!getCartParam('summary_count') == false }, blockLoader: isLoading">
+            <span class="counter-number"><!-- ko text: getCartParam('summary_count') --><!-- /ko --></span>
+            <span class="counter-label">
+            <!-- ko if: getCartParam('summary_count') -->
+                <!-- ko text: getCartParam('summary_count') --><!-- /ko -->
+                <!-- ko i18n: 'items' --><!-- /ko -->
+                <!-- /ko -->
+            </span>
+        </span>
+    </a>
+    <div class="block block-quotecart block-minicart"
+         data-role="dropdownDialog"
+         data-mage-init='{"dropdownDialog":{
+                "appendTo":"[data-block=quotecart]",
+                "triggerTarget":".amquote-showcart",
+                "timeout": "2000",
+                "closeOnMouseLeave": false,
+                "closeOnEscape": true,
+                "triggerClass":"-active",
+                "parentClass":"-active",
+                "buttons":[]}}'>
+        <div id="quotecart-content-wrapper" data-bind="scope: 'quotecart_content'">
+            <!-- ko template: getTemplate() --><!-- /ko -->
+        </div>
+        <?= $block->getChildHtml('quotecart.addons') ?>
+    </div>
+
+    <script>
+        window.amasty_quote_cart = <?= /* @noEscape */ $block->getSerializedConfig() ?>;
+    </script>
+
+    <script type="text/x-magento-init">
+    {
+        "[data-block='quotecart']": {
+            "Magento_Ui/js/core/app": <?= /* @noEscape */ $block->getJsLayout() ?>
+        },
+        "*": {
+            "Magento_Ui/js/block-loader": "<?= /* @noEscape */ $block->getViewFileUrl('images/loader-1.gif') ?>"
+        }
+    }
+    </script>
+</div>
+<?php endif; ?>

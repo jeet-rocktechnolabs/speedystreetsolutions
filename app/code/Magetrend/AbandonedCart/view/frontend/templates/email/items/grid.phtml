@@ -1,0 +1,74 @@
+<?php
+/**
+ * MB "Vienas bitas" (Magetrend.com)
+ *
+ * PHP version 5.3 or later
+ *
+ * @category MageTrend
+ * @package  Magetend/AbandonedCart
+ * @author   Edvinas Stulpinas <edwin@magetrend.com>
+ * @license  http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+ * @link     https://www.magetrend.com/magento-2-abandoned-cart
+ */
+// @codingStandardsIgnoreFile
+?>
+<?php
+$items = $block->getItems();
+
+if (empty($items)) {
+    $itemCount = 0;
+} else {
+    $itemCount = count($items);
+}
+
+$columnCount = 2;
+if ($itemCount == 1) {
+    $columnCount = 1;
+} elseif ($itemCount % 3 == 0) {
+    $columnCount = 3;
+}
+?>
+<?php if (!empty($items)) : ?>
+<table dir="ltr" width="100%" border="0" cellpadding="0" cellspacing="0" style="width: 100% !important; max-width: 100% !important; background-color: #f1f1f1" bgcolor="#f1f1f1">
+    <tr>
+        <td width="2%" style="width: 2%!important;"><div style="font-size: 0; height: 0;">&nbsp;</div></td>
+        <td align="center">
+            <table width="600" cellspacing="0" cellpadding="0" border="0" style="width: 100% !important; max-width: 600px !important; background-color: #FFFFFF;" bgcolor="#FFFFFF">
+                <tr>
+                    <td width="5%" style="width: 5%!important;">&nbsp;</td>
+                    <td align="center">
+                        <table width="100%" style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;width:100% !important;" cellspacing="0" cellpadding="0" border="0">
+                            <tr>
+                                <td style="font-size: 15px; line-height: 26px; color: #707582;" >
+
+                                    <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                                        <tr>
+                                        <?php
+                                            $i = 1;
+                                            foreach ($items as $item) :
+                                            $item->setData('column_number', $i);
+                                        ?>
+                                            <td valign="top" width="<?php echo (int)(100 / $columnCount);?>%"><?php  echo $block->getItemHtml($item); ?></td>
+                                        <?php if ($i == $columnCount) : ?>
+                                         <?php $i = 1; ?>
+                                        </tr><tr>
+                                         <?php endif; ?>
+                                         <?php $i++; ?>
+                                        <?php endforeach; ?>
+                                        <tr/>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td height="15"><div style="font-size: 0; height: 0;">&nbsp;</div></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td width="5%" style="width: 5%!important;">&nbsp;</td>
+                </tr>
+            </table>
+        </td>
+        <td width="2%" style="width: 2%!important;"><div style="font-size: 0; height: 0;">&nbsp;</div></td>
+    </tr>
+</table>
+<?php endif; ?>

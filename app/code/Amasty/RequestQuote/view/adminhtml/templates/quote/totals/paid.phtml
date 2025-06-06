@@ -1,0 +1,12 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Request a Quote Base for Magento 2
+ */ if ($block->getCanDisplayTotalPaid()): ?>
+<tr>
+    <td class="label"><strong><?= /* @noEscape */ __('Total Paid') ?></strong></td>
+    <td class="emph"><?= /* @noEscape */ $block->displayPriceAttribute('total_paid', true) ?>
+    </td>
+</tr>
+<?php endif; ?>

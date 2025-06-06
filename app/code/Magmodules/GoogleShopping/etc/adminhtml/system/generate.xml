@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magmodules.eu. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<include xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_include.xsd">
+    <group id="generate" translate="label comment" type="text" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="1">
+        <label>Feed Generation Settings</label>
+        <comment>Each store view will have its own Google Shopping feed. You can easily enable or disable the Google Shopping feed generation on store level or automatically generate the Google Shopping feed. In case you are not using the Cronjob functionality it's possible to generate the Google Shopping feed manually.</comment>
+        <field id="heading_generation" translate="label comment" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Feed Generation</label>
+            <frontend_model>Magmodules\GoogleShopping\Block\Adminhtml\Design\Heading</frontend_model>
+            <comment>Enable or disable the feed generation for this store view or change the filename.</comment>
+        </field>
+        <field id="enabled" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Enable</label>
+            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="filename" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Filename</label>
+            <depends>
+                <field id="enabled">1</field>
+            </depends>
+        </field>
+        <field id="heading_cron" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+            <label>Cron</label>
+            <frontend_model>Magmodules\GoogleShopping\Block\Adminhtml\Design\Heading</frontend_model>
+            <comment>The Cronjob is a periodic script which is scheduled to automatically generate the Google Shopping feed based on the below frequency configuration. Please make sure that your default Magento Cronjob is working. If not, contact your hosting company for help.</comment>
+        </field>
+        <field id="cron" translate="label" type="select" sortOrder="21" showInDefault="1" showInWebsite="0" showInStore="0">
+            <label>Enable</label>
+            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="cron_frequency" translate="label" type="select" sortOrder="22" showInDefault="1" showInWebsite="0" showInStore="0">
+            <label>Frequency</label>
+            <source_model>Magmodules\GoogleShopping\Model\System\Config\Source\CronFrequency</source_model>
+            <backend_model>Magmodules\GoogleShopping\Model\Config\Backend\Cron</backend_model>
+            <depends>
+                <field id="cron">1</field>
+            </depends>
+        </field>
+        <field id="custom_frequency" translate="label comment" type="text" sortOrder="23" showInDefault="1" showInWebsite="0" showInStore="0">
+            <label>Custom Frequency</label>
+            <depends>
+                <field id="cron">1</field>
+                <field id="cron_frequency">custom</field>
+            </depends>
+            <comment>Enter frequency in Crontab format. E.g. 0 5, 17 * * *  - this will generate the feed at 5AM and 5PM daily.</comment>
+        </field>
+        <field id="heading_advanced" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+            <label>Advanced Settings</label>
+            <frontend_model>Magmodules\GoogleShopping\Block\Adminhtml\Design\Heading</frontend_model>
+        </field>
+        <field id="advanced" translate="label" type="select" sortOrder="31" showInDefault="1" showInWebsite="0" showInStore="0">
+            <label>Enable</label>
+            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="paging" translate="label comment" type="text" sortOrder="32" showInDefault="1" showInWebsite="0" showInStore="0">
+            <label>Products per Batch</label>
+            <depends>
+                <field id="advanced">1</field>
+            </depends>
+            <comment>Use the paging function on big catalogs. For example, if your catalog contains 50.000 SKU, use 5.000 per page to split the feed run and lower the load. The products will be combined in one feed after the generation is complete.</comment>
+        </field>
+        <field id="debug_memory" translate="label comment" type="select" sortOrder="33" showInDefault="1" showInWebsite="0" showInStore="0">
+            <label>Debug Memory Usage</label>
+            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+            <comment>Write the memory usage to the var/log/googleshopping.log file</comment>
+            <depends>
+                <field id="advanced">1</field>
+            </depends>
+        </field>
+    </group>
+</include>

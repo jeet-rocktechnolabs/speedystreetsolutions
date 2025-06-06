@@ -1,0 +1,34 @@
+<strong class="title" data-bind="i18n: title"></strong>
+
+<form data-form-js="am-details-form" data-mage-init='{"validation":{}}' enctype="multipart/form-data">
+    <!-- ko foreach: getRegion('customer-email') -->
+    <!-- ko template: getTemplate() --><!-- /ko -->
+    <!-- /ko -->
+    <fieldset class="fieldset amquote-summary-details">
+        <!-- ko foreach: getRegion('quote-attributes') -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+        <!-- /ko -->
+
+        <div class="field textarea">
+            <label class="label">
+                <span data-bind="i18n: remark_title"></span>
+                <div style="display:inline-block; width: 25px; height: 25px" data-bind="blockLoader: isLoading"></div>
+            </label>
+            <div class="control">
+                <textarea name="quote_remark"
+                          rows="3"
+                          cols="25"
+                          data-bind='value: remark, valueUpdate: "input"'>
+                </textarea>
+            </div>
+        </div>
+
+        <!-- ko if: notLoggedIn() -->
+
+        <!-- ko foreach: getRegion('customer-attributes') -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+        <!-- /ko -->
+
+        <!-- /ko -->
+    </fieldset>
+</form>

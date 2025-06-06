@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Hide Price (Call for Price) for Magento 2
+ */-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="amasty_hideprice_request" resource="default" engine="innodb" comment="Amasty Hide price Requests">
+        <column xsi:type="int" name="request_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Request Id"/>
+        <column xsi:type="varchar" name="name" nullable="false" length="255" comment="Name"/>
+        <column xsi:type="varchar" name="email" nullable="false" length="255" comment="Email"/>
+        <column xsi:type="varchar" name="phone" nullable="false" length="255" comment="Phone"/>
+        <column xsi:type="int" name="product_id" padding="11" unsigned="false" nullable="false" identity="false" default="0" comment="Product id"/>
+        <column xsi:type="smallint" name="store_id" padding="6" unsigned="false" nullable="false" identity="false" default="0" comment="Store id"/>
+        <column xsi:type="text" name="comment" nullable="false" comment="Comment"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Creation Time"/>
+        <column xsi:type="smallint" name="status" padding="6" unsigned="false" nullable="false" identity="false" default="0" comment="Status"/>
+        <column xsi:type="text" name="message_text" nullable="false" comment="Message Text"/>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="request_id"/>
+        </constraint>
+    </table>
+</schema>

@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Request a Quote Base for Magento 2
+ */-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Quote\Model\Quote\Item">
+        <plugin name="Amasty_Request::convert-custom-price" type="Amasty\RequestQuote\Plugin\Quote\Model\Quote\Item" />
+    </type>
+
+    <type name="Magento\Quote\Model\Quote\Address">
+        <plugin name="Amasty_Request::restrict-shipping-methods" type="Amasty\RequestQuote\Plugin\Quote\Model\Quote\AddressPlugin" />
+    </type>
+
+    <type name="Amasty\CheckoutCore\Api\ItemManagementInterface">
+        <plugin name="Amasty_Request::remove-amasty-quote-from-cart"
+                type="Amasty\RequestQuote\Plugin\CheckoutCore\Api\ItemManagementInterface\RemoveAmastyQuote" />
+    </type>
+
+    <type name="Amasty\RequestQuote\Model\QuoteItemRepository">
+        <plugin name="Amasty_Request::update-quote-id-from-request"
+                type="Amasty\RequestQuote\Plugin\RequestQuote\Model\QuoteItemRepository\UpdateQuoteId" />
+    </type>
+    <type name="Amasty\RequestQuote\Plugin\RequestQuote\Model\QuoteItemRepository\UpdateQuoteId">
+        <arguments>
+            <argument name="request" xsi:type="object">Magento\Framework\Webapi\Rest\Request</argument>
+        </arguments>
+    </type>
+
+    <type name="Amasty\RequestQuote\Model\Quote\QuoteManagement">
+        <plugin name="Amasty_RequestQuote::ValidateQuoteStatus"
+                type="Amasty\RequestQuote\Plugin\RequestQuote\Model\Quote\QuoteManagement\Webapi\ValidateQuoteStatus" />
+    </type>
+
+    <type name="Amasty\RequestQuote\Model\QuoteItemRepository">
+        <plugin name="Amasty_RequestQuote::ValidateQuoteStatus"
+                type="Amasty\RequestQuote\Plugin\RequestQuote\Model\QuoteItemRepository\Webapi\ValidateQuoteStatus" />
+    </type>
+
+    <type name="Amasty\RequestQuote\Model\Quote\Item\ItemManagement">
+        <plugin name="Amasty_RequestQuote::ValidateQuoteStatus"
+                type="Amasty\RequestQuote\Plugin\RequestQuote\Model\Quote\Item\ItemManagement\Webapi\ValidateQuoteStatus" />
+    </type>
+</config>

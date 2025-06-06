@@ -1,0 +1,18 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Request a Quote Base for Magento 2
+ */
+/** @var \Amasty\RequestQuote\Block\Cart\Quote\Link $block */
+?>
+<button type="button"
+        data-role="proceed-to-checkout"
+        title="<?= /* @noEscape */
+        __('Submit Quote') ?>"
+        data-mage-init='{"Amasty_RequestQuote/js/quote/submit":{}}'
+        class="action primary checkout"
+    <span><?= /* @noEscape */
+        __('Submit Quote') ?></span>
+</button>
+<p style="padding:10px 0px;"><strong>Note:</strong> Shipping address required to get quote.</p>

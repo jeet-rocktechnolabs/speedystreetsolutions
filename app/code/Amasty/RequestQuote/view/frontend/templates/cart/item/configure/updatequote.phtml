@@ -1,0 +1,49 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Request a Quote Base for Magento 2
+ */ /** @var \Magento\Framework\Escaper $escaper */ ?>
+<?php $product = $block->getProduct(); ?>
+<?php $buttonTitle = __('Update Quote'); ?>
+<?php if ($product->isSaleable()): ?>
+    <div class="box-tocart update">
+        <fieldset class="fieldset">
+            <?php if ($block->shouldRenderQuantity()): ?>
+                <div class="field qty">
+                    <label class="label" for="qty"><span><?= $escaper->escapeHtml(__('Qty')) ?></span></label>
+                    <div class="control">
+                        <input type="number"
+                               name="qty"
+                               id="qty"
+                               value=""
+                               title="<?= $escaper->escapeHtml(__('Qty')) ?>"
+                               class="input-text qty"
+                               data-validate="<?= $escaper->escapeHtml(json_encode($block->getQuantityValidators())) ?>"/>
+                    </div>
+                </div>
+            <?php endif; ?>
+            <div class="actions">
+                <button type="submit"
+                        title="<?= $escaper->escapeHtml($buttonTitle) ?>"
+                        class="amquote-addto-button"
+                        data-amquote-js="addto-button"
+                        id="product-updatecart-button">
+                    <span><?= $escaper->escapeHtml($buttonTitle) ?></span>
+                </button>
+                <?= $block->getChildHtml('', true) ?>
+            </div>
+        </fieldset>
+    </div>
+    <script type="text/x-magento-init">
+        {
+            "#product_addtocart_form": {
+                "validation": {},
+                "addToCart": {
+                    "cartButtonId": "#product-updatecart-button",
+                    "cartForm": "#product_addtocart_form"
+                }
+            }
+        }
+    </script>
+<?php endif; ?>

@@ -1,0 +1,37 @@
+/**
+ * MB "Vienas bitas" (Magetrend.com)
+ *
+ * PHP version 5.3 or later
+ *
+ * @category MageTrend
+ * @package  Magetend/AbandonedCart
+ * @author   Edvinas Stulpinas <edwin@magetrend.com>
+ * @license  http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+ * @link     https://www.magetrend.com/magento-2-abandoned-cart
+ */
+.ac-bar {
+    height: auto;
+    overflow: hidden;
+    display: none;
+}
+.ac-bar-body {
+    position: relative;
+}
+.ac-bar-content {
+    padding: 25px 50px 24px;
+    text-align: center;
+}
+.ac-bar-close {
+    position: absolute;
+    width: 24px;
+    height:24px;
+    top: 25px;
+    right: 0;
+    margin: 5px 20px;
+}
+.ac-bar-close  a {
+    display: block;
+    line-height: 24px;
+    height: 24px;
+}
+
