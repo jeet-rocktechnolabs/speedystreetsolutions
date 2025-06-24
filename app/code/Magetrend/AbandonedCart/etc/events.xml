@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * MB "Vienas bitas" (Magetrend.com)
+ *
+ * PHP version 5.3 or later
+ *
+ * @category MageTrend
+ * @package  Magetend/AbandonedCart
+ * @author   Edvinas Stulpinas <edwin@magetrend.com>
+ * @license  http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+ * @link     https://www.magetrend.com/magento-2-abandoned-cart
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/Event/etc/events.xsd">
+    <event name="customer_login">
+        <observer name="abandoned_cart_customer_login" instance="Magetrend\AbandonedCart\Observer\CustomerLogin" />
+    </event>
+
+    <event name="customer_register_success">
+        <observer name="abandoned_cart_customer_register_success" instance="Magetrend\AbandonedCart\Observer\CustomerRegisterSuccess"  />
+    </event>
+
+    <event name="sales_quote_save_before">
+        <observer name="abandoned_cart_sales_quote_save_before" instance="Magetrend\AbandonedCart\Observer\QuoteSaveBefore"  />
+    </event>
+
+    <event name="mtac_cart_restored">
+        <observer name="mtac_cancel_messages" instance="Magetrend\AbandonedCart\Observer\Queue\CancelSheduledMessages"  />
+    </event>
+
+    <event name="mtac_cart_before_send">
+        <observer name="mtac_cart_before_send_new_cart" instance="Magetrend\AbandonedCart\Observer\Queue\Cart\Cancel\NewCart"  />
+        <observer name="mtac_cart_before_send_new_order" instance="Magetrend\AbandonedCart\Observer\Queue\Cart\Cancel\NewOrder"  />
+        <observer name="mtac_cart_before_send_one_item_out_of_stock" instance="Magetrend\AbandonedCart\Observer\Queue\Cart\Cancel\OneOutOfStock"  />
+        <observer name="mtac_cart_before_send_all_item_out_of_stock" instance="Magetrend\AbandonedCart\Observer\Queue\Cart\Cancel\AllOutOfStock"  />
+    </event>
+
+    <event name="mtac_order_before_send">
+        <observer name="mtac_order_before_send_paid" instance="Magetrend\AbandonedCart\Observer\Queue\Order\Cancel\Paid"  />
+        <observer name="mtac_order_before_send_new_cart" instance="Magetrend\AbandonedCart\Observer\Queue\Order\Cancel\NewCart"  />
+        <observer name="mtac_order_before_send_new_order" instance="Magetrend\AbandonedCart\Observer\Queue\Order\Cancel\NewOrder"  />
+        <observer name="mtac_order_before_send_one_item_out_of_stock" instance="Magetrend\AbandonedCart\Observer\Queue\Order\Cancel\OneOutOfStock"  />
+        <observer name="mtac_order_before_send_all_item_out_of_stock" instance="Magetrend\AbandonedCart\Observer\Queue\Order\Cancel\AllOutOfStock"  />
+    </event>
+
+</config>

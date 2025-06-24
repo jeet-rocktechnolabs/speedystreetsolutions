@@ -1,0 +1,111 @@
+//
+//  Base Styles
+//  ____________________________________
+
+//
+//  Variables
+//  ------------------------------------
+
+@amtheme__logo--max-width: calc(~'100% - 70px * 3');
+
+//
+//  Common
+//  ------------------------------------
+
+& when (@media-common = true) {
+    .amasty-jet-theme {
+        .amsticky-cart-block.-amsticky-cart-active .amquote-addto-button {
+            min-width: auto;
+            padding: 11px 20px;
+        }
+
+        .amquote-addto-button {
+            border-radius: 0;
+            font-size: 2rem;
+            font-weight: @font-weight__bold;
+            line-height: 2.5rem;
+            padding: 19px;
+            width: 100%;
+        }
+
+        .page-header .amquote-top-quotecart {
+            width: 100%;
+        }
+
+        .amquote-action-wrap .actions-primary .action {
+            max-width: 100%;
+            width: 100%;
+        }
+
+        .amquote-action-wrap .amquote-addto-button {
+            .am-ellipsis();
+
+            margin-bottom: @amquote__indent;
+            padding: @amquote__indent 0;
+            width: 49%;
+        }
+
+        .amquote-showcart {
+            &:before {
+                min-height: 27px;
+                min-width: 27px;
+                padding-top: 2px;
+            }
+
+            .counter,
+            .counter-number {
+                position: inherit;
+            }
+        }
+
+        .header.content .amquote-cart-wrapper {
+            margin: 0;
+            padding: 0 @amquote__indent__xl;
+        }
+
+        &.amasty_quote-account-view .actions .action.order {
+            margin-right: 20px;
+        }
+    }
+}
+
+//
+//  Mobile
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .amasty-jet-theme .page-header .header {
+        &.content .logo,
+        &.content .ammenu-logo {
+            max-width: @amtheme__logo--max-width;
+        }
+
+        .amquote-cart-wrapper.minicart-wrapper {
+            padding: 0 22px 0 0;
+        }
+
+        .minicart-wrapper.amtheme-header-icon {
+            margin: 0;
+        }
+    }
+}
+
+//
+//  Desktop
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .amasty-jet-theme {
+        .amquote-addto-button {
+            width: auto;
+        }
+
+        .page-header .amtheme-icons-container {
+            order: 2;
+        }
+
+        .header.content .amquote-cart-wrapper {
+            padding: 0 @amquote__indent 0 0;
+        }
+    }
+}

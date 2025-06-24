@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magmodules.eu. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="magmodules" translate="label" sortOrder="500" class="magmodules-extensions">
+            <label>Magmodules</label>
+        </tab>
+        <section id="magmodules_googleshopping" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Google Shopping</label>
+            <tab>magmodules</tab>
+            <resource>Magmodules_GoogleShopping::config</resource>
+
+            <include path="Magmodules_GoogleShopping::system/branding.xml"/>
+            <include path="Magmodules_GoogleShopping::system/general.xml"/>
+            <include path="Magmodules_GoogleShopping::system/data.xml"/>
+            <include path="Magmodules_GoogleShopping::system/types.xml"/>
+            <include path="Magmodules_GoogleShopping::system/advanced.xml"/>
+            <include path="Magmodules_GoogleShopping::system/filter.xml"/>
+            <include path="Magmodules_GoogleShopping::system/generate.xml"/>
+            <include path="Magmodules_GoogleShopping::system/debug.xml"/>
+            <include path="Magmodules_GoogleShopping::system/feeds.xml"/>
+
+        </section>
+    </system>
+</config>

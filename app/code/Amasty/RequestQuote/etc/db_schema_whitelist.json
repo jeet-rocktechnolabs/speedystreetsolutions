@@ -1,0 +1,34 @@
+{
+    "amasty_quote": {
+        "column": {
+            "quote_id": true,
+            "customer_name": true,
+            "increment_id": true,
+            "status": true,
+            "remarks": true,
+            "expired_date": true,
+            "reminder_date": true,
+            "submited_date": true,
+            "admin_notification_send": true,
+            "discount": true,
+            "surcharge": true,
+            "reminder_send": true,
+            "shipping_can_modified": true,
+            "shipping_configured": true,
+            "custom_fee": true,
+            "custom_method_enabled": true,
+            "sum_original_price": true
+        },
+        "index": {
+            "AMASTY_QUOTE_STATUS": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "catalog_product_entity": {
+        "index": {
+            "CATALOG_PRODUCT_ENTITY_TYPE_ID": true
+        }
+    }
+}

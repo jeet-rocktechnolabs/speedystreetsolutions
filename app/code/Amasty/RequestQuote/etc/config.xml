@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Request a Quote Base for Magento 2
+ */-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <amasty_request_quote>
+            <general>
+                <exclude_category>0</exclude_category>
+                <url_key>request_quote</url_key>
+                <guest_button_text>Login for quote</guest_button_text>
+                <auto_approve>0</auto_approve>
+                <cost_attr>cost</cost_attr>
+                <is_allow_customize_price>1</is_allow_customize_price>
+                <custom_rate_label>Custom Fee</custom_rate_label>
+                <allow_create_account_for_guest>1</allow_create_account_for_guest>
+            </general>
+            <admin_notifications>
+                <frequency>D</frequency>
+                <time>23,50,00</time>
+            </admin_notifications>
+            <customer_notifications>
+                <enable_notifications>1</enable_notifications>
+            </customer_notifications>
+        </amasty_request_quote>
+        <crontab>
+            <default>
+                <jobs>
+                    <amasty_quote_notify_admin>
+                        <schedule>
+                            <cron_expr>50 23 * * *</cron_expr>
+                        </schedule>
+                    </amasty_quote_notify_admin>
+                </jobs>
+            </default>
+        </crontab>
+        <carriers>
+            <amasty_quote_custom_fee>
+                <active>1</active>
+                <title>Custom</title>
+                <model>Amasty\RequestQuote\Model\Quote\Carrier\Custom</model>
+                <sort_order>9999</sort_order>
+            </amasty_quote_custom_fee>
+        </carriers>
+    </default>
+</config>

@@ -1,0 +1,43 @@
+<?php
+/**
+ * MB "Vienas bitas" (Magetrend.com)
+ *
+ * PHP version 5.3 or later
+ *
+ * @category MageTrend
+ * @package  Magetend/AbandonedCart
+ * @author   Edvinas Stulpinas <edwin@magetrend.com>
+ * @license  http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+ * @link     https://www.magetrend.com/magento-2-abandoned-cart
+ */
+// @codingStandardsIgnoreFile
+?>
+<?php $items = $block->getItems(); ?>
+<table width="100%" style="width:100% !important;" cellspacing="0" cellpadding="0" border="0">
+    <tr>
+        <td style="font-size: 15px; line-height: 26px; color: #707582;">
+            <table border="0" width="100%" cellspacing="0" cellpadding="0" style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">
+                <tr style="background-color: #e26a0a;" bgcolor="#e26a0a">
+                    <td height="45"  width="2%">&nbsp;</td>
+                    <td style="color: #ffffff; font-weight: bold; font-size: 14px;" height="45"  align="left">
+                        <?php echo __('Item');?>
+                    </td>
+                    <td style="color: #ffffff; font-weight: bold;font-size: 14px;" height="45"  width="15%" align="center">
+                        <?php echo __('Qty');?>
+                    </td>
+                    <td style="color: #ffffff; font-weight: bold;font-size: 14px;" height="45"  width="15%" align="right">
+                        <?php echo __('Subtotal'); ?>
+                    </td>
+                    <td height="45"  width="2%">&nbsp;</td>
+                </tr>
+                <?php $i=0; foreach ($items as $_item): ?>
+                    <?php if($_item->getParentItem()) continue; else $i++; ?>
+                    <?php echo $block->getItemHtml($_item); ?>
+                    <tr>
+                        <td height="1" style="background-color: #e26a0a; font-size:0px; line-height:0px; height:1px;" bgcolor="#e26a0a" colspan="5" ><div style="font-size: 0; height: 0; line-height: 0px;">&nbsp;</div></td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+        </td>
+    </tr>
+</table>

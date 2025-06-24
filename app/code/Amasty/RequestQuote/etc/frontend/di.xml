@@ -1,0 +1,113 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Request a Quote Base for Magento 2
+ */-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Customer\CustomerData\SectionPoolInterface">
+        <arguments>
+            <argument name="sectionSourceMap" xsi:type="array">
+                <item name="quotecart" xsi:type="string">Amasty\RequestQuote\CustomerData\QuoteCart</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\Url\SecurityInfo">
+        <arguments>
+            <argument name="secureUrlList" xsi:type="array">
+                <item name="amasty_quote_index" xsi:type="string">/amasty_quote/cart/</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\App\RouterList">
+        <arguments>
+            <argument name="routerList" xsi:type="array">
+                <item name="amasty_quote" xsi:type="array">
+                    <item name="class" xsi:type="string">Amasty\RequestQuote\Controller\Router</item>
+                    <item name="disable" xsi:type="boolean">false</item>
+                    <item name="sortOrder" xsi:type="string">28</item><!--Before Standard Route-->
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Checkout\Model\Cart">
+        <plugin name="Amasty_RequestQuote::clear-quote-from-cart" type="Amasty\RequestQuote\Plugin\Checkout\Model\Cart" />
+    </type>
+
+    <type name="Magento\Multishipping\Model\Checkout\Type\Multishipping">
+        <plugin name="Amasty_RequestQuote::disable-remove-multishipping" type="Amasty\RequestQuote\Plugin\Multishipping\Model\Checkout\Type\Multishipping" />
+    </type>
+
+    <type name="Magento\Quote\Model\Quote\Item">
+        <plugin name="Amasty_Request::convert-custom-price" type="Amasty\RequestQuote\Plugin\Quote\Model\Quote\Item" />
+    </type>
+
+    <virtualType name="Amasty\RequestQuote\Persistent\Observer\EmulateQuoteObserver" type="Magento\Persistent\Observer\EmulateQuoteObserver">
+        <arguments>
+            <argument name="checkoutSession" xsi:type="object">Amasty\RequestQuote\Model\Quote\Session</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- inject Request Quote Session in Ajax Cart controllers for modifying right quote -->
+    <type name="Amasty\RequestQuote\Plugin\Cart\Controller\QuotePlugin">
+        <arguments>
+            <argument name="sidebar" xsi:type="object">Amasty\RequestQuote\Model\Sidebar</argument>
+        </arguments>
+    </type>
+    <type name="Amasty\Cart\Controller\Quote\Add">
+        <plugin name="Amasty_Request::inject-add-params" type="Amasty\RequestQuote\Plugin\Cart\Controller\QuotePlugin" />
+    </type>
+    <type name="Amasty\Cart\Controller\Quote\Update">
+        <plugin name="Amasty_Request::inject-update-params" type="Amasty\RequestQuote\Plugin\Cart\Controller\QuotePlugin" />
+    </type>
+    <type name="Amasty\Cart\Controller\Quote\UpdateItemOptions">
+        <plugin name="Amasty_Request::inject-update-item-options" type="Amasty\RequestQuote\Plugin\Cart\Controller\QuotePlugin" />
+    </type>
+
+    <virtualType name="Amasty\RequestQuote\Model\CustomerExtractor" type="Magento\Customer\Model\CustomerExtractor">
+        <arguments>
+            <argument name="formFactory" xsi:type="object">Amasty\RequestQuote\Model\Customer\Metadata\FormFactory</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Amasty\RequestQuote\Controller\Cart">
+        <arguments>
+            <argument name="customerExtractor" xsi:type="object">Amasty\RequestQuote\Model\CustomerExtractor</argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Quote\Model\Quote\Address">
+        <plugin name="Amasty_Request::restrict-shipping-methods" type="Amasty\RequestQuote\Plugin\Quote\Model\Quote\AddressPlugin" />
+    </type>
+
+    <!-- add shipping address, selected from admin, into checkout config -->
+    <type name="Magento\Checkout\Model\CompositeConfigProvider">
+        <arguments>
+            <argument name="configProviders" xsi:type="array">
+                <item name="amasty_quote_shipping_address" xsi:type="object">Amasty\RequestQuote\Model\CheckoutConfigProvider\ShippingAddress</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Checkout\Model\CompositeConfigProvider">
+        <plugin name="Amasty_RequestQuote::remove-customer-addresses-from-checkout" type="Amasty\RequestQuote\Plugin\Checkout\Model\CompositeConfigProviderPlugin" />
+    </type>
+
+    <type name="Magento\Multishipping\Helper\Data">
+        <plugin name="Amasty_RequestQuote::disable-multishipping" type="Amasty\RequestQuote\Plugin\Multishipping\Helper\DataPlugin" />
+    </type>
+
+    <type name="Amasty\RequestQuote\Block\Cart\Quote\Details">
+        <arguments>
+            <argument name="layoutProcessors" xsi:type="array">
+                <item name="customerAttributes"
+                      xsi:type="object">Amasty\RequestQuote\Block\Cart\Quote\Details\CustomerAttributesProcessor</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

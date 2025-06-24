@@ -1,0 +1,156 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * MB "Vienas bitas" (Magetrend.com)
+ *
+ * PHP version 5.3 or later
+ *
+ * @category MageTrend
+ * @package  Magetend/AbandonedCart
+ * @author   Edvinas Stulpinas <edwin@magetrend.com>
+ * @license  http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+ * @link     https://www.magetrend.com/magento-2-abandoned-cart
+ */
+ -->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="adminhtml.abandonedcart.queue.container">
+            <block class="Magetrend\AbandonedCart\Block\Adminhtml\Queue\Grid" name="adminhtml.abandonedcart.queue.grid" as="grid">
+                <arguments>
+                    <argument name="id" xsi:type="string">queueGrid</argument>
+                    <argument name="dataSource" xsi:type="object">Magetrend\AbandonedCart\Model\ResourceModel\Queue\Collection</argument>
+                    <argument name="default_sort" xsi:type="string">entity_id</argument>
+                    <argument name="default_dir" xsi:type="string">desc</argument>
+                    <argument name="use_ajax" xsi:type="string">1</argument>
+                    <argument name="grid_url" xsi:type="url" path="abandonedcart/queue/grid">
+                        <param name="_current">1</param>
+                    </argument>
+                </arguments>
+
+                <block class="Magento\Backend\Block\Widget\Grid\Massaction" name="adminhtml.newslettrer.queue.grid.massaction" as="grid.massaction">
+                    <arguments>
+                        <argument name="massaction_id_field" xsi:type="string">entity_id</argument>
+                        <argument name="form_field_name" xsi:type="string">queue</argument>
+                        <argument name="use_select_all" xsi:type="string">1</argument>
+                        <argument name="options" xsi:type="array">
+                            <item name="cancel" xsi:type="array">
+                                <item name="label" xsi:type="string" translate="true">Cancel</item>
+                                <item name="url" xsi:type="string">*/*/massCancel</item>
+                            </item>
+                            <item name="delete" xsi:type="array">
+                                <item name="label" xsi:type="string" translate="true">Delete</item>
+                                <item name="url" xsi:type="string">*/*/massDelete</item>
+                            </item>
+                        </argument>
+                    </arguments>
+                </block>
+
+                <block class="Magento\Backend\Block\Widget\Grid\ColumnSet" name="adminhtml.abandonedcart.queue.grid.columnSet" as="grid.columnSet">
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="entity_id">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">ID</argument>
+                            <argument name="index" xsi:type="string">entity_id</argument>
+                            <argument name="filter_index" xsi:type="string">main_table.entity_id</argument>
+
+                            <argument name="header_css_class" xsi:type="string">col-id</argument>
+                            <argument name="column_css_class" xsi:type="string">col-id</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="rule_type">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">Type</argument>
+                            <argument name="index" xsi:type="string">rule_type</argument>
+                            <argument name="filter_index" xsi:type="string">rule.type</argument>
+                            <argument name="header_css_class" xsi:type="string">col-rule-type</argument>
+                            <argument name="column_css_class" xsi:type="string">col-rule-type</argument>
+                            <argument name="type" xsi:type="string">options</argument>
+                            <argument name="options" xsi:type="array">
+                                <item name="active" xsi:type="array">
+                                    <item name="value" xsi:type="string">follow_up</item>
+                                    <item name="label" xsi:type="string" translate="true">Order Rule</item>
+                                </item>
+                                <item name="inactive" xsi:type="array">
+                                    <item name="value" xsi:type="string">abandoned_cart</item>
+                                    <item name="label" xsi:type="string" translate="true">Cart Rule</item>
+                                </item>
+                            </argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="quote_id">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">Quote ID</argument>
+                            <argument name="index" xsi:type="string">quote_id</argument>
+                            <argument name="header_css_class" xsi:type="string">col-name</argument>
+                            <argument name="column_css_class" xsi:type="string">col-name</argument>
+                        </arguments>
+                    </block>
+
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="order_id">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">Order ID</argument>
+                            <argument name="index" xsi:type="string">order_id</argument>
+                            <argument name="header_css_class" xsi:type="string">col-name</argument>
+                            <argument name="column_css_class" xsi:type="string">col-name</argument>
+                            <argument name="renderer" xsi:type="string">Magetrend\AbandonedCart\Block\Adminhtml\Widget\Grid\Column\Renderer\OrderId</argument>
+                        </arguments>
+                    </block>
+
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="rule_name">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">Rule</argument>
+                            <argument name="index" xsi:type="string">rule_name</argument>
+                            <argument name="filter_index" xsi:type="string">rule.name</argument>
+                            <argument name="header_css_class" xsi:type="string">col-rule</argument>
+                            <argument name="column_css_class" xsi:type="string">col-rule</argument>
+                        </arguments>
+                    </block>
+
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="customer_group">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">Customer Group</argument>
+                            <argument name="index" xsi:type="string">customer_group</argument>
+                            <argument name="filter_index" xsi:type="string">quote.customer_group_id</argument>
+                            <argument name="header_css_class" xsi:type="string">col-group</argument>
+                            <argument name="column_css_class" xsi:type="string">col-group</argument>
+                            <argument name="filter" xsi:type="string">Magetrend\AbandonedCart\Block\Adminhtml\Widget\Grid\Column\Filter\CustomerGroup</argument>
+                            <argument name="renderer" xsi:type="string">Magetrend\AbandonedCart\Block\Adminhtml\Widget\Grid\Column\Renderer\CustomerGroup</argument>
+                        </arguments>
+                    </block>
+
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="customer_email">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">Customer Email</argument>
+                            <argument name="index" xsi:type="string">customer_email</argument>
+                            <argument name="filter_index" xsi:type="string">quote.customer_email</argument>
+                            <argument name="header_css_class" xsi:type="string">col-email</argument>
+                            <argument name="column_css_class" xsi:type="string">col-email</argument>
+                            <argument name="renderer" xsi:type="string">Magetrend\AbandonedCart\Block\Adminhtml\Widget\Grid\Column\Renderer\CustomerEmail</argument>
+                        </arguments>
+                    </block>
+
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="scheduled_at">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">Scheduled At</argument>
+                            <argument name="type" xsi:type="string">datetime</argument>
+                            <argument name="index" xsi:type="string">scheduled_at</argument>
+                            <argument name="id" xsi:type="string">scheduled_at</argument>
+                            <argument name="header_css_class" xsi:type="string">col-period</argument>
+                            <argument name="column_css_class" xsi:type="string">col-period</argument>
+                        </arguments>
+                    </block>
+
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="status">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">Status</argument>
+                            <argument name="index" xsi:type="string">status</argument>
+                            <argument name="header_css_class" xsi:type="string">col-status</argument>
+                            <argument name="column_css_class" xsi:type="string">col-status</argument>
+                            <argument name="filter" xsi:type="string">Magetrend\AbandonedCart\Block\Adminhtml\Widget\Grid\Column\Filter\Status</argument>
+                            <argument name="renderer" xsi:type="string">Magetrend\AbandonedCart\Block\Adminhtml\Widget\Grid\Column\Renderer\Status</argument>
+                        </arguments>
+                    </block>
+                </block>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

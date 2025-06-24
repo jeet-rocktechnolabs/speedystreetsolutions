@@ -1,0 +1,29 @@
+{
+    "name": "magepow/ajaxcart",
+    "description": "Magepow Ajax Add To Cart",
+    "suggest": {
+        "magento/module-cookie": "100.1.*"
+    },
+    "type": "magento2-module",
+    "version": "1.1.4",
+    "license": [
+        "OSL-3.0",
+        "AFL-3.0"
+    ],
+    "authors": [
+        {
+            "name": "Magepow",
+            "email": "support@magepow.com",
+            "homepage": "https://magepow.com",
+            "role": "Technical Support"
+        }
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Magepow\\Ajaxcart\\": ""
+        }
+    }
+}

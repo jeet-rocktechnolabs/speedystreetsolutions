@@ -1,0 +1,46 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Request a Quote Base for Magento 2
+ */
+/** @var \Amasty\RequestQuote\Block\Cart\Item\Price\Renderer $block */
+$item = $block->getItem();
+?>
+<?php if ($block->canCustomizePrice()): ?>
+    <div class="field price">
+        <div class="control price">
+            <?= $escaper->escapeHtml($block->getCurrencySymbol()) ?>
+            <input id="cart-<?= $escaper->escapeHtml($item->getId()) ?>-price"
+                   name="cart[<?= $escaper->escapeHtml($item->getId()) ?>][price]"
+                   data-cart-item-id="<?= $escaper->escapeHtml($item->getSku()) ?>"
+                   value="<?= $escaper->escapeHtml($block->getInputPrice()) ?>"
+                   type="number"
+                   size="4"
+                   title="<?= $escaper->escapeHtml(__('Price')) ?>"
+                   class="input-text price amquotereq-input"
+                   data-validate="{required:true,'validate-greater-than-zero':true}"
+                   data-role="cart-item-price" />
+        </div>
+    </div>
+<?php else: ?>
+    <?php if ((float) $item->getPrice()): ?>
+        <?php if ($block->displayCartPriceInclTax()): ?>
+            <?php $_incl = $block->getCheckoutHelper()->getPriceInclTax($item); ?>
+            <span class="cart-price">
+                <?= $escaper->escapeHtml($block->formatPrice($_incl), ['span']) ?>
+            </span>
+        <?php endif; ?>
+        <?php if ($block->displayCartPriceExclTax()): ?>
+            <span class="price-including-tax" data-label="<?= $escaper->escapeHtmlAttr(__('Excl. Tax')) ?>">
+                <span class="cart-price">
+                    <?= $escaper->escapeHtml($block->formatPrice($item->getCalculationPrice()), ['span']) ?>
+                </span>
+            </span>
+        <?php endif; ?>
+    <?php else: ?>
+        <span class="cart-price">
+            <?= $escaper->escapeHtml(__('N/A')) ?>
+        </span>
+    <?php endif; ?>
+<?php endif; ?>

@@ -1,0 +1,38 @@
+<!--@subject {{trans "Email alert for created quote requests"}} @-->
+<!--@vars
+{
+"var viewUrl":"Url for view quote",
+"var customerName":"Customer Name",
+"var expiredDate":"Expired Date",
+"var remarks":"Email Quote Note",
+"var quote.increment_id":"Quote Id",
+"layout handle=\"amasty_quote_email_items\" quote_id=$quote.getEntityId() area=\"frontend\"":"Quote Items Grid",
+"var store.getFrontendName()":"Store Name",
+"var quote.getCreatedAtFormatted(2)":"Quote Created At",
+"var remarks|escape|nl2br":"Customer Remarks",
+"var quote":"Quote object",
+"var quote.getEntityId()":"Quote ID"
+}
+@-->
+{{template config_path="design/email/header_template"}}
+<p>{{trans "Hello %name," name=$customerName}}</p>
+
+<p>{{trans "Quote request for %store_name has been created. You can check the status of your quote request and proceed to checkout by " store_name=$store.getFrontendName()}}<a href="{{var viewUrl}}">{{trans "logging into your account"}}.</a></p>
+
+{{trans 'Quote #%increment_id' increment_id=$quote.increment_id |raw}}
+{{trans 'Issued on %created_at' created_at=$quote.getCreatedAtFormatted(2) |raw}}
+
+{{depend remarks}}
+{{var remarks|escape|nl2br}}
+{{/depend}}
+
+{{layout handle="amasty_quote_email_items" quote_id=$quote.getEntityId() area="frontend"}}
+
+{{depend expiredDate}}
+{{trans "The Quote Proposal will expire on %expiredDate" expiredDate=$expiredDate}}
+
+{{/depend}}
+
+{{trans "Thank you!"}}
+
+{{template config_path="design/email/footer_template"}}

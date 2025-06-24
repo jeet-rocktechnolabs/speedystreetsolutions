@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magmodules.eu. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magmodules\GoogleShopping\Api\Config\RepositoryInterface"
+                type="Magmodules\GoogleShopping\Model\Config\Repository"/>
+    <preference for="Magmodules\GoogleShopping\Api\Log\RepositoryInterface"
+                type="Magmodules\GoogleShopping\Model\Log\Repository"/>
+    <preference for="Magmodules\GoogleShopping\Api\Selftest\RepositoryInterface"
+                type="Magmodules\GoogleShopping\Model\Selftest\Repository"/>
+
+    <type name="Magmodules\GoogleShopping\Model\Selftest\Repository">
+        <arguments>
+            <argument name="testList" xsi:type="array">
+                <item name="phpVersion" xsi:type="object">Magmodules\GoogleShopping\Service\Test\PhpVersion</item>
+                <item name="cron" xsi:type="object">Magmodules\GoogleShopping\Service\Test\Cron</item>
+                <item name="extensionStatus" xsi:type="object">Magmodules\GoogleShopping\Service\Test\ExtensionStatus</item>
+                <item name="phpExtensions" xsi:type="object">Magmodules\GoogleShopping\Service\Test\PhpExtensions</item>
+                <item name="magentoVersion" xsi:type="object">Magmodules\GoogleShopping\Service\Test\MagentoVersion</item>
+                <item name="extensionVersion" xsi:type="object">Magmodules\GoogleShopping\Service\Test\ExtensionVersion</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magmodules\GoogleShopping\Console\Command\Selftest">
+        <arguments>
+            <argument name="selftestRepository" xsi:type="object">Magmodules\GoogleShopping\Api\Selftest\RepositoryInterface\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="GoogleShoppingFeedGenerate" xsi:type="object">Magmodules\GoogleShopping\Console\Command\FeedGenerate</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magmodules\GoogleShopping\Logger\ErrorLogger">
+        <arguments>
+            <argument name="name" xsi:type="string">GoogleShoppingError</argument>
+            <argument name="handlers" xsi:type="array">
+                <item name="system" xsi:type="object">Magmodules\GoogleShopping\Logger\Handler\Error</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magmodules\GoogleShopping\Logger\DebugLogger">
+        <arguments>
+            <argument name="name" xsi:type="string">GoogleShoppingDebug</argument>
+            <argument name="handlers" xsi:type="array">
+                <item name="system" xsi:type="object">Magmodules\GoogleShopping\Logger\Handler\Debug</item>
+            </argument>
+        </arguments>
+    </type>
+    
+    <type name="Magmodules\GoogleShopping\Console\Command\FeedGenerate">
+        <arguments>
+            <argument name="feedModel" xsi:type="object">Magmodules\GoogleShopping\Model\Feed\Proxy</argument>
+            <argument name="generalHelper" xsi:type="object">Magmodules\GoogleShopping\Helper\General\Proxy</argument>
+        </arguments>
+    </type>
+</config>

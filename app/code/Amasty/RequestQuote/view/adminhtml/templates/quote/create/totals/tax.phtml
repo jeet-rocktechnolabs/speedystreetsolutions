@@ -1,0 +1,67 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Request a Quote Base for Magento 2
+ */
+$taxAmount = $block->getTotal()->getValue();
+?>
+<?php /* phpcs:disable Magento2.Templates.ThisInTemplate.FoundHelper */ $displayZeroTax = $this->helper(\Magento\Tax\Helper\Data::class)->displayZeroTax() ?>
+<?php if (($taxAmount == 0 && $displayZeroTax) || ($taxAmount > 0)): ?>
+<?php
+    /* phpcs:disable Squiz.PHP.GlobalKeyword.NotAllowed */
+    global $taxIter;
+    $taxIter++;
+?>
+<?php /* phpcs:disable Magento2.Templates.ThisInTemplate.FoundHelper */ $displayFullSummary = $this->helper(\Magento\Tax\Helper\Data::class)->displayFullSummary() ?>
+<?php
+    $class = "{$block->getTotal()->getCode()} " . ($displayFullSummary ? 'summary-total' : '');
+    /* phpcs:disable Magento2.Templates.ThisInTemplate.FoundHelper */
+    $displayFullSummary = $this->helper(\Magento\Tax\Helper\Data::class)->displayFullSummary()
+?>
+<tr<?php if ($displayFullSummary): ?>
+    onclick="expandDetails(this, '.summary-details-<?= /* @noEscape */ $taxIter ?>')"
+<?php endif; ?>
+    class="<?= /* @noEscape */ $class ?> row-totals">
+    <td style="<?= /* @noEscape */ $block->getTotal()->getStyle() ?>" class="admin__total-mark" colspan="<?= /* @noEscape */ $block->getColspan() ?>">
+        <?php if ($displayFullSummary): ?>
+            <div class="summary-collapse"><?= /* @noEscape */ $block->getTotal()->getTitle() ?></div>
+        <?php else: ?>
+            <?= /* @noEscape */ $block->getTotal()->getTitle() ?>
+        <?php endif;?>
+    </td>
+    <td style="<?= /* @noEscape */ $block->getTotal()->getStyle() ?>" class="admin__total-amount"><?= /* @noEscape */ $block->formatPrice($block->getTotal()->getValue()) ?></td>
+</tr>
+<?php if ($displayFullSummary): ?>
+        <?php $isTop = 1; ?>
+        <?php foreach ($block->getTotal()->getFullInfo() as $info): ?>
+                <?php if (isset($info['hidden']) && $info['hidden']) {
+                    continue;
+                } ?>
+                <?php $percent = $info['percent']; ?>
+                <?php $amount = $info['amount']; ?>
+                <?php $rates = $info['rates']; ?>
+                <?php $isFirst = 1; ?>
+
+                <?php foreach ($rates as $rate): ?>
+                <tr class="summary-details-<?= /* @noEscape */ $taxIter ?> summary-details<?= /* @noEscape */ $isTop ? ' summary-details-first' : '' ?>" style="display:none;">
+                    <td class="admin__total-mark" style="<?= /* @noEscape */ $block->getTotal()->getStyle() ?>" colspan="<?= /* @noEscape */ $block->getColspan() ?>">
+                        <?= $escaper->escapeHtml($rate['title']) ?>
+                        <?php if ($rate['percent'] !== null): ?>
+                            (<?= /* @noEscape */ (float)$rate['percent'] ?>%)
+                        <?php endif; ?>
+                        <br />
+                    </td>
+                    <?php if ($isFirst): ?>
+                        <td style="<?= /* @noEscape */ $block->getTotal()->getStyle() ?>" class="admin__total-amount" rowspan="<?= /* @noEscape */ count($rates) ?>">
+                            <?= /* @noEscape */ $block->formatPrice($amount) ?>
+                        </td>
+                    <?php endif; ?>
+                </tr>
+                <?php $isFirst = 0; ?>
+                <?php $isTop = 0; ?>
+                <?php endforeach; ?>
+        <?php endforeach; ?>
+<?php endif;?>
+<?php endif;?>
+

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Hide Price (Call for Price) for Magento 2
+ */-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="amasty_quickorder_collection_load_before">
+        <observer name="amasty_quickorder_collection_load_before" instance="Amasty\HidePrice\Observer\QuickOrder\AddHidePriceAttributesToCollection" />
+    </event>
+</config>

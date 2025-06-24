@@ -1,0 +1,335 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Request a Quote Base for Magento 2
+ */-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <route url="/V1/amasty_quote/updateRemark" method="PUT">
+        <service class="Amasty\RequestQuote\Api\RemarkServiceInterface" method="save"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    <route url="/V1/amasty_quote/approve/:quoteId" method="PUT">
+        <service class="Amasty\RequestQuote\Api\QuoteRepositoryInterface" method="approve"/>
+        <resources>
+            <resource ref="Amasty_RequestQuote::approve" />
+        </resources>
+    </route>
+    <route url="/V1/amasty_quote/expire/:quoteId" method="PUT">
+        <service class="Amasty\RequestQuote\Api\QuoteRepositoryInterface" method="expire"/>
+        <resources>
+            <resource ref="Amasty_RequestQuote::close" />
+        </resources>
+    </route>
+    <route url="/V1/amasty_quote/search" method="GET">
+        <service class="Amasty\RequestQuote\Api\CustomerAccount\QuoteRepositoryInterface" method="getRequestsList"/>
+        <resources>
+            <resource ref="Amasty_RequestQuote::manage_quotes" />
+        </resources>
+    </route>
+    <route url="/V1/amasty_quote/:quoteId" method="GET">
+        <service class="Amasty\RequestQuote\Api\CustomerAccount\QuoteRepositoryInterface" method="get"/>
+        <resources>
+            <resource ref="Amasty_RequestQuote::manage_quotes" />
+        </resources>
+    </route>
+    <route url="/V1/amasty_quote/quote/note/customer:quoteId" method="PUT">
+        <service class="Amasty\RequestQuote\Api\QuoteRepositoryInterface" method="addCustomerNote"/>
+        <resources>
+            <resource ref="Amasty_RequestQuote::manage_quotes" />
+        </resources>
+    </route>
+    <route url="/V1/amasty_quote/quote/note/admin:quoteId" method="PUT">
+        <service class="Amasty\RequestQuote\Api\QuoteRepositoryInterface" method="addAdminNote"/>
+        <resources>
+            <resource ref="Amasty_RequestQuote::manage_quotes" />
+        </resources>
+    </route>
+    <route url="/V1/amasty_quote/quote_item/note/customer:quoteId" method="PUT">
+        <service class="Amasty\RequestQuote\Api\QuoteItemRepositoryInterface" method="addCustomerNote"/>
+        <resources>
+            <resource ref="Amasty_RequestQuote::manage_quotes" />
+        </resources>
+    </route>
+    <route url="/V1/amasty_quote/quote_item/note/admin:quoteId" method="PUT">
+        <service class="Amasty\RequestQuote\Api\QuoteItemRepositoryInterface" method="addAdminNote"/>
+        <resources>
+            <resource ref="Amasty_RequestQuote::manage_quotes" />
+        </resources>
+    </route>
+
+    <!-- Managing Quote Cart -->
+    <route url="/V1/quote-carts/:quoteId" method="GET">
+        <service class="Amasty\RequestQuote\Api\QuoteRepositoryInterface" method="get"/>
+        <resources>
+            <resource ref="Amasty_RequestQuote::manage_quotes" />
+        </resources>
+    </route>
+    <route url="/V1/quote-carts" method="POST">
+        <service class="Amasty\RequestQuote\Api\QuoteManagementInterface" method="createEmptyQuoteCart"/>
+        <resources>
+            <resource ref="Amasty_RequestQuote::manage_quotes" />
+        </resources>
+        <data>
+            <parameter name="status" force="true">%new_quote_status%</parameter>
+        </data>
+    </route>
+    <route url="/V1/customers/:customerId/quote-carts" method="POST">
+        <service class="Amasty\RequestQuote\Api\QuoteManagementInterface" method="createEmptyQuoteCartForCustomer"/>
+        <resources>
+            <resource ref="Amasty_RequestQuote::manage_quotes" />
+        </resources>
+        <data>
+            <parameter name="status" force="true">%new_quote_status%</parameter>
+        </data>
+    </route>
+    <route url="/V1/quote-carts/:quoteId" method="PUT">
+        <service class="Amasty\RequestQuote\Api\QuoteManagementInterface" method="assignCustomer"/>
+        <resources>
+            <resource ref="Amasty_RequestQuote::manage_quotes" />
+        </resources>
+    </route>
+    <route url="/V1/quote-carts/:quoteId/cancel" method="PUT">
+        <service class="Amasty\RequestQuote\Api\QuoteServiceInterface" method="cancelQuote"/>
+        <resources>
+            <resource ref="Amasty_RequestQuote::close" />
+        </resources>
+    </route>
+    <route url="/V1/quote-carts/:quoteId/items" method="GET">
+        <service class="Amasty\RequestQuote\Api\QuoteItemRepositoryInterface" method="getList"/>
+        <resources>
+            <resource ref="Amasty_RequestQuote::manage_quotes" />
+        </resources>
+    </route>
+    <route url="/V1/quote-carts/:quoteId/items" method="POST">
+        <service class="Amasty\RequestQuote\Api\QuoteItemManagementInterface" method="save"/>
+        <resources>
+            <resource ref="Amasty_RequestQuote::manage_quotes" />
+        </resources>
+    </route>
+    <route url="/V1/quote-carts/:quoteId/items/:itemId" method="PUT">
+        <service class="Amasty\RequestQuote\Api\QuoteItemManagementInterface" method="save"/>
+        <resources>
+            <resource ref="Amasty_RequestQuote::manage_quotes" />
+        </resources>
+    </route>
+    <route url="/V1/quote-carts/:quoteId/items/:itemId" method="DELETE">
+        <service class="Amasty\RequestQuote\Api\QuoteItemRepositoryInterface" method="deleteById"/>
+        <resources>
+            <resource ref="Amasty_RequestQuote::manage_quotes" />
+        </resources>
+    </route>
+
+    <!-- Managing my quote cart -->
+    <route url="/V1/quote-carts/mine" method="POST">
+        <service class="Amasty\RequestQuote\Api\QuoteManagementInterface" method="createEmptyQuoteCartForCustomer"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+        <data>
+            <parameter name="customerId" force="true">%customer_id%</parameter>
+            <parameter name="status" force="true">%new_quote_status%</parameter>
+        </data>
+    </route>
+    <route url="/V1/quote-carts/mine" method="GET">
+        <service class="Amasty\RequestQuote\Api\QuoteManagementInterface" method="getQuoteCartForCustomer"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+        <data>
+            <parameter name="customerId" force="true">%customer_id%</parameter>
+        </data>
+    </route>
+    <route url="/V1/quote-carts/:quoteId/in-cart" method="POST">
+        <service class="Amasty\RequestQuote\Api\QuoteManagementInterface" method="moveInCart"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+        <data>
+            <parameter name="cartId" force="true">%cart_id%</parameter>
+            <parameter name="customerId" force="true">%customer_id%</parameter>
+        </data>
+    </route>
+    <route url="/V1/customers/quote-carts/:quoteId/cancel" method="PUT">
+        <service class="Amasty\RequestQuote\Api\QuoteServiceInterface" method="cancelQuote"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+        <data>
+            <parameter name="customerId" force="true">%customer_id%</parameter>
+        </data>
+    </route>
+    <route url="/V1/quote-carts/mine/in-quote" method="POST">
+        <service class="Amasty\RequestQuote\Api\QuoteManagementInterface" method="moveInQuote"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+        <data>
+            <parameter name="cartId" force="true">%cart_id%</parameter>
+            <parameter name="quoteId" force="true">%amasty_quote_id%</parameter>
+        </data>
+    </route>
+    <route url="/V1/quote-carts/mine/update-customer-note" method="PUT">
+        <service class="Amasty\RequestQuote\Api\QuoteManagementInterface" method="updateCustomerNote"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+        <data>
+            <parameter name="quoteId" force="true">%amasty_quote_id%</parameter>
+        </data>
+    </route>
+    <route url="/V1/quote-carts/mine/remove-from-cart" method="DELETE">
+        <service class="Amasty\RequestQuote\Api\CartManagementInterface" method="removeQuoteFromCart"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+        <data>
+            <parameter name="cartId" force="true">%cart_id%</parameter>
+        </data>
+    </route>
+    <route url="/V1/quote-carts/mine/clear" method="DELETE">
+        <service class="Amasty\RequestQuote\Api\QuoteManagementInterface" method="clear"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+        <data>
+            <parameter name="quoteId" force="true">%amasty_quote_id%</parameter>
+        </data>
+    </route>
+    <route url="/V1/quote-carts/mine/submit" method="PUT">
+        <service class="Amasty\RequestQuote\Api\QuoteServiceInterface" method="submit"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+        <data>
+            <parameter name="quoteId" force="true">%amasty_quote_id%</parameter>
+        </data>
+    </route>
+    <route url="/V1/quote-carts/mine/items" method="GET">
+        <service class="Amasty\RequestQuote\Api\QuoteItemRepositoryInterface" method="getList"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+        <data>
+            <parameter name="quoteId" force="true">%amasty_quote_id%</parameter>
+        </data>
+    </route>
+    <route url="/V1/quote-carts/mine/items" method="POST">
+        <service class="Amasty\RequestQuote\Api\QuoteItemManagementInterface" method="save"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+        <data>
+            <parameter name="quoteItem.quote_id" force="true">%amasty_quote_id%</parameter>
+        </data>
+    </route>
+    <route url="/V1/quote-carts/mine/items/:itemId" method="PUT">
+        <service class="Amasty\RequestQuote\Api\QuoteItemManagementInterface" method="save"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+        <data>
+            <parameter name="quoteItem.quote_id" force="true">%amasty_quote_id%</parameter>
+        </data>
+    </route>
+    <route url="/V1/quote-carts/mine/items/:itemId" method="DELETE">
+        <service class="Amasty\RequestQuote\Api\QuoteItemRepositoryInterface" method="deleteById"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+        <data>
+            <parameter name="quoteId" force="true">%amasty_quote_id%</parameter>
+        </data>
+    </route>
+
+    <!-- Managing guest quote carts -->
+    <route url="/V1/guest-quote-carts" method="POST">
+        <service class="Amasty\RequestQuote\Api\GuestQuoteManagementInterface" method="createEmptyQuoteCart"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+        <data>
+            <parameter name="status" force="true">%new_quote_status%</parameter>
+        </data>
+    </route>
+    <route url="/V1/guest-quote-carts/:quoteMaskId" method="GET">
+        <service class="Amasty\RequestQuote\Api\GuestQuoteManagementInterface" method="get"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    <route url="/V1/guest-quote-carts/:cartMaskId/in-quote/:quoteMaskId" method="POST">
+        <service class="Amasty\RequestQuote\Api\GuestQuoteManagementInterface" method="moveInQuote"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    <route url="/V1/guest-quote-carts/:quoteMaskId" method="PUT">
+        <service class="Amasty\RequestQuote\Api\GuestQuoteManagementInterface" method="assignCustomer"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+        <data>
+            <parameter name="customerId" force="true">%customer_id%</parameter>
+        </data>
+    </route>
+    <route url="/V1/guest-quote-carts/:quoteMaskId/update-customer-info" method="PUT">
+        <service class="Amasty\RequestQuote\Api\GuestQuoteManagementInterface" method="updateCustomerInfo"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    <route url="/V1/guest-quote-carts/:quoteMaskId/update-customer-note" method="PUT">
+        <service class="Amasty\RequestQuote\Api\GuestQuoteManagementInterface" method="updateCustomerNote"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    <route url="/V1/guest-quote-carts/:quoteMaskId/clear" method="DELETE">
+        <service class="Amasty\RequestQuote\Api\GuestQuoteManagementInterface" method="clear"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    <route url="/V1/guest-quote-carts/:quoteMaskId/submit" method="PUT">
+        <service class="Amasty\RequestQuote\Api\GuestQuoteServiceInterface" method="submit"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    <route url="/V1/guest-quote-carts/:quoteMaskId/items" method="GET">
+        <service class="Amasty\RequestQuote\Api\GuestQuoteItemRepositoryInterface" method="getList"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    <route url="/V1/guest-quote-carts/:quoteMaskId/items" method="POST">
+        <service class="Amasty\RequestQuote\Api\GuestQuoteItemManagementInterface" method="save"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    <route url="/V1/guest-quote-carts/:quoteMaskId/items/:itemId" method="PUT">
+        <service class="Amasty\RequestQuote\Api\GuestQuoteItemManagementInterface" method="save"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    <route url="/V1/guest-quote-carts/:quoteMaskId/items/:itemId" method="DELETE">
+        <service class="Amasty\RequestQuote\Api\GuestQuoteItemRepositoryInterface" method="deleteById"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+
+    <route url="/V1/amasty_quote/isEmailAvailable/:customerEmail" method="GET">
+        <service class="Amasty\RequestQuote\Api\AccountManagementInterface" method="isEmailAvailable"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+</routes>

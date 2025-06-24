@@ -1,0 +1,30 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Request a Quote Base for Magento 2
+ */ $source  = $block->getSource() ?>
+<?php $block->setPriceDataObject($source) ?>
+
+<?php if ((float) $source->getDataUsingMethod($block->getSourceField())): ?>
+    <tr>
+        <td class="label">
+            <?php if ($block->getStrong()): ?>
+                <strong>
+            <?php endif; ?>
+            <?= /* @noEscape */ __($block->getLabel()) ?>
+            <?php if ($block->getStrong()): ?>
+                </strong>
+            <?php endif; ?>
+        </td>
+        <td <?= $block->getHtmlClass() ? ('class="' . $block->getHtmlClass() . '"') : '' ?>>
+            <?php if ($block->getStrong()): ?>
+                <strong>
+            <?php endif; ?>
+            <?= /* @noEscape */ $block->displayPriceAttribute($block->getSourceField()) ?>
+            <?php if ($block->getStrong()): ?>
+                </strong>
+            <?php endif; ?>
+        </td>
+    </tr>
+<?php endif; ?>

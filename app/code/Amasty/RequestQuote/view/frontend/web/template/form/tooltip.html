@@ -1,0 +1,17 @@
+<div class="field-tooltip toggle">
+    <span class="label" data-bind="attr: { id: $data.tooltipId ? $data.tooltipId : 'tooltip-label' }"><!-- ko i18n: 'Tooltip' --><!-- /ko --></span>
+
+    <span
+        class="field-tooltip-action action-help"
+        tabindex="0"
+        data-toggle="dropdown"
+        data-bind="
+                mageInit: {'dropdown':{'activeClass': '_active', 'parent': '.field-tooltip.toggle'}},
+                attr: { 'aria-labelledby': $data.tooltipId ? $data.tooltipId : 'tooltip-label' }
+            "
+    ></span>
+
+    <div class="field-tooltip-content"
+         data-target="dropdown" data-bind="html: tooltip.description">
+    </div>
+</div>

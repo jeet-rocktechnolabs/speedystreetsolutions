@@ -1,0 +1,23 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Request a Quote Base for Magento 2
+ */
+/**
+ * @var \Amasty\RequestQuote\Block\Account\Quote\Info $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+?>
+
+<div class="order-date">
+    <span><?= $escaper->escapeHtml(__(' Submitted Date:')) ?></span>
+    <date><?= $escaper->escapeHtml($block->formatDate($block->getQuote()->getSubmitedDate(), \IntlDateFormatter::LONG)) ?></date>
+</div>
+
+<?php if ($block->isExpiryColumnShow()): ?>
+    <div class="order-date">
+        <span><?= $escaper->escapeHtml(__('Expiry Date:')) ?></span>
+        <date><?= $escaper->escapeHtml($block->getExpiredDate()) ?></date>
+    </div>
+<?php endif; ?>

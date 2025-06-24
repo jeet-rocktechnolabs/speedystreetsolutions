@@ -1,0 +1,190 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Request a Quote Base for Magento 2
+ */
+// @codingStandardsIgnoreFile
+?>
+<?php
+/** @var $block \Amasty\RequestQuote\Block\Adminhtml\Quote\Create\Items\Grid */
+/** @var \Amasty\RequestQuote\Block\Adminhtml\Quote\Edit\Items\Discounts $priceModifiersBlock */
+$priceModifiersBlock = $block->getChildBlock('price_modifiers');
+?>
+<?php $_items = $block->getItems() ?>
+<?php if (empty($_items)): ?>
+    <div id="order-items_grid">
+        <div class="admin__table-wrapper">
+            <table class="data-table admin__table-primary order-tables">
+                <thead>
+                <tr class="headings">
+                    <th class="col-product"><span><?= $escaper->escapeHtml(__('Product')) ?></span></th>
+                    <th class="col-price"><span><?= $escaper->escapeHtml(__('Price')) ?></span></th>
+                    <th class="col-qty"><span><?= $escaper->escapeHtml(__('Qty')) ?></span></th>
+                    <th class="col-subtotal"><span><?= $escaper->escapeHtml(__('Subtotal')) ?></span></th>
+                    <th class="col-row-total"><span><?= $escaper->escapeHtml(__('Row Subtotal')) ?></span></th>
+                    <th class="col-action"><span><?= $escaper->escapeHtml(__('Action')) ?></span></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="even">
+                    <td class="empty-text" colspan="100"><?= $escaper->escapeHtml(__('No ordered items')) ?></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+<?php else: ?>
+    <div class="admin__table-wrapper" id="order-items_grid">
+        <?php if (count($_items)>10): ?>
+            <div class="actions update actions-update">
+                <?= $block->getButtonHtml(__('Update Items and Quantities'), 'quote.itemsUpdate()', 'action-secondary') ?>
+            </div>
+        <?php endif; ?>
+        <table class="data-table admin__table-primary order-tables">
+            <thead>
+            <tr class="headings">
+                <th class="col-product"><span><?= $escaper->escapeHtml(__('Product')) ?></span></th>
+                <th class="col-price"><span><?= $escaper->escapeHtml(__('Price') . ' ('
+                        . ($block->priceIncludesTax() ? __('Incl. Tax') : __('Excl. Tax')) . ')') ?></span></th>
+                <th class="col-qty"><span><?= $escaper->escapeHtml(__('Qty')) ?></span></th>
+                <th class="col-subtotal"><span><?= $escaper->escapeHtml(__('Subtotal')) ?></span></th>
+                <th class="col-row-total"><span><?= $escaper->escapeHtml(__('Row Subtotal')) ?></span></th>
+                <th class="col-action"><span><?= $escaper->escapeHtml(__('Action')) ?></span></th>
+            </tr>
+            </thead>
+            <tfoot>
+            <tr>
+                <td class="col-total"><?= $escaper->escapeHtml(__('Total %1 product(s)', count($_items))) ?></td>
+                <td colspan="2" class="col-subtotal"><?= $escaper->escapeHtml(__('Subtotal:')) ?></td>
+                <td class="col-price"><strong><?= /* @noEscape */ $block->formatPrice($block->getSubtotal()) ?></strong></td>
+                <td class="col-price"><strong>
+                        <?= /* @noEscape */ $block->formatPrice($block->getSubtotalWithDiscount()) ?></strong></td>
+                <td colspan="2">&nbsp;</td>
+            </tr>
+            </tfoot>
+            <?php $i = 0 ?>
+            <?php foreach ($_items as $_item):$i++ ?>
+                <tbody class="<?= $escaper->escapeHtml(($i%2) ? 'even' : 'odd') ?>">
+                <tr>
+                    <td class="col-product">
+                        <span id="order_item_<?= $escaper->escapeHtml($_item->getId()) ?>_title"><?= $escaper->escapeHtml($_item->getName()) ?></span>
+                        <div class="product-sku-block">
+                            <span><?= $escaper->escapeHtml(__('SKU')) ?>:</span>
+                            <?= /* @noEscape */ implode('<br />', $block->splitSku($_item->getSku())) ?>
+                        </div>
+                        <div class="product-configure-block">
+                            <?= $block->getConfigureButtonHtml($_item) ?>
+                        </div>
+                    </td>
+                    <td class="col-price">
+
+                        <?= $block->getItemUnitPriceHtml($_item) ?>
+
+                        <?php $_isCustomPrice = $block->usedCustomPriceForItem($_item) ?>
+                        <?php if ($_tier = $block->getTierHtml($_item)): ?>
+                            <div id="item_tier_block_<?= $escaper->escapeHtml($_item->getId()) ?>">
+                                <a href="#" onclick="$('item_tier_<?= $escaper->escapeHtml($_item->getId()) ?>').toggle();return false;"><?= $escaper->escapeHtml(__('Tier Pricing')) ?></a>
+                                <div style="display:none" id="item_tier_<?= $escaper->escapeHtml($_item->getId()) ?>"><?= /* @noEscape */ $_tier ?></div>
+                            </div>
+                        <?php endif; ?>
+                        <?php if ($block->canApplyCustomPrice($_item)): ?>
+                            <div class="custom-price-block">
+                                <input type="checkbox"
+                                       class="admin__control-checkbox"
+                                       id="item_use_custom_price_<?= $escaper->escapeHtml($_item->getId()) ?>"
+                                    <?php if ($_isCustomPrice): ?> checked="checked"<?php endif; ?>
+                                       onclick="quote.toggleCustomPrice(this, 'item_custom_price_<?= $escaper->escapeHtml($_item->getId()) ?>');"/>
+                                <label
+                                    class="normal admin__field-label"
+                                    for="item_use_custom_price_<?= $escaper->escapeHtml($_item->getId()) ?>">
+                                    <span><?= $escaper->escapeHtml(__('Custom Price')) ?>*</span></label>
+                            </div>
+                        <?php endif; ?>
+                        <input id="item_custom_price_<?= $escaper->escapeHtml($_item->getId()) ?>"
+                               name="item[<?= $escaper->escapeHtml($_item->getId()) ?>][price]"
+                               value="<?= $escaper->escapeHtml(sprintf("%.2f", $block->getItemEditablePrice($_item))) ?>"
+                            <?php if (!$_isCustomPrice): ?>
+                                style="display:none" disabled
+                            <?php endif; ?>
+                               class="input-text item-price admin__control-text custom-price"/>
+                    </td>
+                    <td class="col-qty">
+                        <input name="item[<?= $escaper->escapeHtml($_item->getId()) ?>][qty]"
+                               class="input-text item-qty admin__control-text"
+                               value="<?= $escaper->escapeHtml($_item->getQty()*1) ?>"
+                               maxlength="12" />
+                    </td>
+                    <td class="col-subtotal col-price">
+                        <?= $block->getItemRowTotalHtml($_item) ?>
+                    </td>
+                    <td class="col-price col-row-subtotal">
+                        <?= $block->getItemRowTotalWithDiscountHtml($_item) ?>
+                    </td>
+                    <td class="col-actions last">
+                        <select class="admin__control-select" name="item[<?= $escaper->escapeHtml($_item->getId()) ?>][action]">
+                            <option value=""><?= $escaper->escapeHtml(__('Please select')) ?></option>
+                            <option value="remove"><?= $escaper->escapeHtml(__('Remove')) ?></option>
+                        </select>
+                    </td>
+                </tr>
+
+                <?php $hasMessageError = false; ?>
+                <?php foreach ($_item->getMessage(false) as $messageError):?>
+                    <?php if (!empty($messageError)) {
+                        $hasMessageError = true;
+                    }
+                    ?>
+                <?php endforeach; ?>
+
+                <?php if ($hasMessageError):?>
+                    <tr class="row-messages-error">
+                        <td colspan="100"> <!-- ToDo UI: remove the 100 -->
+                            <?php foreach ($_item->getMessage(false) as $message):
+                                if (empty($message)) {
+                                    continue;
+                                }
+                                ?>
+                                <div class="message <?php if ($_item->getHasError()): ?>message-error<?php else: ?>message-notice<?php endif; ?>">
+                                    <?= $escaper->escapeHtml($message) ?>
+                                </div>
+                            <?php endforeach; ?>
+                        </td>
+                    </tr>
+                <?php endif;?>
+
+                <?= $block->getItemExtraInfo($_item)->toHtml() ?>
+                </tbody>
+            <?php endforeach; ?>
+        </table>
+        <p><small><?= $escaper->escapeHtml($block->getInclExclTaxMessage()) ?></small></p>
+    </div>
+
+    <?php if ($priceModifiersBlock->getAppliedDiscount() || $priceModifiersBlock->getAppliedSurcharge()) : ?>
+        <div class="amquote-line-block amquote-approved-title">
+            <p class="amquote-title">
+                <?= $escaper->escapeHtml(__('Applied') . ' ' . ($priceModifiersBlock->getAppliedSurcharge() ? __('surcharge') : __('discount')) . ': ') ?>
+                <strong>
+                    <?= $escaper->escapeHtml(($priceModifiersBlock->getAppliedSurcharge() ?: $priceModifiersBlock->getAppliedDiscount()) . '%') ?>
+                </strong>
+            </p>
+
+            <button class="action-secondary" type="button" onclick="quote.removeModificators()">
+                <?= $escaper->escapeHtml(__('Remove') . ' ' . ($priceModifiersBlock->getAppliedSurcharge() ? __('surcharge') : __('discount'))) ?>
+            </button>
+        </div>
+    <?php endif; ?>
+
+    <div class="amquote-order-discount">
+        <div id="order-coupons" class="amquote-coupons"><?= $block->getChildHtml('price_modifiers') ?></div>
+        <?= $block->getButtonHtml(__('Update Items and Quantities'), 'quote.itemsUpdate()', 'action-secondary') ?>
+    </div>
+
+    <script>
+        require([
+            'Amasty_RequestQuote/quote/create/form'
+        ], function(){
+            quote.itemsOnchangeBind()
+        });
+    </script>
+<?php endif; ?>

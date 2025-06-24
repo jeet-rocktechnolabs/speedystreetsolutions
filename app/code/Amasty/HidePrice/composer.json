@@ -1,0 +1,22 @@
+{
+    "name": "amasty/module-hide-price",
+    "description": "Hide Price by Amasty",
+    "require": {
+        "php": ">=7.3",
+        "amasty/base": ">=1.14.7",
+        "laminas/laminas-dom": "*"
+    },
+    "type": "magento2-module",
+    "version": "1.7.0",
+    "license": [
+        "proprietary"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Amasty\\HidePrice\\": ""
+        }
+    }
+}

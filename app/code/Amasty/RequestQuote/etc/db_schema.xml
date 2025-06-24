@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Request a Quote Base for Magento 2
+ */-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+  <table name="amasty_quote" resource="checkout" engine="innodb" comment="Amasty Quote Table">
+    <column xsi:type="int" name="quote_id" padding="11" unsigned="true" nullable="false" identity="true"
+            comment="Magento Quote ID"/>
+    <column xsi:type="varchar" name="customer_name" nullable="false" length="255" comment="Customer Name"/>
+    <column xsi:type="varchar" name="increment_id" nullable="true" length="255" comment="Quote Incement Id"/>
+    <column xsi:type="smallint" name="status" nullable="false" default="0" comment="Quote Status"/>
+    <column xsi:type="text" name="remarks" nullable="true" comment="Additional Data"/>
+    <column xsi:type="datetime" name="expired_date" nullable="true" comment="Expiration Date"/>
+    <column xsi:type="datetime" name="reminder_date" nullable="true" comment="Reminder Date"/>
+    <column xsi:type="timestamp" name="submited_date" nullable="true" comment="Submited Date"/>
+    <column xsi:type="tinyint" name="admin_notification_send" unsigned="true" nullable="true"
+            comment="Admin Notification Sent"/>
+    <column xsi:type="decimal" name="discount" scale="2" precision="4" unsigned="false" nullable="true"
+            comment="Discount applied for all items"/>
+    <column xsi:type="decimal" name="surcharge" scale="2" precision="4" unsigned="false" nullable="true"
+            comment="Surcharge applied for all items"/>
+    <column xsi:type="tinyint" name="reminder_send" unsigned="false" nullable="false" comment="Reminder Send"/>
+    <column xsi:type="tinyint" name="shipping_can_modified" unsigned="false" nullable="false" default="1"
+            comment="Determine can be shipping modified on checkout or no"/>
+    <column xsi:type="tinyint" name="shipping_configured" unsigned="false" nullable="false" default="0"
+            comment="Determine is shipping configured or no"/>
+    <column xsi:type="decimal" name="custom_fee" scale="4" precision="12" unsigned="false" nullable="false"
+            comment="Custom fee configured for quote"/>
+    <column xsi:type="tinyint" name="custom_method_enabled" unsigned="false" nullable="false" default="0"
+            comment="Determine is custom fee method enabled"/>
+    <column xsi:type="int" name="sum_original_price" padding="11" unsigned="true" nullable="false"
+            comment="Sum Original Price"/>
+
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="quote_id"/>
+    </constraint>
+
+    <index referenceId="AMASTY_QUOTE_STATUS" indexType="btree">
+      <column name="status"/>
+    </index>
+  </table>
+  <table name="catalog_product_entity">
+    <index referenceId="CATALOG_PRODUCT_ENTITY_TYPE_ID" indexType="btree">
+      <column name="type_id"/>
+    </index>
+  </table>
+</schema>

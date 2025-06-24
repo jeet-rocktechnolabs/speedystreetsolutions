@@ -1,0 +1,12 @@
+<tr class="<?= /* @noEscape */ $block->getTotal()->getCode() ?> row-totals">
+    <td style="<?= /* @noEscape */ $block->getTotal()->getStyle() ?>" class="admin__total-mark" colspan="<?= /* @noEscape */ $block->getColspan() ?>">
+        <?php if ($block->getRenderingArea() == $block->getTotal()->getArea()): ?><strong><?php endif; ?>
+            <?= $escaper->escapeHtml($block->getTotal()->getTitle()) ?>
+        <?php if ($block->getRenderingArea() == $block->getTotal()->getArea()): ?></strong><?php endif; ?>
+    </td>
+    <td style="<?= /* @noEscape */ $block->getTotal()->getStyle() ?>" class="admin__total-amount">
+        <?php if ($block->getRenderingArea() == $block->getTotal()->getArea()): ?><strong><?php endif; ?>
+            <?= /* @noEscape */ $block->formatPrice($block->getTotal()->getValue(), true) ?>
+        <?php if ($block->getRenderingArea() == $block->getTotal()->getArea()): ?></strong><?php endif; ?>
+    </td>
+</tr>

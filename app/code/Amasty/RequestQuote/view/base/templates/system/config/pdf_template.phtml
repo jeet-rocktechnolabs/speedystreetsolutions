@@ -1,0 +1,143 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Request a Quote Base for Magento 2
+ */
+/** @var \Amasty\RequestQuote\Block\Pdf\PdfTemplate $block */
+/** @var \Magento\Framework\Escaper $escaper */
+?>
+
+<!--@vars {
+"var customer_telephone|raw":"Customer's phone number"
+"var shipping_telephone|raw":"Shipping phone number"
+"var store_phone|raw":"Store phone number"
+"var quote_expiry_date|raw":"Date of a quote has expired"
+"var shipping_method|raw":"Shipping method"
+"var has_shipping_info|raw":"Has Shipping Info"
+} @-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <link rel="stylesheet"
+          type="text/css"
+          media="all"
+          href="{{base_url_path}}frontend/_view/{{locale}}/css/email-fonts.css">
+    <style type="text/css">
+        {{var template_styles|raw}}
+        {{css file="Amasty_RequestQuote::css/pdf_styles.less"}}
+    </style>
+</head>
+<body marginwidth="0" marginheight="0">
+    <div class="amqoute-pager-block">
+        <span class="amqoute-page-number" data-text="{{trans 'Page '}}"></span>
+    </div>
+    <div class="amquote-header-block">
+        <div class="amquote-pdf-title">
+            <img src="data:image/svg;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9Im5vbmUiIHZpZXdCb3g9IjAgMCAzODYgMTI3Ij4KICA8ZGVmcy8+CiAgPHBhdGggZmlsbD0iI0ZGNEYwMCIgZD0iTTk5Ljk3IDQ3LjVjMC0yNi0yMC45My00Ni45MzAwMDMtNDYuOTMtNDYuOTMwMDAzUzYuMTEgMjEuNSA2LjExIDQ3LjVzMjAuOTMgNDYuOTMgNDYuOTMgNDYuOTNjMTAuNCAwIDIwLjAyLTMuMzggMjcuNjktOC45N2wxMC45MiAxMC42NiA0LjY4LTQuMjlMODUuNjcgODEuM2M4Ljg0LTguNTggMTQuMy0yMC41NCAxNC4zLTMzLjh6TTUzLjA0IDg3LjhDMzAuODEgODcuOCAxMyA2OS44NiAxMyA0Ny41IDEzIDI1LjE0IDMwLjgxIDcuMiA1My4wNCA3LjJzNDAuMDQgMTcuOTQgNDAuMDQgNDAuM2MwIDExLjQ0LTQuNjggMjEuNzEtMTIuMjIgMjkuMTJMNjAuNDUgNTYuNDdsLTQuNjggNC4yOSAyMC4xNSAxOS44OWMtNi41IDQuNTUtMTQuMyA3LjE1LTIyLjg4IDcuMTV6TTE2Ni41NTggMjh2MzQuMzJjMCAxNy41NS0xMC4wMSAyNS44Ny0yMi43NSAyNS44Ny0xMi4yMiAwLTE5LjExLTcuOC0xOS4xMS0xOS43NlYyOGgtNi42M3Y0MC40M2MwIDE1LjczIDkuNzUgMjYgMjUuMjIgMjYgMTAuMDEgMCAxOC4zMy00LjE2IDIzLjI3LTEzLjc4VjkzaDYuNVYyOGgtNi41em01OC45NDkgNjYuNDNjMTguODUgMCAzNC4wNi0xNC42OSAzNC4wNi0zMy45MyAwLTE5LjI0LTE1LjIxLTMzLjkzLTM0LjA2LTMzLjkzLTE4Ljk4IDAtMzQuMTkgMTQuNjktMzQuMTkgMzMuOTMgMCAxOS4yNCAxNS4yMSAzMy45MyAzNC4xOSAzMy45M3ptMC02LjI0Yy0xNS40NyAwLTI3LjU2LTEyLjIyLTI3LjU2LTI3LjY5czEyLjA5LTI3LjY5IDI3LjU2LTI3LjY5YzE1LjQ3IDAgMjcuNDMgMTIuMjIgMjcuNDMgMjcuNjlzLTExLjk2IDI3LjY5LTI3LjQzIDI3LjY5em04NC4zMTMtNTMuODJWMjhoLTE5LjM3VjkuNzk5OTlMMjgzLjgyIDExLjc1VjI4aC0xNC4zdjYuMzdoMTQuM3Y0Mi4yNWMwIDE0LjgyIDguOTcgMTguOTggMjYgMTYuMzh2LTUuODVjLTEzLjI2IDEuMTctMTkuMzcuOTEtMTkuMzctMTAuNTNWMzQuMzdoMTkuMzd6bTQzLjUxMi03LjhjLTE5Ljg5IDAtMzMuNjcgMTQuODItMzMuNjcgMzMuOTMgMCAxOS42MyAxNC4xNyAzMy45MyAzNC4xOSAzMy45MyAxMi44NyAwIDIzLjAxLTUuODUgMjguMzQtMTQuNjlsLTUuNzItMy4zOGMtMy43NyA2Ljg5LTExLjgzIDExLjgzLTIyLjQ5IDExLjgzLTE0LjgyIDAtMjYtOS42Mi0yNy41Ni0yNC4zMWg1OC44OWMwLTEuMDQuMTMtMi4wOC4xMy0zLjEyIDAtMTcuODEtMTIuMzUtMzQuMTktMzIuMTEtMzQuMTl6bTAgNi4yNGMxMi43NCAwIDIzLjkyIDguODQgMjUuMzUgMjQuN2gtNTIuMjZjMS4zLTE0LjQzIDEyLjA5LTI0LjcgMjYuOTEtMjQuN3pNMCAxMjFoMTUwdjZIMHoiLz4KPC9zdmc+Cg==)"
+                 alt="<?= $escaper->escapeHtml(__('Pdf Title')) ?>">
+        </div>
+
+        <div class="amquote-pdf-to amquote-details-item">
+            <img class="amquote-site-logo"
+                 src="<?= /* @noEscape */ $block->getLogo(false) ?>"
+                 width="170"
+                 alt="<?= $escaper->escapeHtml(__('PDF Logo')) ?>" />
+            <h3 class="amquote-title">
+                <span class="amquote-small">{{trans "Quote to"}}</span>
+                {{var username|raw}}
+            </h3>
+            <div class="amquote-content">
+                {{var customer_street|raw}} <br>
+                {{var customer_city|raw}} <br>
+                {{var customer_region|raw}} <br>
+                {{var customer_postcode|raw}} <br>
+                {{var customer_country|raw}} <br>
+                {{if customer_telephone}}
+                    <span>{{trans "T" |raw}}</span>{{var customer_telephone |raw}}
+                {{/if}}
+            </div>
+        </div>
+    </div>
+
+    <div class="amquote-details-block">
+        <div class="amquote-details-item">
+            <h3 class="amquote-title">
+                {{trans "Quote Details"}}
+            </h3>
+            <div class="amquote-content">
+                <span>{{trans "Quote No" |raw}}</span>{{var quote_number |raw}}<br>
+                <span>{{trans "Quote Status" |raw}}</span>{{var quote_status |raw}}<br>
+                <span>{{trans "Quote Submitted Date" |raw}}</span>{{var quote_submitted_date |raw}}<br>
+                {{if quote_expiry_date}}
+                    <span>{{trans "Expiry Date" |raw}}</span>{{var quote_expiry_date |raw}}<br>
+                {{/if}}
+            </div>
+        </div>
+
+        {{if has_shipping_info}}
+            <div class="amquote-details-item">
+                <h3 class="amquote-title">
+                    {{trans "Shipping Info"}}
+                </h3>
+                <div class="amquote-content">
+                    {{var shipping_street|raw}} <br>
+                    {{var shipping_city|raw}} <br>
+                    {{var shipping_region|raw}} <br>
+                    {{var shipping_postcode|raw}} <br>
+                    {{var shipping_country|raw}} <br>
+                    {{var shipping_telephone|raw}}
+                </div>
+            </div>
+        {{/if}}
+
+        {{if shipping_method}}
+            <div class="amquote-details-item">
+                <h3 class="amquote-title">
+                    {{trans "Shipping Method"}}
+                </h3>
+                <div class="amquote-content">
+                    {{var shipping_method|raw}}
+                </div>
+            </div>
+        {{/if}}
+    </div>
+
+    <div class="amquote-table-list">
+        {{var quote_attributes|raw}}
+    </div>
+
+    <div class="amquote-table-wrapper">
+        {{var product_grid|raw}}
+    </div>
+
+    <footer class="amquote-footer-block">
+        <div class="amquote-item">
+            <h2>{{trans "Thank you for your business!"}}</h2>
+            <p>
+                {{trans "We love hearing from you, our customers.
+                Please contact us about anything at all. We’ll do everything
+                we can to make your experience unforgettable every time."}}
+            </p>
+        </div>
+        <div class="amquote-item">
+            {{if store_phone}}
+                <div class="amquote-phone">
+                    <span class="amquote-title">{{trans "Phone: " |raw}}</span>{{var store_phone |raw}}
+                </div>
+            {{/if}}
+            <div class="amquote-links">
+                <a class="amquote-link" href="<?= $escaper->escapeUrl($block->getContactUsUrl()) ?>">
+                    <?= $escaper->escapeHtml(__('Contact us')) ?>
+                </a>
+                <a class="amquote-link" href="<?= $escaper->escapeUrl($block->getCustomerServiceUrl()) ?>">
+                    <?= $escaper->escapeHtml(__('Customer Service')) ?>
+                </a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

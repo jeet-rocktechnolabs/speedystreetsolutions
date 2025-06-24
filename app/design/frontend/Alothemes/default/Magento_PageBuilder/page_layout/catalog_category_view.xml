@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+    	<!--<move element="category.image" destination="main" before="-"/-->
+		<referenceContainer name="main">
+            <container name="category.view.container" htmlTag="div" htmlClass="category-view">
+                <block class="Magento\Catalog\Block\Category\View" name="category.image" template="Magento_Catalog::category/image.phtml"/>
+                <block class="Magento\Theme\Block\Html\Title" name="page.main.title" template="html/title.phtml" after="category.image"/>
+            </container>
+        </referenceContainer>
+        <referenceContainer name="sidebar.main">
+            <referenceBlock name="catalog.leftnav" remove="true"/>
+        </referenceContainer>
+        <referenceContainer name="sidebar.additional">
+            <block class="Magento\Cms\Block\Block" name="banner.sidebar" after="-">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">cms-static-banner-sidebar</argument>
+                </arguments>
+            </block>
+            <block class="Magento\Cms\Block\Block" name="product.sidebar" after="banner.sidebar">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">cms-static-latest-product-sidebar</argument>
+                </arguments>
+            </block>
+            <referenceBlock name="wishlist_sidebar" remove="true"/>
+            <referenceBlock name="catalog.compare.sidebar" remove="true"/>
+        </referenceContainer>
+<referenceBlock name="catalog.compare.link" remove="true" />
+        <referenceBlock name="catalog.compare.sidebar" remove="true"/>
+        <referenceBlock name="catalogsearch.product.addto.compare" remove="true"/>
+        <referenceBlock name="category.product.addto.compare" remove="true"/>
+        <referenceBlock name="crosssell.product.addto.compare" remove="true" />
+        <referenceBlock name="related.product.addto.compare" remove="true" />
+        <referenceBlock name="upsell.product.addto.compare" remove="true" />
+        <referenceBlock name="view.addto.compare" remove="true" />
+<move element="bcta" destination="sections.page.bottom" before="-" />
+<move element="category.cms" destination="sections.page.bottom" before="-" />
+    </body>
+</page>

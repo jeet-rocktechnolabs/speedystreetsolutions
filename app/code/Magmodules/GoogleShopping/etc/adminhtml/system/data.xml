@@ -1,0 +1,328 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magmodules.eu. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<include xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_include.xsd">
+    <group id="data" translate="label comment" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+        <label>Attributes</label>
+        <comment><![CDATA[This section lists all of the available attributes which can be used to produce the Google Shopping feed. Some attributes are required by Google for all product types; whereas some are required for certain product types, such as apparel. To avoid errors in your Google Merchant account please make sure that you include all of the required attributes. <a class="mm-link" target="_blank" href="https://www.magmodules.eu/help/googleshopping-magento2/basic-google-merchant-attribute-information">More Information.</a>]]></comment>
+        <field id="heading_name" translate="label comment" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Product Name &amp; Description</label>
+            <frontend_model>Magmodules\GoogleShopping\Block\Adminhtml\Design\Heading</frontend_model>
+        </field>
+        <field id="id_attribute" translate="label comment" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>ID</label>
+            <source_model>Magmodules\GoogleShopping\Model\System\Config\Source\Attributes</source_model>
+            <comment>Select the attribute associated with the product ID. Use a unique value for each product. Suggested field: SKU</comment>
+        </field>
+        <field id="name_attribute" translate="label comment" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Name</label>
+            <source_model>Magmodules\GoogleShopping\Model\System\Config\Source\AttributesWithConditional</source_model>
+            <comment><![CDATA[Select the attribute associate with the product name. This attribute needs to match the title of your product landing page. Suggested field: Product Name]]></comment>
+        </field>
+        <field id="name_conditional" translate="label comment" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Name: Conditional</label>
+            <depends>
+                <field id="name_attribute">mm-actions-conditional</field>
+            </depends>
+            <comment><![CDATA[<span class="conditional-modal">Read how to use conditional fields <span class="openmodal">right here.</span></span>]]></comment>
+        </field>
+        <field id="name_multi" translate="label comment" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Name: Multiple</label>
+            <depends>
+                <field id="name_attribute">mm-actions-multi</field>
+            </depends>
+            <comment><![CDATA[<span class="multisource-modal">Read how to use multiple fields <span class="openmodal">right here.</span></span>]]></comment>
+        </field>
+        <field id="description_attribute" translate="label comment" type="select" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Description</label>
+            <source_model>Magmodules\GoogleShopping\Model\System\Config\Source\AttributesWithConditional</source_model>
+            <comment><![CDATA[Select the attribute associated with the product description. As required by Google the description will be truncated to a maximum of 5000 characters and stripped of html. Suggested field: Description]]></comment>
+        </field>
+        <field id="description_conditional" translate="label comment" type="text" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Description: Conditional</label>
+            <depends>
+                <field id="description_attribute">mm-actions-conditional</field>
+            </depends>
+            <comment><![CDATA[<span class="conditional-modal">Read how to use conditional fields <span class="openmodal">right here.</span></span>]]></comment>
+        </field>
+        <field id="description_multi" translate="label comment" type="text" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Description: Multiple</label>
+            <depends>
+                <field id="description_attribute">mm-actions-multi</field>
+            </depends>
+            <comment><![CDATA[<span class="multisource-modal">Read how to use multiple fields <span class="openmodal">right here.</span></span>]]></comment>
+        </field>
+        <field id="heading_images" translate="label comment" type="text" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Image Source</label>
+            <frontend_model>Magmodules\GoogleShopping\Block\Adminhtml\Design\Heading</frontend_model>
+        </field>
+        <field id="image" translate="label comment" type="select" sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Source</label>
+            <source_model>Magmodules\GoogleShopping\Model\System\Config\Source\ImageSource</source_model>
+            <comment>Select which image you would like to display for your product ad. It is recommended that you select all images if they are available, so that any additional images are also exported.</comment>
+        </field>
+        <field id="main_image" translate="label" type="select" sortOrder="9" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Main Image</label>
+            <source_model>Magmodules\GoogleShopping\Model\System\Config\Source\MainImage</source_model>
+            <depends>
+                <field id="image">all</field>
+            </depends>
+            <comment>Select the source for the main image, other images will be exported as additional image(s).</comment>
+        </field>
+        <field id="heading_gtin" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Unique Product Identifiers</label>
+            <frontend_model>Magmodules\GoogleShopping\Block\Adminhtml\Design\Heading</frontend_model>
+            <comment><![CDATA[Regarding the Google Shopping requirements, manufactured products need to have a brand/manufacturer value and a matching unique identifiers as GTIN or MPN. When there is less than 2 of these values the "Identifier Exists = false" row will be automatically added into the feed for this product.<br> <a class="mm-link" target="_blank" href="https://support.google.com/merchants/answer/6324478">More Information.</a>]]></comment>
+        </field>
+        <field id="gtin_attribute" translate="label comment" type="select" sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>GTIN</label>
+            <source_model>Magmodules\GoogleShopping\Model\System\Config\Source\AttributesWithConditional</source_model>
+            <comment><![CDATA[<strong>Required</strong> for all products with a GTIN assigned by the manufacturer. A GTIN is the numerical version of the bar code and identifies your product and needs to be unique for each product ID. Submit a GTIN as defined in the official GS1 validation guide.<br> <a class="mm-link" target="_blank" href="https://www.magmodules.eu/help/googleshopping-magento2/about-the-google-shopping-product-identifiers-requirements">More Information.</a>]]></comment>
+        </field>
+        <field id="gtin_conditional" translate="label comment" type="text" sortOrder="12" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>GTIN: Conditional</label>
+            <depends>
+                <field id="gtin_attribute">mm-actions-conditional</field>
+            </depends>
+            <comment><![CDATA[<span class="conditional-modal">Read how to use conditional fields <span class="openmodal">right here.</span></span>]]></comment>
+        </field>
+        <field id="gtin_multi" translate="label comment" type="text" sortOrder="12" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>GTIN: Multiple</label>
+            <depends>
+                <field id="gtin_attribute">mm-actions-multi</field>
+            </depends>
+            <comment><![CDATA[<span class="multisource-modal">Read how to use multiple fields <span class="openmodal">right here.</span></span>]]></comment>
+        </field>
+        <field id="brand_attribute" translate="label comment" type="select" sortOrder="13" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Brand</label>
+            <source_model>Magmodules\GoogleShopping\Model\System\Config\Source\AttributesWithConditional</source_model>
+            <comment><![CDATA[<strong>Required</strong> for each product with a clearly associated brand or manufacturer.]]></comment>
+        </field>
+        <field id="brand_conditional" translate="label comment" type="text" sortOrder="14" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Brand: Conditional</label>
+            <depends>
+                <field id="brand_attribute">mm-actions-conditional</field>
+            </depends>
+        </field>
+        <field id="brand_multi" translate="label comment" type="text" sortOrder="14" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Brand: Multiple</label>
+            <depends>
+                <field id="brand_attribute">mm-actions-multi</field>
+            </depends>
+            <comment><![CDATA[<span class="multisource-modal">Read how to use multiple fields <span class="openmodal">right here.</span></span>]]></comment>
+        </field>
+        <field id="mpn_attribute" translate="label comment" type="select" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>MPN</label>
+            <source_model>Magmodules\GoogleShopping\Model\System\Config\Source\AttributesWithConditional</source_model>
+            <comment><![CDATA[<strong>Required</strong> MPN is a unique identifier issued by the manufacturer. If you have the GTIN in your feed the MPN is not mandatory. Without a GTIN Google requires the MPN and Brand attribute.]]></comment>
+        </field>
+        <field id="mpn_conditional" translate="label comment" type="text" sortOrder="16" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>MPN: Conditional</label>
+            <depends>
+                <field id="mpn_attribute">mm-actions-conditional</field>
+            </depends>
+            <comment><![CDATA[<span class="conditional-modal">Read how to use conditional fields <span class="openmodal">right here.</span></span>]]></comment>
+        </field>
+        <field id="mpn_multi" translate="label comment" type="text" sortOrder="16" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>MPN: Multiple</label>
+            <depends>
+                <field id="mpn_attribute">mm-actions-multi</field>
+            </depends>
+            <comment><![CDATA[<span class="multisource-modal">Read how to use multiple fields <span class="openmodal">right here.</span></span>]]></comment>
+        </field>
+        <field id="identifier_exists" translate="label" type="select" sortOrder="17" showInDefault="1" showInWebsite="0" showInStore="0">
+            <label>Add Identifier Exists</label>
+            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+            <comment>Automatically adds "Identifier Exists = false" when row condition is not met. Recommended to set this to Yes.</comment>
+        </field>
+        <field id="heading_condition" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Product Condition</label>
+            <frontend_model>Magmodules\GoogleShopping\Block\Adminhtml\Design\Heading</frontend_model>
+            <comment>Product condition is a required field for Google Shopping. </comment>
+        </field>
+        <field id="condition_type" translate="label" type="select" sortOrder="21" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Condition</label>
+            <source_model>Magmodules\GoogleShopping\Model\System\Config\Source\SourceType</source_model>
+        </field>
+        <field id="condition_default" translate="label comment" type="select" sortOrder="22" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Default Value</label>
+            <source_model>Magmodules\GoogleShopping\Model\System\Config\Source\ProductCondition</source_model>
+            <depends>
+                <field id="condition_type">static</field>
+            </depends>
+            <comment>Select the default product condition. Only three options are supported: New, Refurbished and Used.</comment>
+        </field>
+        <field id="condition_attribute" translate="label" type="select" sortOrder="22" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Attribute</label>
+            <source_model>Magmodules\GoogleShopping\Model\System\Config\Source\Attributes</source_model>
+            <depends>
+                <field id="condition_type">attribute</field>
+            </depends>
+            <comment>Use a custom attribute to use the product condition.</comment>
+        </field>
+        <field id="heading_category" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Product Category</label>
+            <frontend_model>Magmodules\GoogleShopping\Block\Adminhtml\Design\Heading</frontend_model>
+            <comment><![CDATA[The products are categorized in Google Shopping according to the Google product taxonomy. Use the most specific product category to meet the Google requirements. <a class="mm-link" target=_blank href="https://www.magmodules.eu/help/googleshopping-magento2/categorize-google-shopping-products">More Information.</a><br><br>Overwrite this value to specify the category.<br><br><strong>On Category Level<br></strong>Catalog » Manage Categories » Select Category » Feeds » Google Product Category<br><br><strong>On Product Level<br></strong>Catalog » Manage Products » Select Product » Google Shopping Tab » Google Shopping Product Category.]]></comment>
+        </field>
+        <field id="category" translate="label" type="text" sortOrder="31" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Default Category</label>
+        </field>
+        <field id="heading_product_type" translate="label comment" type="text" sortOrder="40" showInDefault="1"
+               showInWebsite="1" showInStore="1">
+            <label>Product product_type</label>
+            <frontend_model>Magmodules\GoogleShopping\Block\Adminhtml\Design\Heading</frontend_model>
+            <comment>The [g:product_type] product type serves to structure bidding and reporting within your Google Ads Shopping campaign, incorporating a product categorization system aligned with your Magento category tree. In contrast to the Google product category [google_product_category] attribute, which relies on manually defined categories following Google specifications, you have the option to deactivate the automatic inclusion of the product_type in your feed. This gives you the flexibility to manually link a product attribute with the g:product_type value, using the Extra Fields option displayed above, as required.</comment>
+        </field>
+        <field id="include_product_type" translate="label" type="select" sortOrder="41" showInDefault="1"
+               showInWebsite="1" showInStore="1">
+            <label>Include Product_Type</label>
+            <source_model>Magmodules\GoogleShopping\Model\System\Config\Source\IncludeProductType</source_model>
+        </field>
+        <field id="product_type_attribute" translate="label" type="select" sortOrder="42" showInDefault="1"
+               showInWebsite="1" showInStore="1">
+            <label>Product_type Attribute</label>
+            <source_model>Magmodules\GoogleShopping\Model\System\Config\Source\Attributes</source_model>
+            <depends>
+                <field id="include_product_type">2</field>
+            </depends>
+            <comment>Use a custom attribute for product_type.</comment>
+        </field>
+        <field id="heading_extra" translate="label comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Non Required Product Fields</label>
+            <frontend_model>Magmodules\GoogleShopping\Block\Adminhtml\Design\Heading</frontend_model>
+            <comment>Although not required, it is recommended that you provide the following product information if the attribute exists, or there are relevant values which match these product attributes:</comment>
+        </field>
+        <field id="color_attribute" translate="label" type="select" sortOrder="51" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Color</label>
+            <source_model>Magmodules\GoogleShopping\Model\System\Config\Source\AttributesWithConditional</source_model>
+        </field>
+        <field id="color_conditional" translate="label comment" type="text" sortOrder="52" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Color: Conditional</label>
+            <depends>
+                <field id="color_attribute">mm-actions-conditional</field>
+            </depends>
+            <comment><![CDATA[<span class="conditional-modal">Read how to use conditional fields <span class="openmodal">right here.</span></span>]]></comment>
+        </field>
+        <field id="color_multi" translate="label comment" type="text" sortOrder="52" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Color: Multiple</label>
+            <depends>
+                <field id="color_attribute">mm-actions-multi</field>
+            </depends>
+            <comment><![CDATA[<span class="multisource-modal">Read how to use multiple fields <span class="openmodal">right here.</span></span>]]></comment>
+        </field>
+        <field id="material_attribute" translate="label" type="select" sortOrder="53" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Material</label>
+            <source_model>Magmodules\GoogleShopping\Model\System\Config\Source\AttributesWithConditional</source_model>
+        </field>
+        <field id="material_conditional" translate="label comment" type="text" sortOrder="54" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Material: Conditional</label>
+            <depends>
+                <field id="material_attribute">mm-actions-conditional</field>
+            </depends>
+            <comment><![CDATA[<span class="conditional-modal">Read how to use conditional fields <span classFe="openmodal">right here.</span></span>]]></comment>
+        </field>
+        <field id="material_multi" translate="label comment" type="text" sortOrder="54" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Material: Multiple</label>
+            <depends>
+                <field id="material_attribute">mm-actions-multi</field>
+            </depends>
+            <comment><![CDATA[<span class="multisource-modal">Read how to use multiple fields <span class="openmodal">right here.</span></span>]]></comment>
+        </field>
+        <field id="pattern_attribute" translate="label" type="select" sortOrder="55" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Pattern</label>
+            <source_model>Magmodules\GoogleShopping\Model\System\Config\Source\AttributesWithConditional</source_model>
+        </field>
+        <field id="pattern_conditional" translate="label comment" type="text" sortOrder="56" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Pattern: Conditional</label>
+            <depends>
+                <field id="pattern_attribute">mm-actions-conditional</field>
+            </depends>
+            <comment><![CDATA[<span class="conditional-modal">Read how to use conditional fields <span class="openmodal">right here.</span></span>]]></comment>
+        </field>
+        <field id="pattern_multi" translate="label comment" type="text" sortOrder="56" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Pattern: Multiple</label>
+            <depends>
+                <field id="pattern_attribute">mm-actions-multi</field>
+            </depends>
+            <comment><![CDATA[<span class="multisource-modal">Read how to use multiple fields <span class="openmodal">right here.</span></span>]]></comment>
+        </field>
+        <field id="size_attribute" translate="label" type="select" sortOrder="57" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Size</label>
+            <source_model>Magmodules\GoogleShopping\Model\System\Config\Source\AttributesWithConditional</source_model>
+        </field>
+        <field id="size_conditional" translate="label comment" type="text" sortOrder="58" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Size: Conditional</label>
+            <depends>
+                <field id="size_attribute">mm-actions-conditional</field>
+            </depends>
+            <comment><![CDATA[<span class="conditional-modal">Read how to use conditional fields <span class="openmodal">right here.</span></span>]]></comment>
+        </field>
+        <field id="size_multi" translate="label comment" type="text" sortOrder="58" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Size: Multiple</label>
+            <depends>
+                <field id="size_attribute">mm-actions-multi</field>
+            </depends>
+            <comment><![CDATA[<span class="multisource-modal">Read how to use multiple fields <span class="openmodal">right here.</span></span>]]></comment>
+        </field>
+        <field id="sizetype_attribute" translate="label" type="select" sortOrder="59" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Size Type</label>
+            <source_model>Magmodules\GoogleShopping\Model\System\Config\Source\AttributesWithConditional</source_model>
+        </field>
+        <field id="sizetype_conditional" translate="label comment" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Size Type: Conditional</label>
+            <depends>
+                <field id="sizetype_attribute">mm-actions-conditional</field>
+            </depends>
+            <comment><![CDATA[<span class="conditional-modal">Read how to use conditional fields <span class="openmodal">right here.</span></span>]]></comment>
+        </field>
+        <field id="sizetype_multi" translate="label comment" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Size Type: Multiple</label>
+            <depends>
+                <field id="sizetype_attribute">mm-actions-multi</field>
+            </depends>
+            <comment><![CDATA[<span class="multisource-modal">Read how to use multiple fields <span class="openmodal">right here.</span></span>]]></comment>
+        </field>
+        <field id="sizesystem_attribute" translate="label" type="select" sortOrder="61" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Size System</label>
+            <source_model>Magmodules\GoogleShopping\Model\System\Config\Source\AttributesWithConditional</source_model>
+        </field>
+        <field id="sizesystem_conditional" translate="label comment" type="text" sortOrder="62" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Size System: Conditional</label>
+            <depends>
+                <field id="sizesystem_attribute">mm-actions-conditional</field>
+            </depends>
+            <comment><![CDATA[<span class="conditional-modal">Read how to use conditional fields <span class="openmodal">right here.</span></span>]]></comment>
+        </field>
+        <field id="sizesystem_multi" translate="label comment" type="text" sortOrder="62" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Size System: Multiple</label>
+            <depends>
+                <field id="sizesystem_attribute">mm-actions-multi</field>
+            </depends>
+            <comment><![CDATA[<span class="multisource-modal">Read how to use multiple fields <span class="openmodal">right here.</span></span>]]></comment>
+        </field>
+        <field id="gender_attribute" translate="label" type="select" sortOrder="63" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Gender</label>
+            <source_model>Magmodules\GoogleShopping\Model\System\Config\Source\AttributesWithConditional</source_model>
+        </field>
+        <field id="gender_conditional" translate="label comment" type="text" sortOrder="64" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Gender: Conditional</label>
+            <depends>
+                <field id="gender_attribute">mm-actions-conditional</field>
+            </depends>
+            <comment><![CDATA[<span class="conditional-modal">Read how to use conditional fields <span class="openmodal">right here.</span></span>]]></comment>
+        </field>
+        <field id="gender_multi" translate="label comment" type="text" sortOrder="64" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Gender: Multiple</label>
+            <depends>
+                <field id="gender_attribute">mm-actions-multi</field>
+            </depends>
+            <comment><![CDATA[<span class="multisource-modal">Read how to use multiple fields <span class="openmodal">right here.</span></span>]]></comment>
+        </field>
+    </group>
+</include>

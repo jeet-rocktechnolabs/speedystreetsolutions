@@ -1,0 +1,33 @@
+<?php
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php if ($crumbs && is_array($crumbs)) : $i=1; ?>
+<div class="breadcrumbs">
+	<div class="container">
+		<ul class="items" itemscope itemtype="https://schema.org/BreadcrumbList">
+			<?php foreach ($crumbs as $crumbName => $crumbInfo) : ?>
+				<li class="item <?php /* @escapeNotVerified */ echo $crumbName ?>" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+				<?php if ($crumbInfo['link']) : ?>
+					<a itemprop="item" href="<?php /* @escapeNotVerified */ echo $crumbInfo['link'] ?>" title="<?php echo $block->escapeHtml($crumbInfo['title']) ?>">
+						<span itemprop="name"><?php echo $block->escapeHtml($crumbInfo['label']) ?></span>
+                                        <meta itemprop="position" content="<?php echo $i; ?>">
+					</a>
+				<?php elseif ($crumbInfo['last']) : ?>
+					<a itemprop="item" href="<?php /* @escapeNotVerified */ echo $crumbInfo['link'] ?>" title="<?php echo $block->escapeHtml($crumbInfo['title']) ?>"><span itemprop="name"><?php echo $block->escapeHtml($crumbInfo['label']) ?></span>
+                                        <meta itemprop="position" content="<?php echo $i; ?>"></a>
+				<?php else: ?>
+					<span itemprop="item"><span itemprop="name"><?php echo $block->escapeHtml($crumbInfo['label']) ?></span></span>
+					<meta itemprop="position" content="<?php echo $i; ?>">
+				<?php endif; ?>
+				</li>
+			<?php $i++; endforeach; ?>
+		</ul>
+	</div>
+</div>
+<?php endif; ?>

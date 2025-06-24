@@ -1,0 +1,46 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Request a Quote Base for Magento 2
+ */
+/** @var $block \Magento\Checkout\Block\Cart\Item\Renderer */
+/** @var \Magento\Framework\Escaper $escaper */
+/** @var $item \Magento\Quote\Model\Quote\Item */
+$item = $block->getItem();
+$quote = $item->getQuote();
+$product = $item->getProduct();  // Get the product object from the item
+$imageHelper = $this->helper(\Magento\Catalog\Helper\Image::class);
+$imageUrl = $imageHelper->init($product, 'product_small_image')->getUrl();
+?>
+<tr>
+<td class="item-photo"><p><img src="<?= $escaper->escapeUrl($imageUrl) ?>" alt="<?= $escaper->escapeHtml($item->getName()) ?>" style="width:100px; height:auto;"></p></td>
+    <td class="item-info<?php if ($block->getOptionList()): ?> has-extra<?php endif; ?>" colspan="3">
+        <p class="product-name"><?= $escaper->escapeHtml($item->getName()) ?></p>
+        <p class="sku"><?= /* @noEscape */  __('SKU') ?>: <?= $escaper->escapeHtml($item->getSku()) ?></p>
+        <?php if ($options = $block->getOptionList()): ?>
+            <dl class="item-options">
+                <?php foreach ($options as $option): ?>
+                    <?php $_formatedOptionValue = $block->getFormatedOptionValue($option) ?>
+                    <dt><?= $escaper->escapeHtml($option['label']) ?></dt>
+                    <dd>
+                        <?php if (isset($_formatedOptionValue['full_view'])): ?>
+                            <?= /* @noEscape */ $_formatedOptionValue['full_view'] ?>
+                        <?php else: ?>
+                            <?= /* @noEscape */ $_formatedOptionValue['value'] ?>
+                        <?php endif; ?>
+                    </dd>
+                <?php endforeach; ?>
+            </dl>
+        <?php endif;?>
+        <?php $addInfoBlock = $block->getProductAdditionalInformationBlock(); ?>
+        <?php if ($addInfoBlock): ?>
+            <?= $addInfoBlock->setItem($item)->toHtml() ?>
+        <?php endif; ?>
+        <?= $escaper->escapeHtml($item->getDescription()) ?>
+    </td>
+    <td class="item-qty"><?= /* @noEscape */  $item->getQty() * 1 ?></td>
+    <td class="item-price">
+        <?= /* @noEscape */  $block->getUnitPriceHtml($item) ?>
+    </td>
+</tr>

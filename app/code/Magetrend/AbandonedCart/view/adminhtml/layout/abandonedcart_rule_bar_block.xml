@@ -1,0 +1,131 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * MB "Vienas bitas" (Magetrend.com)
+ *
+ * PHP version 5.3 or later
+ *
+ * @category MageTrend
+ * @package  Magetend/AbandonedCart
+ * @author   Edvinas Stulpinas <edwin@magetrend.com>
+ * @license  http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+ * @link     https://www.magetrend.com/magento-2-abandoned-cart
+ */
+ -->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="adminhtml.abandonedcart.bar.rule.container">
+            <block class="Magetrend\AbandonedCart\Block\Adminhtml\Rule\Bar\Grid" name="adminhtml.abandonedcart.bar.rule.grid" as="grid">
+                <arguments>
+                    <argument name="id" xsi:type="string">ruleGrid</argument>
+                    <argument name="dataSource" xsi:type="object">Magetrend\AbandonedCart\Model\ResourceModel\Rule\Collection</argument>
+                    <argument name="default_sort" xsi:type="string">entity_id</argument>
+                    <argument name="default_dir" xsi:type="string">desc</argument>
+                    <argument name="use_ajax" xsi:type="string">1</argument>
+                    <argument name="grid_url" xsi:type="url" path="abandonedcart/*/grid">
+                        <param name="_current">1</param>
+                    </argument>
+                </arguments>
+
+                <block class="Magento\Backend\Block\Widget\Grid\ColumnSet" name="adminhtml.abandonedcart.bar.rule.grid.columnSet" as="grid.columnSet">
+                    <arguments>
+                        <argument name="rowUrl" xsi:type="array">
+                            <item name="path" xsi:type="string">abandonedcart/*/edit</item>
+                            <item name="extraParamsTemplate" xsi:type="array">
+                                <item name="id" xsi:type="string">getId</item>
+                            </item>
+                        </argument>
+                    </arguments>
+
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="entity_id">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">ID</argument>
+                            <argument name="index" xsi:type="string">entity_id</argument>
+
+                            <argument name="header_css_class" xsi:type="string">mt-col-id</argument>
+                            <argument name="column_css_class" xsi:type="string">mt-col-id</argument>
+                        </arguments>
+                    </block>
+
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="priority">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">Priority</argument>
+                            <argument name="index" xsi:type="string">priority</argument>
+                            <argument name="sortable" xsi:type="string">1</argument>
+                            <argument name="header_css_class" xsi:type="string">mt-col-priority</argument>
+                            <argument name="column_css_class" xsi:type="string">mt-col-priority</argument>
+                        </arguments>
+                    </block>
+
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="name">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">Name</argument>
+                            <argument name="index" xsi:type="string">name</argument>
+                            <argument name="header_css_class" xsi:type="string">col-name</argument>
+                            <argument name="column_css_class" xsi:type="string">col-name</argument>
+                        </arguments>
+                    </block>
+
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="trigger_events">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">Trigger Events</argument>
+                            <argument name="index" xsi:type="string">trigger_events</argument>
+                            <argument name="sortable" xsi:type="string">0</argument>
+                            <argument name="header_css_class" xsi:type="string">mt-col-customer-group</argument>
+                            <argument name="column_css_class" xsi:type="string">mt-col-customer-group</argument>
+                            <argument name="filter" xsi:type="string">Magetrend\AbandonedCart\Block\Adminhtml\Widget\Grid\Column\Filter\Bar\Event</argument>
+                            <argument name="renderer" xsi:type="string">Magetrend\AbandonedCart\Block\Adminhtml\Widget\Grid\Column\Renderer\Bar\Event</argument>
+                        </arguments>
+                    </block>
+
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="customer_groups">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">Customer Groups</argument>
+                            <argument name="index" xsi:type="string">customer_groups</argument>
+                            <argument name="sortable" xsi:type="string">0</argument>
+                            <argument name="header_css_class" xsi:type="string">mt-col-customer-group</argument>
+                            <argument name="column_css_class" xsi:type="string">mt-col-customer-group</argument>
+                            <argument name="filter" xsi:type="string">Magetrend\AbandonedCart\Block\Adminhtml\Widget\Grid\Column\Filter\CustomerGroupList</argument>
+                            <argument name="renderer" xsi:type="string">Magetrend\AbandonedCart\Block\Adminhtml\Widget\Grid\Column\Renderer\CustomerGroupList</argument>
+                        </arguments>
+                    </block>
+
+
+
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="store">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">Stores</argument>
+                            <argument name="index" xsi:type="string">store_ids</argument>
+                            <argument name="sortable" xsi:type="string">0</argument>
+                            <argument name="header_css_class" xsi:type="string">mt-col-stores</argument>
+                            <argument name="column_css_class" xsi:type="string">mt-col-stores</argument>
+                            <argument name="filter" xsi:type="string">Magetrend\AbandonedCart\Block\Adminhtml\Widget\Grid\Column\Filter\Store</argument>
+                            <argument name="renderer" xsi:type="string">Magetrend\AbandonedCart\Block\Adminhtml\Widget\Grid\Column\Renderer\Store</argument>
+                        </arguments>
+                    </block>
+
+                    <block class="Magento\Backend\Block\Widget\Grid\Column" as="is_active">
+                        <arguments>
+                            <argument name="header" xsi:type="string" translate="true">Is Active</argument>
+                            <argument name="index" xsi:type="string">is_active</argument>
+                            <argument name="header_css_class" xsi:type="string">mt-col-is-active</argument>
+                            <argument name="column_css_class" xsi:type="string">mt-col-is-active</argument>
+                            <argument name="type" xsi:type="string">options</argument>
+                            <argument name="options" xsi:type="array">
+                                <item name="active" xsi:type="array">
+                                    <item name="value" xsi:type="string">1</item>
+                                    <item name="label" xsi:type="string" translate="true">Active</item>
+                                </item>
+                                <item name="inactive" xsi:type="array">
+                                    <item name="value" xsi:type="string">0</item>
+                                    <item name="label" xsi:type="string" translate="true">Inactive</item>
+                                </item>
+                            </argument>
+                        </arguments>
+                    </block>
+
+                </block>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

@@ -1,0 +1,30 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Request a Quote Base for Magento 2
+ */ /** @var \Magento\Framework\Escaper $escaper */ ?>
+<div id="order_history_block" class="edit-order-comments">
+    <?php if ($block->getNotes()): ?>
+    <ul class="note-list">
+        <?php if ($block->getNotes()->getCustomerNote()): ?>
+            <li class="note-list-item">
+                <strong><?= $escaper->escapeHtml(__('Customer Remarks'))?></strong>
+                <div class="note-list-comment"><?= /* @noEscape */ nl2br($escaper->escapeHtml($block->getNotes()->getCustomerNote(), ['b', 'br', 'strong', 'i', 'u', 'a'])) ?></div>
+            </li>
+        <?php endif; ?>
+        <?php if ($block->getNotes()->getAdminNoteRemark()): ?>
+            <li class="note-list-item">
+                <strong><?= $escaper->escapeHtml(__('Admin Remarks'))?></strong>
+                <div class="note-list-comment"><?= /* @noEscape */ nl2br($escaper->escapeHtml($block->getNotes()->getAdminNoteRemark(), ['b', 'br', 'strong', 'i', 'u', 'a'])) ?></div>
+            </li>
+        <?php endif; ?>
+        <?php if ($block->getNotes()->getAdminNote()): ?>
+            <li class="note-list-item">
+                <strong><?= $escaper->escapeHtml(__('Admin Discount'))?></strong>
+                <div class="note-list-comment"><?= /* @noEscape */ nl2br($escaper->escapeHtml($block->getNotes()->getAdminNote(), ['b', 'br', 'strong', 'i', 'u', 'a'])) ?></div>
+            </li>
+        <?php endif; ?>
+    </ul>
+    <?php endif; ?>
+</div>

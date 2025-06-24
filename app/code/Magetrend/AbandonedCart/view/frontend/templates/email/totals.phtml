@@ -1,0 +1,66 @@
+<?php
+/**
+ * MB "Vienas bitas" (Magetrend.com)
+ *
+ * PHP version 5.3 or later
+ *
+ * @category MageTrend
+ * @package  Magetend/AbandonedCart
+ * @author   Edvinas Stulpinas <edwin@magetrend.com>
+ * @license  http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+ * @link     https://www.magetrend.com/magento-2-abandoned-cart
+ */
+// @codingStandardsIgnoreFile
+?>
+<table style="background-color: #ffffff; width: 100% !important; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;"
+    bgcolor="#ffffff" width="100%"  cellpadding="0" cellspacing="0" border="0">
+    <tr>
+        <td height="15" colspan="3"><div style="font-size: 0; height: 0;">&nbsp;</div></td>
+    </tr>
+    <tr>
+        <td width="2%" style="width: 2% !important;">&nbsp;</td>
+        <td  align="right">
+            <table class="totals-body" border="0" width="100%" style="width:100%; max-width: 260px"  cellspacing="0" cellpadding="0">
+                <tr>
+                    <td>
+                        <table style=" font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;" border="0" width="100%"  cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td colspan="5" height="0"></td>
+                            </tr>
+                            <?php foreach ($block->getTotals() as $_code => $_total) : ?>
+                                <?php $label = $_total->getLabel();?>
+                                <?php $code = $_total->getCode();?>
+                                <?php  if ($_total->getBlockName()) : ?>
+                                    <?php echo $block->getChildHtml($_total->getBlockName()); ?>
+                                <?php else :?>
+                                    <tr>
+                                        <td style="color: #707582; font-size: 14px; font-weight: bold;">
+                                            <?php echo $block->escapeHtml($_total->getLabel());?>
+                                        </td>
+                                        <td width="15" height="25"  style="width: 15px !important; height: 25px">&nbsp;</td>
+                                        <td style="color: #707582; font-size: 14px; text-align: right;" align="right">
+                                            <?php echo $block->formatValue($_total) ?>
+                                        </td>
+                                    </tr>
+                                <?php endif?>
+                            <?php endforeach?>
+                            <tr >
+                                <td colspan="5" height="5"><div style="font-size: 0; height: 0;">&nbsp;</div></td>
+                            </tr>
+                        </table>
+
+
+
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td width="2%" style="width: 2% !important;">&nbsp;</td>
+    </tr>
+    <tr>
+        <td height="5" style="height: 5px; font-size: 5px; line-height: 5px" colspan="3"><div style="font-size: 0; height: 0;">&nbsp;</div></td>
+    </tr>
+    <tr>
+        <td height="1" style="background-color: #e26a0a; font-size:0px; line-height:0px; height:1px;" bgcolor="#e26a0a" colspan="3"><div style="font-size: 0; height: 0;">&nbsp;</div></td>
+    </tr>
+</table>

@@ -1,0 +1,14 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Request a Quote Base for Magento 2
+ */ $source  = $block->getSource() ?>
+<?php $block->setPriceDataObject($source) ?>
+
+<?php if ((float) $source->getShippingAmount() || $source->getShippingDescription()): ?>
+    <tr>
+        <td class="label"><?= /* @noEscape */ __('Shipping &amp; Handling') ?></td>
+        <td><?= /* @noEscape */ $block->displayPriceAttribute('shipping_amount') ?></td>
+    </tr>
+<?php endif; ?>

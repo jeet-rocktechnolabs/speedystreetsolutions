@@ -1,0 +1,215 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="carriers" translate="label" type="text" sortOrder="320" showInDefault="1" showInWebsite="1"
+                 showInStore="1">
+            <group id="shippingperitem" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>Shipping Per Product</label>
+                <field id="active" translate="label" type="select" sortOrder="0" showInDefault="1" showInWebsite="1"
+                       showInStore="0" canRestore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="title" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1"
+                       showInStore="1" canRestore="1">
+                    <label>Title</label>
+                </field>
+                <field id="name" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1"
+                       showInStore="1" canRestore="1">
+                    <label>Method Name</label>
+                </field>
+
+                <field id="use_default_rate" translate="label" type="select" sortOrder="4" showInDefault="1"
+                       showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Default Product Shipping Cost</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>
+                        <![CDATA[If set to "Yes", the default rate per item will be used for all products.]]></comment>
+                </field>
+                <field id="default_rate" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1"
+                       showInStore="0" canRestore="1">
+                    <label>Default Rate Per Item</label>
+                </field>
+                <field id="handling_fee" translate="label" type="text" sortOrder="6" showInDefault="1" showInWebsite="1"
+                       showInStore="0">
+                    <label>Handling Fee</label>
+                </field>
+                <field id="sallowspecific" translate="label" type="select" sortOrder="7" showInDefault="1"
+                       showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Ship to Applicable Countries</label>
+                    <frontend_class>shipping-applicable-country</frontend_class>
+                    <source_model>Magento\Shipping\Model\Config\Source\Allspecificcountries</source_model>
+                </field>
+                <field id="yellowzonepcode" translate="label" type="textarea" sortOrder="8" showInDefault="1"
+                       showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Yellow Zone Postcode</label>
+                </field>
+                <field id="shipping_cost_yellow_0" translate="label" type="text" sortOrder="9" showInDefault="1" showInWebsite="1"
+                       showInStore="0">
+                    <label>Yellow Zone Price (Bollards Pallet)</label>
+                </field>
+                <field id="shipping_cost_yellow_1" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1"
+                       showInStore="0">
+                    <label>Yellow Zone Price (Pallet Size 1200mm x 1200mm)</label>
+                </field>
+                <field id="shipping_cost_yellow_2" translate="label" type="text" sortOrder="11" showInDefault="1" showInWebsite="1"
+                       showInStore="0">
+                    <label>Yellow Zone Price (Pallet Size 1200mm x 1500mm)</label>
+                </field>
+                <field id="orangezonepcode" translate="label" type="textarea" sortOrder="12" showInDefault="1"
+                       showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Orange Zone Postcode</label>
+                </field>
+                <field id="shipping_cost_orange_0" translate="label" type="text" sortOrder="13" showInDefault="1" showInWebsite="1"
+                       showInStore="0">
+                    <label>Orange Zone Price (Bollards Pallet)</label>
+                </field>
+                <field id="shipping_cost_orange_1" translate="label" type="text" sortOrder="14" showInDefault="1" showInWebsite="1"
+                       showInStore="0">
+                    <label>Orange Zone Price (Pallet Size 1200mm x 1200mm)</label>
+                </field>
+                <field id="shipping_cost_orange_2" translate="label" type="text" sortOrder="15" showInDefault="1" showInWebsite="1"
+                       showInStore="0">
+                    <label>Orange Zone Price (Pallet Size 1200mm x 1500mm)</label>
+                </field>
+                <field id="pinkzonepcode" translate="label" type="textarea" sortOrder="16" showInDefault="1"
+                       showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Pink Zone Postcode</label>
+                </field>
+                <field id="shipping_cost_pink_0" translate="label" type="text" sortOrder="17" showInDefault="1" showInWebsite="1"
+                       showInStore="0">
+                    <label>Pink Zone Price (Bollards Pallet)</label>
+                </field>
+                <field id="shipping_cost_pink_1" translate="label" type="text" sortOrder="18" showInDefault="1" showInWebsite="1"
+                       showInStore="0">
+                    <label>Pink Zone Price (Pallet Size 1200mm x 1200mm)</label>
+                </field>
+                <field id="shipping_cost_pink_2" translate="label" type="text" sortOrder="19" showInDefault="1" showInWebsite="1"
+                       showInStore="0">
+                    <label>Pink Zone Price (Pallet Size 1200mm x 1500mm)</label>
+                </field>
+                <field id="bluezonepcode" translate="label" type="textarea" sortOrder="20" showInDefault="1"
+                       showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Blue Zone Postcode</label>
+                </field>
+                <field id="shipping_cost_blue_0" translate="label" type="text" sortOrder="21" showInDefault="1" showInWebsite="1"
+                       showInStore="0">
+                    <label>Blue Zone Price (Bollards Pallet)</label>
+                </field>
+                <field id="shipping_cost_blue_1" translate="label" type="text" sortOrder="22" showInDefault="1" showInWebsite="1"
+                       showInStore="0">
+                    <label>Blue Zone Price (Pallet Size 1200mm x 1200mm)</label>
+                </field>
+                <field id="shipping_cost_blue_2" translate="label" type="text" sortOrder="23" showInDefault="1" showInWebsite="1"
+                       showInStore="0">
+                    <label>Blue Zone Price (Pallet Size 1200mm x 1500mm)</label>
+                </field>
+                <field id="greenzonepcode" translate="label" type="textarea" sortOrder="24" showInDefault="1"
+                       showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Green Zone Postcode</label>
+                </field>
+                <field id="shipping_cost_green_0" translate="label" type="text" sortOrder="25" showInDefault="1" showInWebsite="1"
+                       showInStore="0">
+                    <label>Green Zone Price (Bollards Pallet)</label>
+                </field>
+                <field id="shipping_cost_green_1" translate="label" type="text" sortOrder="26" showInDefault="1" showInWebsite="1"
+                       showInStore="0">
+                    <label>Green Zone Price (Pallet Size 1200mm x 1200mm)</label>
+                </field>
+                <field id="shipping_cost_green_2" translate="label" type="text" sortOrder="27" showInDefault="1" showInWebsite="1"
+                       showInStore="0">
+                    <label>Green Zone Price (Pallet Size 1200mm x 1500mm)</label>
+                </field>
+                <field id="clondonzonepcode" translate="label" type="textarea" sortOrder="28" showInDefault="1"
+                       showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Central London Zone Postcode</label>
+                </field>
+                <field id="shipping_cost_clondon_0" translate="label" type="text" sortOrder="29" showInDefault="1" showInWebsite="1"
+                       showInStore="0">
+                    <label>Central London Zone Price (Bollards Pallet)</label>
+                </field>
+                <field id="shipping_cost_clondon_1" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1"
+                       showInStore="0">
+                    <label>Central London Zone Price (Pallet Size 1200mm x 1200mm)</label>
+                </field>
+                <field id="shipping_cost_clondon_2" translate="label" type="text" sortOrder="31" showInDefault="1" showInWebsite="1"
+                       showInStore="0">
+                    <label>Central London Zone Price (Pallet Size 1200mm x 1500mm)</label>
+                </field>
+                <field id="purplezonepcode" translate="label" type="textarea" sortOrder="32" showInDefault="1"
+                       showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Purple Zone Postcode</label>
+                </field>
+                <field id="shipping_cost_purple_0" translate="label" type="text" sortOrder="33" showInDefault="1" showInWebsite="1"
+                       showInStore="0">
+                    <label>Purple Zone Price (Bollards Pallet)</label>
+                </field>
+                <field id="shipping_cost_purple_1" translate="label" type="text" sortOrder="34" showInDefault="1" showInWebsite="1"
+                       showInStore="0">
+                    <label>Purple Zone Price (Pallet Size 1200mm x 1200mm)</label>
+                </field>
+                <field id="shipping_cost_purple_2" translate="label" type="text" sortOrder="35" showInDefault="1" showInWebsite="1"
+                       showInStore="0">
+                    <label>Purple Zone Price (Pallet Size 1200mm x 1500mm)</label>
+                </field>
+                <field id="redzonepcode" translate="label" type="textarea" sortOrder="36" showInDefault="1"
+                       showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Red Zone Postcode</label>
+                </field>
+                <field id="shipping_cost_red_0" translate="label" type="text" sortOrder="37" showInDefault="1" showInWebsite="1"
+                       showInStore="0">
+                    <label>Red Zone Price (Bollards Pallet)</label>
+                </field>
+                <field id="shipping_cost_red_1" translate="label" type="text" sortOrder="38" showInDefault="1" showInWebsite="1"
+                       showInStore="0">
+                    <label>Red Zone Price (Pallet Size 1200mm x 1200mm)</label>
+                </field>
+                <field id="shipping_cost_red_2" translate="label" type="text" sortOrder="39" showInDefault="1" showInWebsite="1"
+                       showInStore="0">
+                    <label>Red Zone Price (Pallet Size 1200mm x 1500mm)</label>
+                </field>
+                <field id="shipping_cost_shelter_extra" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1"
+                       showInStore="0">
+                    <label>Shipping cost shelter extra</label>
+                </field>
+                <field id="specificcountry" translate="label" type="multiselect" sortOrder="41" showInDefault="1"
+                       showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Ship to Specific Countries</label>
+                    <source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+                    <can_be_empty>1</can_be_empty>
+                </field>
+                <field id="showmethod" translate="label" type="select" sortOrder="42" showInDefault="1" showInWebsite="1"
+                       showInStore="0" canRestore="1">
+                    <label>Show Method if Not Applicable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="specificerrmsg" translate="label" type="textarea" sortOrder="43" showInDefault="1"
+                       showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Displayed Error Message</label>
+                </field>
+                <field id="for_admin" translate="label" type="select" sortOrder="44" showInDefault="1" showInWebsite="1"
+                       showInStore="0" canRestore="1">
+                    <label>Show Method only for Admin</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+                <field id="min_order_amount" translate="label" type="text" sortOrder="45" showInDefault="1"
+                       showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Minimum Order Amount</label>
+                </field>
+                <field id="max_order_amount" translate="label" type="text" sortOrder="46" showInDefault="1"
+                       showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Maximum Order Amount</label>
+                </field>
+                <field id="sort_order" translate="label" type="text" sortOrder="47" showInDefault="1" showInWebsite="1"
+                       showInStore="0">
+                    <label>Sort Order</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

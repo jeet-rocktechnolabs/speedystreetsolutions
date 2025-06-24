@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+	<default>
+        <carriers>
+            <shippingperitem>
+                <active>0</active>
+                <model>Meetanshi\Shippingperitem\Model\Carrier\Shippingperitem</model>
+                <title>Shipping Per Product</title>
+                <name>Fixed</name>
+                <price>5</price>
+                <default_rate>0</default_rate>
+                <use_default_rate>0</use_default_rate>
+                <handling_fee>0</handling_fee>
+                <sort_order>100</sort_order>
+                <sallowspecific>0</sallowspecific>
+				<for_admin>0</for_admin>
+                <specificerrmsg>This shipping method is currently unavailable. If you would like to ship using this shipping method, please contact us.</specificerrmsg>
+            </shippingperitem>
+        </carriers>
+    </default>
+</config>

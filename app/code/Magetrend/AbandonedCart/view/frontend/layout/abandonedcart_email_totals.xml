@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * MB "Vienas bitas" (Magetrend.com)
+ *
+ * PHP version 5.3 or later
+ *
+ * @category MageTrend
+ * @package  Magetend/AbandonedCart
+ * @author   Edvinas Stulpinas <edwin@magetrend.com>
+ * @license  http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+ * @link     https://www.magetrend.com/magento-2-abandoned-cart
+ */
+ -->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd" label="Email Order Items List" design_abstraction="custom">
+    <body>
+        <block class="Magento\Sales\Block\Order\Totals" name="order_totals" template="Magetrend_AbandonedCart::email/totals.phtml">
+            <arguments>
+                <argument name="label_properties" xsi:type="string">colspan="2"</argument>
+            </arguments>
+            <block class="Magento\Tax\Block\Sales\Order\Tax" name="order_tax" template="Magetrend_AbandonedCart::email/totals/tax.phtml"/>
+        </block>
+    </body>
+</page>

@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+
+    <table name="mt_ac_visitor" resource="default" engine="innodb" comment="Visitors">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true" comment="Entity ID"/>
+        <column xsi:type="varchar" name="email" length="255" nullable="true" comment="Visitor Email"/>
+        <column xsi:type="varchar" name="hash" length="255" nullable="true" comment="Hash"/>
+        <column xsi:type="varchar" name="ip" length="16" nullable="true" comment="Ip"/>
+        <column xsi:type="smallint" name="trust" unsigned="true" nullable="true" comment="Trust"/>
+        <column xsi:type="datetime" name="created_at" on_update="false" nullable="true" comment="Created at"/>
+        <column xsi:type="datetime" name="updated_at" on_update="false" nullable="true" comment="Updated at"/>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+
+    </table>
+
+    <table name="mt_ac_rule" resource="default" engine="innodb" comment="Rules">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="false" identity="true" comment="Entity ID"/>
+        <column xsi:type="smallint" name="is_active" unsigned="true" nullable="true" comment="Flag: Is Active"/>
+        <column xsi:type="varchar" name="name" length="255" nullable="true" comment="Rule Name"/>
+        <column xsi:type="varchar" name="type" length="255" nullable="true" comment="Rule Type"/>
+        <column xsi:type="text" name="store_ids"  nullable="true" comment="Store Ids"/>
+        <column xsi:type="text" name="customer_groups"  nullable="true" comment="Customer Groups"/>
+        <column xsi:type="text" name="trigger_events"  nullable="true" comment="Trigger Events"/>
+        <column xsi:type="text" name="cancel_events"  nullable="true" comment="Cancel Events"/>
+        <column xsi:type="text" name="payment_methods"  nullable="true" comment="Payment Methods"/>
+        <column xsi:type="varchar" name="coupon_expire_in_days" length="255"  nullable="true" comment="Coupon Expires After X Dayss"/>
+        <column xsi:type="tinyint" name="coupon_length" unsigned="true" nullable="true" comment="Coupon Length"/>
+        <column xsi:type="varchar" name="coupon_format" length="50" nullable="true" comment="Coupon Code Format"/>
+        <column xsi:type="varchar" name="coupon_prefix" length="50" nullable="true" comment="Coupon Prefix"/>
+        <column xsi:type="varchar" name="coupon_suffix" length="50" nullable="true" comment="Coupon Suffix"/>
+        <column xsi:type="smallint" name="coupon_dash" unsigned="true" nullable="true" comment="Dash every x"/>
+        <column xsi:type="smallint" name="priority" unsigned="false" nullable="true" comment="Rule Priority"/>
+        <column xsi:type="mediumtext" name="conditions_serialized" nullable="true" comment="Conditions"/>
+        <column xsi:type="varchar" name="color_1"  nullable="true" length="10"  comment="Color 1"/>
+        <column xsi:type="varchar" name="color_2"  nullable="true" length="10"  comment="Color 2"/>
+        <column xsi:type="varchar" name="font_size_1"  nullable="true" length="10"  comment="Font Size 1"/>
+        <column xsi:type="varchar" name="font_1"  nullable="true" length="10" comment="Font 1"/>
+        <column xsi:type="text" name="bar_text"  nullable="true" comment="Bar Text"/>
+        <column xsi:type="smallint" name="item_qty" unsigned="false" nullable="true" comment="Item QTY"/>
+        <column xsi:type="smallint" name="show_after" unsigned="false" nullable="true" comment="Show After"/>
+        <column xsi:type="smallint" name="hide_after" unsigned="false" nullable="true" comment="Hide After"/>
+        <column xsi:type="float" name="delay_time" unsigned="false" nullable="true" comment="Delay Time"/>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+
+    </table>
+
+    <table name="mt_ac_schedule" resource="default" engine="innodb" comment="Schedules">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="true" identity="true" comment="Entity ID"/>
+        <column xsi:type="int" name="rule_id" unsigned="true" nullable="true" comment="Rule ID"/>
+        <column xsi:type="int" name="sales_rule_id" unsigned="true" nullable="true" comment="Sales Rule ID"/>
+        <column xsi:type="smallint" name="sort_order" unsigned="false" nullable="true" comment="Sort Order"/>
+        <column xsi:type="varchar" name="email_template" length="255" nullable="true" comment="Email Template"/>
+        <column xsi:type="int" name="delay_day" unsigned="true" nullable="true" comment="Delay of Days"/>
+        <column xsi:type="int" name="delay_hour" unsigned="true" nullable="true" comment="Delay of Hours"/>
+        <column xsi:type="int" name="delay_minute" unsigned="true" nullable="true" comment="Delay of Minutes"/>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+
+    </table>
+
+    <table name="mt_ac_email_queue" resource="default" engine="innodb" comment="Email Queue">
+        <column xsi:type="int" name="entity_id" unsigned="true" nullable="true" identity="true" comment="Entity ID"/>
+        <column xsi:type="smallint" name="store_id" unsigned="true" nullable="true" comment="Store ID"/>
+        <column xsi:type="varchar" name="group_hash" length="32" nullable="true" comment="Group Hash"/>
+        <column xsi:type="int" name="quote_id" unsigned="true" nullable="true" comment="Quote ID"/>
+        <column xsi:type="int" name="order_id" unsigned="true" nullable="true" comment="Order ID"/>
+        <column xsi:type="int" name="schedule_id" unsigned="true" nullable="true" comment="Schedule ID"/>
+        <column xsi:type="int" name="rule_id" unsigned="true" nullable="true" comment="Rule ID"/>
+        <column xsi:type="varchar" name="customer_email" length="255" nullable="true" comment="Customer Email"/>
+        <column xsi:type="datetime" name="created_at" on_update="false" nullable="true" comment="Created at"/>
+        <column xsi:type="datetime" name="scheduled_at" on_update="false" nullable="true"  comment="Scheduled at"/>
+        <column xsi:type="datetime" name="sent_at" on_update="false" nullable="true"  comment="Sent at"/>
+        <column xsi:type="varchar" name="status" length="50" nullable="true" comment="Status"/>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+
+    </table>
+
+    <table name="quote" resource="checkout" comment="Sales Flat Quote">
+        <column xsi:type="varchar" name="visitor_hash" length="32" nullable="true" comment="Visitor Hash"/>
+        <column xsi:type="smallint" name="ac_status" unsigned="true" nullable="false" default="0" comment="Abandoned Cart Status"/>
+        <column xsi:type="varchar" name="ac_hash" length="32" nullable="true" comment="Cart Restore Hash"/>
+
+    </table>
+
+
+    <table name="sales_order" resource="sales" comment="Sales Flat Order">
+        <column xsi:type="smallint" name="ac_status" unsigned="true" nullable="false" default="0" comment="Follow up Status"/>
+        <column xsi:type="varchar" name="ac_hash" length="32" nullable="true" comment="Cart Restore Hash"/>
+
+    </table>
+
+    <table name="salesrule_coupon" resource="default" engine="innodb" comment="Salesrule Coupon">
+        <column xsi:type="varchar" name="ac_group_hash" length="32" nullable="true" comment="Abandoned cart email chain hash"/>
+    </table>
+
+
+
+</schema>

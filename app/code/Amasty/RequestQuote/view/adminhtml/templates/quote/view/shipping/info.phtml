@@ -1,0 +1,39 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Request a Quote Base for Magento 2
+ */ /** @var \Amasty\RequestQuote\Block\Adminhtml\Quote\AbstractQuote $block */ ?>
+<?php
+/** @var \Magento\Quote\Model\Quote|\Amasty\RequestQuote\Api\Data\QuoteInterface $quote */
+$quote = $block->getQuote();
+?>
+<?php if ($quote->getIsVirtual()):
+    return '';
+endif; ?>
+
+<div class="admin__page-section-item quote-shipping-method">
+    <div class="admin__page-section-item-title">
+        <span class="title"><?= $escaper->escapeHtml(__('Shipping &amp; Handling Information')) ?></span>
+    </div>
+    <div class="admin__page-section-item-content">
+        <?php if ($quote->getShippingAddress()->getShippingDescription()): ?>
+            <strong><?= $escaper->escapeHtml($quote->getShippingAddress()->getShippingDescription()) ?></strong>
+
+            <?php if ($block->displayShippingPriceIncludingTax()): ?>
+                <?php $_excl = $block->displayShippingPriceInclTax($quote->getShippingAddress()); ?>
+            <?php else: ?>
+                <?php $_excl = $block->displayShippingPriceAttribute('shipping_amount', false, ' '); ?>
+            <?php endif; ?>
+            <?php $_incl = $block->displayShippingPriceInclTax($quote->getShippingAddress()); ?>
+
+            <?= /** @noEscape */ $_excl ?>
+            <?php if ($block->displayShippingBothPrices()
+                && $_incl != $_excl): ?>
+                (<?= $escaper->escapeHtml(__('Incl. Tax')) ?> <?= /** @noEscape */ $_incl ?>)
+            <?php endif; ?>
+        <?php else: ?>
+            <?= $escaper->escapeHtml(__('No shipping information available')) ?>
+        <?php endif; ?>
+    </div>
+</div>

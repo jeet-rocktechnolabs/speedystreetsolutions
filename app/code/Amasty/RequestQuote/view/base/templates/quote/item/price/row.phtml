@@ -1,0 +1,17 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Request a Quote Base for Magento 2
+ */
+/** @var $block \Amasty\RequestQuote\Block\Cart\Item\Price\Renderer */
+
+$item = $block->getItem();
+?>
+<span class="price-excluding-tax">
+    <span class="cart-price">
+        <span class="price">
+            <?= /* @noEscape */ $block->convertPrice($item->getRowTotal()) ?>
+        </span>
+    </span>
+</span>

@@ -1,0 +1,126 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Hide Price (Call for Price) for Magento 2
+ */-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Catalog\Block\Product\View">
+        <plugin name="Amasty_HidePrice:hide_button" type="Amasty\HidePrice\Plugin\Catalog\Block\Product\View" />
+    </type>
+
+    <type name="Magento\Catalog\Block\Product\ProductList\Item\AddTo\Compare">
+        <plugin name="Amasty_HidePrice:hide_compare_list" type="Amasty\HidePrice\Plugin\Catalog\Block\Product\Compare" />
+    </type>
+
+    <type name="Magento\Catalog\Block\Product\View\AddTo\Compare">
+        <plugin name="Amasty_HidePrice:hide_compare_view" type="Amasty\HidePrice\Plugin\Catalog\Block\Product\Compare" />
+    </type>
+
+    <type name="Magento\Wishlist\Block\Catalog\Product\ProductList\Item\AddTo\Wishlist">
+        <plugin name="Amasty_HidePrice:hide_wishlist_list" type="Amasty\HidePrice\Plugin\Catalog\Block\Product\Wishlist" />
+    </type>
+
+    <type name="Magento\Wishlist\Block\Catalog\Product\View\AddTo\Wishlist">
+        <plugin name="Amasty_HidePrice:hide_wishlist_view" type="Amasty\HidePrice\Plugin\Catalog\Block\Product\Wishlist" />
+    </type>
+
+    <type name="Magento\Catalog\Block\Product\View\Options\AbstractOptions">
+        <plugin name="Amasty_HidePrice:hide_custom_option_price"
+                type="Amasty\HidePrice\Plugin\Catalog\Block\Product\View\Options\AbstractOptions" />
+    </type>
+
+    <type name="Magento\Catalog\Model\Product\Option\Value">
+        <plugin name="Amasty_HidePrice:hide_custom_option_price_select"
+                type="Amasty\HidePrice\Plugin\Catalog\Model\Option\Value" />
+    </type>
+
+    <type name="Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Option">
+        <plugin name="Amasty_HidePrice:hide_custom_option_bundle"
+                type="Amasty\HidePrice\Plugin\Bundle\Block\Option" />
+    </type>
+
+    <type name="Magento\Catalog\Block\Product\ListProduct">
+        <plugin name="Amasty_HidePrice:hide_button_backend_category"
+                type="Amasty\HidePrice\Plugin\Catalog\Block\Product\ProductList\Category" />
+    </type>
+
+    <type name="Magento\CatalogWidget\Block\Product\ProductsList">
+        <plugin name="Amasty_HidePrice:hide_button_backend_widget"
+                type="Amasty\HidePrice\Plugin\Catalog\Block\Product\ProductList\Widget" />
+    </type>
+
+    <type name="Magento\Framework\Pricing\Price\AbstractPrice">
+        <plugin name="Amasty_HidePrice::price_hide" type="Amasty\HidePrice\Plugin\Framework\Pricing\Price\AbstractPrice" />
+    </type>
+
+    <type name="Amasty\Conf\Plugin\Product\View\Type\Configurable">
+        <plugin name="Amasty_HidePrice::remove_price_column" type="Amasty\HidePrice\Plugin\Conf\Configurable" />
+    </type>
+
+    <type name="Magento\Catalog\Pricing\Price\TierPrice">
+        <plugin name="Amasty_HidePrice::disable-tier" type="Amasty\HidePrice\Plugin\Catalog\Pricing\Tier\TierPrice" />
+    </type>
+
+    <type name="Amasty\RequestQuote\Model\HidePrice\Provider">
+        <plugin name="Amasty_HidePrice::resolve-hide-info" type="Amasty\HidePrice\Plugin\RequestQuote\Model\HidePrice\ProviderPlugin" />
+    </type>
+
+    <type name="Magento\Bundle\Helper\Catalog\Product\Configuration">
+        <plugin name="Amasty_HidePrice::hide-bundle-options" type="Amasty\HidePrice\Plugin\Bundle\Helper\Catalog\Product\ConfigurationPlugin" />
+    </type>
+
+    <type name="Magento\Quote\Model\Quote">
+        <plugin name="Amasty_HidePrice::disable_add_to_cart" type="Amasty\HidePrice\Plugin\Quote\Model\QuotePlugin" />
+    </type>
+
+    <type name="Magento\Wishlist\Model\Wishlist">
+        <plugin name="Amasty_HidePrice::disable_add_to_wishlist" type="Amasty\HidePrice\Plugin\Wishlist\Model\WishlistPlugin" />
+    </type>
+
+    <type name="Magento\Catalog\Model\Product\Option\Type\Select">
+        <plugin name="Amasty_HidePrice::disable_hideprice_for_options_in_quote"
+                type="Amasty\HidePrice\Plugin\Catalog\Model\Product\Option\Type\DisableOptionsHidePriceInQuote"/>
+    </type>
+    <type name="Magento\GroupedProduct\Model\Product\Type\Grouped">
+        <plugin name="Amasty_HidePrice::add-hideprice-attributes-to-grouped-collection"
+                type="Amasty\HidePrice\Plugin\GroupedProduct\Model\Product\Type\Grouped\AddHidepriceAttributesToGroupedCollection"/>
+    </type>
+
+    <type name="\Amasty\Xsearch\Block\Search\Product">
+        <plugin name="Amasty_HidePrice:hide_price_xsearch_popup"
+                type="Amasty\HidePrice\Plugin\Xsearch\Block\Search\Product\HidePrice" />
+    </type>
+
+    <type name="Amasty\HidePrice\Plugin\Xsearch\Block\Search\Product\HidePrice">
+        <arguments>
+            <argument name="hide_popup_data" xsi:type="object">Amasty\HidePrice\Model\Xsearch\HidePopupData\Proxy</argument>
+        </arguments>
+    </type>
+
+    <type name="\Amasty\Xsearch\Block\Search\Product">
+        <plugin name="Amasty_HidePrice:hide_wishlist_xsearch_popup"
+                type="Amasty\HidePrice\Plugin\Xsearch\Block\Search\Product\HideWishlist" />
+    </type>
+
+    <type name="\Amasty\Xsearch\Block\Search\Product">
+        <plugin name="Amasty_HidePrice:hide_compare_xsearch_popup"
+                type="Amasty\HidePrice\Plugin\Xsearch\Block\Search\Product\HideCompare" />
+    </type>
+
+    <type name="Magento\Framework\Pricing\Render">
+        <plugin name="Amasty_HidePrice:product_price_hide" type="Amasty\HidePrice\Plugin\Framework\Pricing\Render" />
+    </type>
+
+    <type name="\Amasty\Xsearch\Block\Search\Product">
+        <plugin name="Amasty_HidePrice:hide_add_to_cart_xsearch_popup"
+                type="Amasty\HidePrice\Plugin\Xsearch\Block\Search\Product\HideAddToCart" />
+    </type>
+
+    <type name="Magento\Catalog\Pricing\Price\FinalPrice">
+        <plugin name="Amasty_HidePrice::hide_min_and_max_price"
+                type="Amasty\HidePrice\Plugin\Catalog\Pricing\Price\FinalPrice\HideMinAndMaxPrice"/>
+    </type>
+</config>

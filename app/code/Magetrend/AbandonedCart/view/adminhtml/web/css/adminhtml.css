@@ -1,0 +1,84 @@
+/**
+ * MB "Vienas bitas" (Magetrend.com)
+ *
+ * PHP version 5.3 or later
+ *
+ * @category MageTrend
+ * @package  Magetend/AbandonedCart
+ * @author   Edvinas Stulpinas <edwin@magetrend.com>
+ * @license  http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+ * @link     https://www.magetrend.com/magento-2-abandoned-cart
+ */
+.control  .control-days input{
+    width: 40px;
+}
+
+.control  .control-hours select{
+    width: 80px;
+}
+.control  .control-minutes select{
+    width: 80px;
+}
+
+.control  .control-days,
+.control  .control-hours,
+.control  .control-minutes {
+    float: left;
+}
+
+.control  .control-days {
+    width: 100px;
+}
+.control  .control-hours {
+    width: 90px;
+}
+.control  .control-minutes  {
+    width: 90px;
+}
+
+.field-option-time {
+    min-width: 312px !important;
+}
+
+.field-option-rule .note {
+    margin-top: 5px;
+}
+
+.fieldset-wrapper-title span{
+    padding-left: 10px;
+}
+
+.mt-col-id,
+.mt-col-is-active,
+.mt-col-entity_id,
+.mt-col-priority {
+    width: 120px;
+}
+
+
+.mt-col-customer-group,
+.mt-col-stores {
+    width: 200px;
+}
+
+.field-trigger_events select {
+    height: 80px !important;
+}
+
+.abandonedcart-queue-index .col-massaction {
+    width: 50px;
+}
+
+.abandonedcart-queue-index .col-entity_id,
+.abandonedcart-queue-index .col-quote_id {
+    width: 80px;
+}
+
+.abandonedcart-queue-index #queueGrid_filter_massaction {
+    display: none;
+}
+
+.abandonedcart-queue-index .head-massaction select{
+    width: 50px !important;
+    min-width: 5rem !important;
+}

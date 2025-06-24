@@ -1,0 +1,319 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Request a Quote Base for Magento 2
+ */-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="amasty_request_quote" translate="label" type="text" sortOrder="180517" showInDefault="1" showInWebsite="1" showInStore="1">
+            <resource>Amasty_RequestQuote::config</resource>
+            <class>separator-top</class>
+            <label>Request a Quote</label>
+            <tab>amasty</tab>
+            <group id="amasty_information" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>Information</label>
+                <frontend_model>Amasty\RequestQuote\Block\Adminhtml\System\Config\Information</frontend_model>
+            </group>
+            <group id="general" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+                <field id="is_active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable 'Request a Quote'</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="url_key" translate="label comment" type="text" sortOrder="15" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Frontend Quote URL Key</label>
+                    <comment>Specified URL Key will be used for the Quote Cart ({url_key}/cart/) and ‘My Quotes’ ({url_key}/account/) pages on the frontend.</comment>
+                    <backend_model>Amasty\RequestQuote\Model\Config\Backend\Quote\UrlKey</backend_model>
+                    <validate>minimum-length-3 required amasty-validate-url-key</validate>
+                </field>
+                <field id="visible_on_pdp" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>'Add to Quote' button on Product Page</label>
+                    <source_model>Amasty\RequestQuote\Model\Source\Visibility</source_model>
+                </field>
+                <field id="visible_on_plp" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>'Add to Quote' button on Category Page</label>
+                    <source_model>Amasty\RequestQuote\Model\Source\Visibility</source_model>
+                </field>
+                <field id="exclude_category" translate="label comment" type="multiselect" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Disable Quotation for Categories</label>
+                    <comment>'Add to Quote' button will be hidden for each product from the selected categories. This setting is applied to product list and product page.</comment>
+                    <source_model>Amasty\RequestQuote\Model\Source\Category</source_model>
+                    <tooltip><![CDATA[<img src="Amasty_RequestQuote::images/categories.jpg">]]></tooltip>
+                </field>
+                <field id="visible_for_groups" translate="label comment" type="multiselect" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Allow Quote Request for Customer Groups</label>
+                    <comment>If 'Not Logged In' option is chosen, please specify whether or not customer account should be created for guest automatically when the quote is submitted.</comment>
+                    <source_model>Amasty\RequestQuote\Model\Source\Group</source_model>
+                    <validate>validate-select</validate>
+                    <frontend_model>Amasty\RequestQuote\Block\Adminhtml\System\Config\Field\Multiselect</frontend_model>
+                </field>
+                <field id="allow_create_account_for_guest" translate="label" type="select" sortOrder="55"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Auto-Сreate Сustomer Account When Guest Submit New Quote</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="visible_for_groups">0</field>
+                    </depends>
+                </field>
+                <field id="inform_guest" translate="label comment" type="select" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Inform Guests</label>
+                    <comment>Show 'Login for quote' button for guests</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="visible_for_groups" negative="1">0</field>
+                    </depends>
+                </field>
+                <field id="guest_button_text" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Button Text</label>
+                    <depends>
+                        <field id="inform_guest">1</field>
+                        <field id="visible_for_groups" negative="1">0</field>
+                    </depends>
+                </field>
+                <field id="is_allow_customize_price" translate="label" type="select" sortOrder="75" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Allow to Change Price in Quote Cart</label>
+                    <comment><![CDATA[Set 'No' to disable price changing for customers in Quote Cart. Automatic quote approval will be disabled as well.</br>
+                    Note! If Amasty Hide Price is enabled, the quote will be submitted with 0 price. Please make sure to check the quote before approving.]]></comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="auto_approve" translate="label comment" type="select" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Approve Quotes Automatically</label>
+                    <comment>Set 'Yes' to approve quote automatically if the overall discount is less than certain % amount</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="is_allow_customize_price">1</field>
+                    </depends>
+                </field>
+                <field id="percent_for_approve" translate="label comment" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>if Quote Discount is Less than (%)</label>
+                    <comment>The discount is calculated for the entire quote (not for separate products). Note: discount calculation is based on prices excluding tax.</comment>
+                    <validate>required-entry validate-digits validate-digits-range digits-range-1-100</validate>
+                    <depends>
+                        <field id="auto_approve">1</field>
+                        <field id="is_allow_customize_price">1</field>
+                    </depends>
+                </field>
+                <field id="cost_attr" translate="label" type="select" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Cost Attribute</label>
+                    <source_model>Amasty\RequestQuote\Model\Source\Attribute\Decimal</source_model>
+                </field>
+                <field id="custom_rate_label" translate="label comment" type="text" sortOrder="110" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Label for Custom Shipping Method</label>
+                    <comment>Specify the name of custom shipping method.</comment>
+                    <depends>
+                        <field id="is_active">1</field>
+                    </depends>
+                </field>
+            </group>
+
+            <group id="proposal" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Expiration &amp; Reminder</label>
+
+                <field id="expiration_time" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Quote Expiration</label>
+                    <comment>Set default period in days for quote to be valid once approved. For zero and higher this value can be set for each quote individually. Keep empty to disable this feature.</comment>
+                    <validate>validate-number</validate>
+                </field>
+
+                <field id="reminder_time" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Send Reminder Email after Day(s)</label>
+                    <comment>Set default period in days to send reminder once quote approved. For zero and higher this value can be set for each quote individually. Keep empty to disable reminder.</comment>
+                    <validate>validate-number</validate>
+                </field>
+            </group>
+
+            <group id="admin_notifications" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Admin Notifications</label>
+
+                <field id="notify" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Send Email Reports for New Quote Requests</label>
+                    <source_model>Amasty\RequestQuote\Model\Source\Yesnocustom</source_model>
+                </field>
+
+                <field id="frequency" translate="label" type="select" sortOrder="13" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Frequency</label>
+                    <source_model>Magento\Cron\Model\Config\Source\Frequency</source_model>
+                    <backend_model>Amasty\RequestQuote\Model\Config\Backend\Quote\Alert</backend_model>
+                    <depends>
+                        <field id="notify">1</field>
+                    </depends>
+                </field>
+
+                <field id="time" translate="label" type="time" sortOrder="17" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Start Time</label>
+                    <depends>
+                        <field id="notify">1</field>
+                    </depends>
+                </field>
+
+                <field id="send_to_email" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Admin Email Address</label>
+                    <comment>Input an email address, the extension will send notifications to.</comment>
+                    <depends>
+                        <field id="notify" negative="1">0</field>
+                    </depends>
+                </field>
+
+                <field id="notify_template" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Email Template to Notify Admin</label>
+                    <comment>Select the appropriate template for the email notifications.</comment>
+                    <source_model>Amasty\RequestQuote\Model\Source\Email\AdminTemplate</source_model>
+                    <depends>
+                        <field id="notify" negative="1">0</field>
+                    </depends>
+                </field>
+
+                <field id="sender_email_identity" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Email Sender</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                    <depends>
+                        <field id="notify" negative="1">0</field>
+                    </depends>
+                </field>
+            </group>
+
+            <group id="customer_notifications" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Customer Notifications</label>
+
+                <field id="enable_notifications" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Send Email Notifications to Customers</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="disable_notifications_for" translate="label" type="multiselect" sortOrder="20"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Disable Notification for</label>
+                    <source_model>Amasty\RequestQuote\Model\Source\CustomerNotificationTemplates</source_model>
+                    <frontend_model>Amasty\RequestQuote\Block\Adminhtml\System\Config\Field\Multiselect</frontend_model>
+                    <depends>
+                        <field id="enable_notifications">1</field>
+                    </depends>
+                    <can_be_empty>1</can_be_empty>
+                </field>
+
+                <field id="customer_template_submit" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Email Template for Submitted Quote</label>
+                    <source_model>Amasty\RequestQuote\Model\Source\Email\Customer\Submit</source_model>
+                    <depends>
+                        <field id="enable_notifications">1</field>
+                    </depends>
+                </field>
+ 
+                <field id="submit_email_copy_to" translate="label comment" type="text" sortOrder="25" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Send Submitted Quote Email Copy To</label>
+                    <comment>Comma-separated.</comment>
+                </field>
+
+                <field id="customer_template_approve" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Email Template for Approved Quote</label>
+                    <source_model>Amasty\RequestQuote\Model\Source\Email\Customer\Approve</source_model>
+                    <depends>
+                        <field id="enable_notifications">1</field>
+                    </depends>
+                </field>
+
+                <field id="customer_template_edit_quote" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Email Template for Modified Quote</label>
+                    <source_model>Amasty\RequestQuote\Model\Source\Email\Customer\Edit</source_model>
+                    <depends>
+                        <field id="enable_notifications">1</field>
+                    </depends>
+                </field>
+
+                <field id="customer_template_cancel" translate="label" type="select" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Email Template for Canceled Quote</label>
+                    <source_model>Amasty\RequestQuote\Model\Source\Email\Customer\Cancel</source_model>
+                    <depends>
+                        <field id="enable_notifications">1</field>
+                    </depends>
+                </field>
+
+                <field id="customer_template_expired" translate="label" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Email Template for Expired Quote</label>
+                    <source_model>Amasty\RequestQuote\Model\Source\Email\Customer\Expired</source_model>
+                    <depends>
+                        <field id="enable_notifications">1</field>
+                    </depends>
+                </field>
+
+                <field id="customer_template_reminder" translate="label" type="select" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Email Template for Reminder</label>
+                    <source_model>Amasty\RequestQuote\Model\Source\Email\Customer\Reminder</source_model>
+                    <depends>
+                        <field id="enable_notifications">1</field>
+                    </depends>
+                </field>
+
+                <field id="sender_email_identity" translate="label comment" type="select" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Email Sender</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Identity</source_model>
+                    <depends>
+                        <field id="enable_notifications">1</field>
+                    </depends>
+                </field>
+
+                <group id="guest_notifications" translate="label" type="text" sortOrder="100"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Not Logged In Customers Notifications</label>
+                    <depends>
+                        <field id="amasty_request_quote/general/allow_create_account_for_guest">0</field>
+                        <field id="enable_notifications">1</field>
+                    </depends>
+
+                    <field id="template_submit" translate="label" type="select" sortOrder="10"
+                           showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Email Template for Submitted Quote</label>
+                        <source_model>Amasty\RequestQuote\Model\Source\Email\Guest\Submit</source_model>
+                        <config_path>amasty_request_quote/guest_notifications/customer_template_submit</config_path>
+                    </field>
+
+                    <field id="template_approve" translate="label" type="select" sortOrder="20"
+                           showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Email Template for Approved Quote</label>
+                        <source_model>Amasty\RequestQuote\Model\Source\Email\Guest\Approve</source_model>
+                        <config_path>amasty_request_quote/guest_notifications/customer_template_approve</config_path>
+                    </field>
+
+                    <field id="template_edit" translate="label" type="select" sortOrder="30"
+                           showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Email Template for Modified Quote</label>
+                        <source_model>Amasty\RequestQuote\Model\Source\Email\Guest\Edit</source_model>
+                        <config_path>amasty_request_quote/guest_notifications/customer_template_edit_quote</config_path>
+                    </field>
+
+                    <field id="template_cancel" translate="label" type="select" sortOrder="40"
+                           showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Email Template for Canceled Quote</label>
+                        <source_model>Amasty\RequestQuote\Model\Source\Email\Guest\Cancel</source_model>
+                        <config_path>amasty_request_quote/guest_notifications/customer_template_cancel</config_path>
+                    </field>
+                </group>
+            </group>
+            <group id="pdf" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>PDF</label>
+                <comment>
+                    To use PDF functionality, please install the library dompdf/dompdf. To do this, run the command
+                    "composer require dompdf/dompdf" in the main site folder.
+                </comment>
+                <fieldset_css>amasty_quote_download_pdf</fieldset_css>
+
+                <field id="pdf_attach" translate="label" type="select" sortOrder="20" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Automatically Attach PDF File to Approved Quote Notification</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="template_content" translate="label" type="textarea" sortOrder="30" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Template Content</label>
+                    <validate>required-entry</validate>
+                    <frontend_model>Amasty\RequestQuote\Block\Adminhtml\System\Config\PdfTemplate</frontend_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

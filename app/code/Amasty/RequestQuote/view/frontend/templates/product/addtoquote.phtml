@@ -1,0 +1,35 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Request a Quote Base for Magento 2
+ */
+/**
+ * @var \Magento\Framework\Escaper $escaper
+ * @var \Amasty\RequestQuote\Block\Product\Action  $block
+ */
+
+$additionalClass = ($block->isProductListing() ? ' -small' : '') . ($block->isGuest() ? ' -guest' : '');
+?>
+
+<button type="submit"
+        title="<?= $escaper->escapeHtml($block->getButtonText()) ?>"
+        class="amquote-addto-button action outline<?= /* @noEscape */ $additionalClass ?>"
+        data-amquote-js="addto-button"
+        <?php if ($block->getIsLoggedButton()): ?>data-amquote-logged="logged-button"<?php endif;?>
+        <?php if (!$block->isProductListing()): ?> id="product-addtoquote" <?php endif;?>
+        <?php if ($block->isProductListing()): ?> style="display:none;" <?php endif;?> >
+    <span class="amquote-addto-button-text"><?= $escaper->escapeHtml($block->getButtonText()) ?></span>
+</button>
+
+<script type="text/x-magento-init">
+    {
+        "[data-amquote-js='addto-button']": {
+            "Amasty_RequestQuote/js/product/addtoquote": {
+                "addUrl": "<?= $escaper->escapeUrl($block->getAddUrl());?>",
+                "isCategoryPage": "<?= /** @noEscape */ $block->isProductListing() ?>",
+                "loggedIn": "<?= /** @noEscape */ $block->getLoggedIn() ?>"
+            }
+        }
+    }
+</script>

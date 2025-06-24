@@ -1,0 +1,459 @@
+//
+//  Base Styles
+//  ______________________________________________
+
+//
+//  Common
+//  ----------------------------------------------
+
+& when (@media-common = true) {
+    .amquote-line-block {
+        & {
+            background: #f1f1f1;
+            margin: @amquote__indent 0 0 0;
+            padding: @amquote__indent;
+        }
+
+        &.-total {
+            text-align: right;
+        }
+    }
+
+    .col-total.last {
+        text-align: right;
+    }
+
+    .amquote-approved-title {
+        & {
+            .am-flex(flex-start, center);
+
+            margin: @amquote__indent__xl * 2 0 @amquote__indent;
+        }
+
+        .action-secondary {
+            margin: 0 0 0 @amquote__indent__xl * 2;
+        }
+
+        .amquote-title {
+            margin: 0;
+        }
+    }
+
+    .amquote-order-discount {
+        & {
+            .am-flex(flex-start, center);
+
+            padding: @amquote__indent 0;
+        }
+
+        .amquote-coupons {
+            .am-flex;
+
+            .amquote-input {
+                min-width: 8rem;
+            }
+        }
+
+        .action-secondary {
+            margin: 0 0 0 auto;
+        }
+    }
+
+    .amquote-addto-button {
+        & {
+            background: none;
+            border: 1px solid @am-button-main__color;
+            border-radius: 3px;
+            box-shadow: none;
+            box-sizing: border-box;
+            color: @am-button-main__color;
+            cursor: pointer;
+            display: inline-block;
+            font-size: 1.8rem;
+            font-weight: 600;
+            line-height: 2.2rem;
+            margin: 0 0 15px;
+            padding: 14px 17px;
+            transition-property: background-color, color;
+            vertical-align: top;
+            width: 100%;
+        }
+
+        &:hover,
+        &:active,
+        &:focus {
+            background: @am-button-main__color;
+            border: 1px solid @am-button-main__color;
+            box-shadow: none;
+            color: #fff;
+        }
+
+        &.-small {
+            border-radius: 0;
+            font-size: 1.3rem;
+            line-height: 1;
+            padding: 10px 0;
+            transition: display .3s ease;
+            white-space: nowrap;
+        }
+
+        &.-guest.-small {
+            white-space: normal;
+        }
+    }
+
+    .amquote-action-wrap {
+        .action.tocart {
+            margin-bottom: 10px;
+            padding: 10px 0;
+            width: 100%;
+        }
+
+        .actions-primary {
+            display: block;
+            width: 100%;
+        }
+
+        .actions-primary + .actions-secondary {
+            display: block;
+            padding: 0;
+            text-align: center;
+            width: inherit;
+        }
+
+        .swatch-input {
+            display: inline-block;
+        }
+    }
+
+    .amquote-cart-wrapper.minicart-wrapper {
+        & {
+            display: inline-block;
+            float: right;
+            margin-bottom: 3px;
+            margin-right: 4px;
+        }
+
+        &.-active .block-quotecart {
+            position: absolute;
+        }
+
+        .block-minicart {
+            width: 270px;
+        }
+
+        .block-minicart:after,
+        .block-minicart:before {
+            transform: translateX(-10px);
+        }
+
+        .amquote-showcart {
+            cursor: pointer;
+            display: inline-block;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .amquote-showcart.action:before {
+            background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGw9Im5vbmUiIHZpZXdCb3g9IjAgMCAyNSAyNSI+PHBhdGggZmlsbD0iIzc1NzU3NSIgZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNMjQgMjFoLTFsLS4wMTItMTEuNTEyQS40ODguNDg4IDAgMCAwIDIyLjUgOUgyMFYxLjVhLjQ4OC40ODggMCAwIDAtLjQ4OC0uNDg4SDkuNDg4QS40ODguNDg4IDAgMCAwIDkgMS41VjIwaC0uMzM3QTMuNTE1IDMuNTE1IDAgMCAwIDcgMTguMzM3VjEuMzU5QzcgLjU1MSA2LjUgMCA1LjY2NCAwSDFTMCAwIDAgMXMxIDEgMSAxaDR2MTYuMDM1QTMuNSAzLjUgMCAxIDAgOC42NjMgMjNIMjRzMSAwIDEtMWMwLTEuMDAxLTEtMS0xLTF6bS0xMy4wMDEgMGwtLjAwMS0xMEgxNGwuMDAxIDQuMjM2YS40ODguNDg4IDAgMCAwIC43ODEuMzlsMS4xMzctMS4yNDUgMS4zMDEgMS4yNDZhLjQ4OC40ODggMCAwIDAgLjc4LS4zOTF2LTQuMjM1TDIxIDExdjkuOTk5TDEwLjk5OSAyMXptMS45OS0xNS4zNThhLjQ4OC40ODggMCAwIDAgLjc1OC40MDZsLjcwNi0uNzk3Ljc4OC43OTZBLjQ4Ny40ODcgMCAwIDAgMTYgNS42NFYzaDJ2NmgtN1YzaDEuOTg4djIuNjQyeiIgY2xpcC1ydWxlPSJldmVub2RkIi8+PC9zdmc+) no-repeat center;
+            content: '';
+            display: inline-block;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            height: 30px;
+            line-height: 28px;
+            margin: 0;
+            overflow: hidden;
+            speak: none;
+            text-align: center;
+            transition: opacity .3s ease;
+            vertical-align: top;
+            width: 23px;
+        }
+
+        .amquote-showcart:hover:before {
+            opacity: .75;
+        }
+
+        .amquote-showcart > .text,
+        .amquote-showcart .counter-label {
+            border: 0;
+            clip: rect(0, 0, 0, 0);
+            height: 1px;
+            margin: -1px;
+            overflow: hidden;
+            padding: 0;
+            position: absolute;
+            width: 1px;
+        }
+
+        .amquote-showcart .counter-number {
+            text-shadow: 0 0 7px #000;
+        }
+
+        .amquote-showcart .counter.qty.empty {
+            display: none;
+        }
+
+        .amquote-showcart .counter.qty {
+            background: @am-quotecart-counter__background;
+            border-radius: 2px;
+            color: @am-quotecart-counter__color;
+            display: inline-block;
+            height: @am-quotecart-counter__height;
+            line-height: @am-quotecart-counter__height;
+            margin: 3px 0 0;
+            min-width: 18px;
+            overflow: hidden;
+            padding: 0 3px;
+            text-align: center;
+            white-space: normal;
+        }
+
+        .block-quotecart {
+            & {
+                padding-bottom: 0;
+            }
+
+            .cart-item-qty {
+                margin-right: 3px;
+            }
+        }
+
+        .minicart-widgets {
+            margin: 0;
+        }
+
+        .block-quotecart .subtitle.empty {
+            padding: 30px 0 50px;
+        }
+    }
+
+    .cart.table-wrapper {
+        .data.table .col.price,
+        .data.table .col.qty,
+        .col.price.qty {
+            text-align: center;
+            white-space: normal;
+        }
+
+        .item-info .col.qty {
+            white-space: normal;
+        }
+
+        .col.price .control .amquotereq-input {
+            padding: 0;
+            text-align: center;
+            width: 80px;
+        }
+
+        .amquotereq-input + .mage-error {
+            font-weight: 400;
+            line-height: normal;
+        }
+
+        .col.price .input-text,
+        .col.qty .input-text {
+            color: #666;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-top: 0;
+            text-align: center;
+        }
+
+        .textarea.add-note {
+            display: none;
+        }
+
+        .add-note-quote {
+            cursor: pointer;
+        }
+    }
+
+    .quote-details {
+        & {
+            padding: 0 15px;
+        }
+
+        .title {
+            border-bottom: 1px solid #ccc;
+            display: block;
+            font-size: 2.4rem;
+            font-weight: 300;
+            margin: 12px 0;
+            padding-bottom: 5px;
+        }
+
+        .control {
+            margin-top: 10px;
+        }
+
+        .form-login {
+            border-bottom: 1px solid #ccc;
+        }
+    }
+
+    .account-quote-buttons {
+        margin-bottom: 15px;
+    }
+
+    .amasty-quote-account-view,
+    .amasty_quote-account-view {
+        .table-wrapper table .quote-item-notes {
+            border-top: none;
+        }
+
+        ul.note-list li {
+            display: inline-block;
+            width: 48%;
+        }
+    }
+
+    .amasty-quote-account-index,
+    .amasty_quote-account-index .quote-products-toolbar .pager {
+        .pages,
+        .limiter {
+            display: inline-block;
+            position: relative;
+            width: auto;
+        }
+    }
+
+    .amasty-quote-update {
+        .control.price {
+            & {
+                line-height: 22px;
+                min-width: 95px;
+                position: relative;
+            }
+        }
+
+        .amquote-price-label {
+            display: block;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+    }
+
+    #update-quote-cart {
+        height: 1px;
+        left: -9999px;
+        position: absolute;
+        width: 1px;
+    }
+
+    .quote-interest-message {
+        font-weight: 700;
+    }
+
+    .cart-summary {
+        &._sticky {
+            margin-bottom: 20vh;
+        }
+
+        .checkout-methods-items {
+            .amasty-quote-link {
+                font-size: 1.8rem;
+                line-height: 2.2rem;
+                text-decoration: none;
+                width: 100%;
+            }
+        }
+    }
+
+    .amquote-cell-container {
+        & {
+            font-weight: 700;
+            width: 50%;
+        }
+
+        .amquote-note {
+            font-weight: 400;
+            word-break: break-word;
+            word-wrap: break-word;
+        }
+
+        &:before {
+            content: none !important; // override magento style
+        }
+    }
+
+    .amquote-summary-details {
+        margin-top: 20px;
+    }
+
+    .amquote-report-container,
+    .amquote-custom-fields {
+        & {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 0;
+        }
+
+        .amquote-item {
+            & {
+                font-weight: 700;
+                margin-right: 20px;
+                min-width: 200px;
+            }
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+
+        .amquote-comment {
+            font-weight: 400;
+            word-break: break-word;
+            word-wrap: break-word;
+        }
+    }
+
+    .amquote-custom-fields .amquote-item {
+        margin-bottom: 40px;
+        margin-right: 0;
+    }
+
+    .am-quotes-head {
+        white-space: nowrap;
+    }
+}
+
+//
+//  Tablet +
+//  --------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .amquote-addto-button {
+        width: 49%;
+    }
+
+    .amquote-action-wrap .action.tocart {
+        width: 48%;
+    }
+
+    .amquote-cart-wrapper.minicart-wrapper {
+        & {
+            margin-bottom: 0;
+            margin-right: 0;
+        }
+
+        .amquote-showcart.action:before {
+            margin: 0 5px 0 20px;
+        }
+
+        .block-minicart {
+            width: 390px;
+        }
+
+        .block-minicart:after,
+        .block-minicart:before {
+            transform: none;
+        }
+    }
+
+    .quote-details {
+        padding: 0;
+    }
+}

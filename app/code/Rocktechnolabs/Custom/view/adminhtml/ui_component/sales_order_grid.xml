@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<!-- Override the order grid UI component -->
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <columns name="sales_order_columns">
+        <column name="telephone" class="Magento\Ui\Component\Listing\Columns\Column">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Telephone</label>
+                <sorting>asc</sorting>
+            </settings>
+        </column>
+    </columns>
+</listing>

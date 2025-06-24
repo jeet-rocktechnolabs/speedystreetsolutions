@@ -1,0 +1,49 @@
+<?php
+/**
+ * MB "Vienas bitas" (Magetrend.com)
+ *
+ * PHP version 5.3 or later
+ *
+ * @category MageTrend
+ * @package  Magetend/AbandonedCart
+ * @author   Edvinas Stulpinas <edwin@magetrend.com>
+ * @license  http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+ * @link     https://www.magetrend.com/magento-2-abandoned-cart
+ */
+// @codingStandardsIgnoreFile
+?>
+<?php if ($block->isActive()) : ?>
+    <?php $bar = $block->getCurrentBar(); ?>
+    <?php $barId = 'bar'.$bar->getId(); ?>
+    <div id="<?php echo $barId; ?>" class="ac-bar" style="
+            background-color: <?php echo $block->getColor('color_1', '#edf058'); ?>;
+            color: <?php echo $block->getColor('color_2', '#000000'); ?>;
+            font-size: <?php echo $block->getFontSize('font_size_1', '24px'); ?>;
+            ">
+        <div class="ac-bar-body">
+            <div class="ac-bar-content"
+                 style="">
+                <?php /* @escapeNotVerified */ echo $bar->getBarText() ?>
+            </div>
+            <div class="ac-bar-close">
+                <a href="#">
+                    <img src="<?php
+                    /* @escapeNotVerified */ echo $block->getViewFileUrl('Magetrend_AbandonedCart::images/close.png');
+                    ?>"/>
+                </a>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        require(['abandonedCartBarBasic'], function (Bar) {
+            Bar({
+                barSelector: '#<?php echo $barId;?>',
+                position: 'top',
+                cookieName:  '<?php echo $bar->getCookieName($block->getQuote()->getId());?>',
+                show_after: '<?php echo $this->getShowAfter();?>',
+                hide_after: '<?php echo $bar->getHideAfter();?>',
+                started_at: '<?php echo $block->getStartedAt();?>'
+            });
+        });
+    </script>
+<?php endif; ?>

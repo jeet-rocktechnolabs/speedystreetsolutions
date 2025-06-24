@@ -1,0 +1,8 @@
+<div class="admin__page-section-title">
+    <span class="title"><?= /* @noEscape */ $block->getHeaderText() ?></span>
+    <?php if ($block->getButtonsHtml()): ?>
+        <div class="actions" style="float: right;"><?= $block->getButtonsHtml() ?></div>
+    <?php endif; ?>
+</div>
+
+<?= $block->getChildHtml('', true) ?>

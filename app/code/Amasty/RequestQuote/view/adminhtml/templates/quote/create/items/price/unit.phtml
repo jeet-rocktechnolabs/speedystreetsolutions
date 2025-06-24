@@ -1,0 +1,12 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) Amasty (https://www.amasty.com)
+ * @package Request a Quote Base for Magento 2
+ */
+/** @var \Amasty\RequestQuote\Block\Adminhtml\Quote\Create\Items\Grid $block */
+$_item = $block->getItem();
+?>
+<div class="price-excl-tax">
+<?= /* @noEscape */ $block->formatPrice($_item->getProduct()->getFinalPrice($_item->getQty()), true) ?>
+</div>

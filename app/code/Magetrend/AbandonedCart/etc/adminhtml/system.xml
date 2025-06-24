@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<!--
+ /**
+ * MB "Vienas bitas" (Magetrend.com)
+ *
+ * PHP version 5.3 or later
+ *
+ * @category MageTrend
+ * @package  Magetend/AbandonedCart
+ * @author   Edvinas Stulpinas <edwin@magetrend.com>
+ * @license  http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+ * @link     https://www.magetrend.com/magento-2-abandoned-cart
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Config/etc/system_file.xsd">
+    <system>
+        <tab id="magetrend" translate="label" sortOrder="200">
+            <label>Magetrend Extensions</label>
+        </tab>
+        <section id="abandonedcart" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Abandoned Cart</label>
+            <tab>magetrend</tab>
+            <resource>Magetrend_AbandonedCart::config_general</resource>
+            <group id="general" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General Settings</label>
+                <field id="is_active" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Is Active</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="sampledata" translate="label" type="button" sortOrder="50" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Load Sample Data</label>
+                    <frontend_model>Magetrend\AbandonedCart\Block\Adminhtml\System\Config\Button\Load</frontend_model>
+                    <comment>This action creates 3 email templates, abandoned cart rule, order follow up rule and magento cart price rule. </comment>
+                </field>
+
+            </group>
+
+            <group id="cron" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Cron Settings</label>
+                <field id="limit" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Email Chunk Size</label>
+                </field>
+            </group>
+
+            <group id="email" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Email Settings</label>
+                <field id="from" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Send Emails From</label>
+                    <source_model>Magetrend\AbandonedCart\Model\Config\Source\StoreEmail</source_model>
+                </field>
+            </group>
+
+            <group id="license" translate="label" type="text" sortOrder="9999" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label><![CDATA[Information & License]]></label>
+                <field id="key" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>License Key</label>
+                    <comment><![CDATA[
+                    If you don't know the license key, please follow this article
+                    <a target="_blank" href="http://wiki2.magetrend.com/licensing/">
+                    http://wiki2.magetrend.com/licensing/</a>
+                    ]]></comment>
+                </field>
+
+                <field id="info" translate="label" type="label" sortOrder="1002" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <frontend_model>Magetrend\AbandonedCart\Block\Adminhtml\Config\System\Config\Info</frontend_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

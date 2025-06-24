@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	
+    <body>
+<referenceBlock name="catalog.compare.link" remove="true" />
+        <referenceBlock name="catalog.compare.sidebar" remove="true"/>
+        <referenceBlock name="catalogsearch.product.addto.compare" remove="true"/>
+        <referenceBlock name="category.product.addto.compare" remove="true"/>
+        <referenceBlock name="crosssell.product.addto.compare" remove="true" />
+        <referenceBlock name="related.product.addto.compare" remove="true" />
+        <referenceBlock name="upsell.product.addto.compare" remove="true" />
+        <referenceBlock name="view.addto.compare" remove="true" />
+        <referenceContainer name="sidebar.additional">
+            <block class="Magento\Cms\Block\Block" name="banner.sidebar" after="-">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">cms-static-banner-sidebar</argument>
+                </arguments>
+            </block>
+            <block class="Magento\Cms\Block\Block" name="product.sidebar" after="banner.sidebar">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">cms-static-latest-product-sidebar</argument>
+                </arguments>
+            </block>
+        	<block class="Magento\Cms\Block\Block" name="policy.sidebar" after="product.sidebar">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">cms-static-policy</argument>
+                </arguments>
+            </block>
+            <referenceBlock name="wishlist_sidebar" remove="true"/>
+            <referenceBlock name="catalog.compare.sidebar" remove="true"/>
+        </referenceContainer>
+        <referenceContainer name="product.info.media" htmlTag="div" htmlClass="product-media product media" />
+        <referenceContainer name="product.info.main" htmlTag="div" htmlClass="product-info-main product-shop" >
+        	<container name="product.shop.content" htmlTag="div" htmlClass="product-shop-content clearfix" />
+        </referenceContainer>
+       <!-- <move element="product.info.review" destination="product.info.price" before="-"/>-->
+        <move element="product.info.social" destination="product.info.price" before="product.price.final"/>
+	<move element="product.info.addto" destination="product.info.main" after="product.info.price" />
+        <!--<move element="product.info.addto" destination="product.info.main" before="product.info.overview"/>-->
+		<move element="page.main.title" destination="product.info.main" before="-"/>
+		<!--<move element="product.info.overview" destination="product.info.main" after="product.info.price" />-->
+	<move element="product.info.overview" destination="product.info.details" after="product.info.description" />
+        <move element="product.info.media" destination="product.inner" before="-"/>
+        <move element="product.info.main" destination="product.inner" after="product.info.media"/>
+        <referenceContainer name="content">
+        	<!-- <container name="product.view" htmlTag="div" htmlClass="product-view" before="-"> -->
+        		<container name="product.essential" htmlTag="div" htmlClass="product-essential" before="-">
+        			<container name="product.inner" htmlTag="div" htmlClass="row" before="-" />
+        		</container>
+		    <!-- </container> -->
+        <container name="product.info.attributes" htmlTag="div" htmlClass="product-additional-information" after="product.essential">
+            <block class="Magento\Catalog\Block\Product\View" name="product.attributes.main" template="Magento_Catalog::product/view/attributes.phtml"/>
+        </container>
+        </referenceContainer>
+        <!--<move element="alo.product.timer" destination="product.info.main" after="product.info.overview"/>-->
+	<move element="alo.product.timer" destination="product.info.main" after="product.info.addto"/>
+        <container name="alo.product.timer" as="alo_product_timer" label="Alo Product Timer"  htmlTag="div" htmlClass="sections-content-timer wrap"/>
+        <referenceContainer name="alo.product.timer" htmlClass="additional-timer-block">
+            <block class="Magento\Catalog\Block\Product\View" name="product.timer" as="product_timer" template="product/view/timer.phtml">
+                <arguments>
+                    <argument translate="true" name="title" xsi:type="string">Timer</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+        <container name="social.product.view">
+            <block class="Magento\Catalog\Block\Product\View" name="product.social.main" template="Magento_Catalog::product/view/social.phtml" after="product.info.mailto"/>
+        </container>
+        <move element="product.social.main" destination="product.info.main" after="product.info.addto"/>
+<referenceContainer name="product.info.main">
+            <!-- Create a custom container -->
+            <container name="adm.product.top" htmlTag="div" htmlClass="product-top-row" before="-">
+                <container name="adm.product.inner" htmlTag="div" htmlClass="product-top-left" before="-"/>
+</container>
+        </referenceContainer>
+<move element="page.main.title" destination="adm.product.inner" before="-"/>
+                <move element="product.info.review" destination="adm.product.inner"/>
+                <move element="product.info.stock.sku" destination="adm.product.inner"/>
+<move element="product.info.price" destination="adm.product.top"/>
+<!--<move element="product.info.review" destination="product.info.main" after="page.main.title"/>
+<move element="product.info.stock.sku" destination="product.info.main" before="product.info.price"/>-->
+<move element="product.info.type" destination="product.info.main" before="-"/>
+<referenceContainer name="product.info.media">
+            <block class="Magento\Cms\Block\Block" after="-" name="bulk_discount_block">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">bulk_discount_block</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+<move element="product.info.description" destination="product.info.main" after="product.info.addtocart"/>
+    </body>
+</page>
