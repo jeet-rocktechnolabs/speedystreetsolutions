@@ -21,10 +21,13 @@
         }
     },
     "require": {
+        "hexamarvel/module-attachments": "^1.0",
         "laminas/laminas-serializer": "^2.14",
         "magento/composer-root-update-plugin": "~2.0",
         "magento/product-community-edition": "2.4.6",
-        "yotpo/module-review": "^3.3"
+        "sparsh/magento-2-abandoned-cart-email-extension": "^1.3",
+        "yotpo/module-review": "^3.3",
+        "zestardtech/module-multiplecustomforms": "2.0.0"
     },
     "require-dev": {
         "allure-framework/allure-phpunit": "^2",
