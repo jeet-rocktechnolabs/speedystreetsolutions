@@ -100,12 +100,11 @@ class Price extends AbstractFilter
         return $this;
     }
 
-    protected function _renderRangeLabel($fromPrice, $toPrice, $isLast = false)
+    protected function _renderRangeLabel($fromPrice, $toPrice)
     {
         if (!$this->_moduleHelper->isEnabled() || !$this->_moduleHelper->isEnabledPriceRangeSliders()) {
-            return parent::_renderRangeLabel($fromPrice, $toPrice, $isLast);
+            return parent::_renderRangeLabel($fromPrice, $toPrice);
         }
-
         $formattedFromPrice = $this->priceCurrency->format($fromPrice);
         if ($toPrice === '') {
             return __('%1 and above', $formattedFromPrice);
@@ -115,7 +114,6 @@ class Price extends AbstractFilter
             return __('%1 - %2', $formattedFromPrice, $this->priceCurrency->format($toPrice));
         }
     }
-
 
     protected function _getItemsData()
     {

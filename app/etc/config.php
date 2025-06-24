@@ -340,7 +340,7 @@ return [
         'Amasty_Xsearch' => 1,
         'Bss_HtmlSiteMap' => 0,
         'Bss_SeoCore' => 1,
-        'MagePal_GmailSmtpApp' => 1,
+        'Hexamarvel_Attachments' => 1,
         'MageWorx_SearchSuiteAutocomplete' => 0,
         'Magefan_AdminUserGuide' => 1,
         'Magefan_Community' => 1,
@@ -369,12 +369,14 @@ return [
         'PayPal_Braintree' => 1,
         'PayPal_BraintreeGraphQl' => 1,
         'Rocktechnolabs_Custom' => 1,
+        'Sparsh_AbandonedCart' => 1,
         'Temando_ShippingRemover' => 1,
         'Ulmod_OrderComment' => 1,
         'Utp_PaymentGateway' => 1,
         'WeltPixel_Backend' => 1,
         'WeltPixel_GA4' => 1,
         'WeltPixel_GoogleTagManager' => 1,
-        'Yotpo_Yotpo' => 1
+        'Yotpo_Yotpo' => 1,
+        'Zestardtech_Multiplecustomforms' => 1
     ]
 ];

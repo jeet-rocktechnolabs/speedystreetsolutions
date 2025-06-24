@@ -249,19 +249,19 @@ class Model implements \ArrayAccess
     }
   }
 
-  public function offsetExists($offset): bool
+  public function offsetExists($offset)
   {
-      return isset($this->$offset) || isset($this->modelData[$offset]);
+    return isset($this->$offset) || isset($this->modelData[$offset]);
   }
 
-  public function offsetGet($offset): bool
+  public function offsetGet($offset)
   {
     return isset($this->$offset) ?
         $this->$offset :
         $this->__get($offset);
   }
 
-  public function offsetSet(mixed $offset, mixed $value): void
+  public function offsetSet($offset, $value)
   {
     if (property_exists($this, $offset)) {
       $this->$offset = $value;
@@ -271,9 +271,9 @@ class Model implements \ArrayAccess
     }
   }
 
-  public function offsetUnset(mixed $offset): void
+  public function offsetUnset($offset)
   {
-      unset($this->modelData[$offset]);
+    unset($this->modelData[$offset]);
   }
 
   protected function keyType($key)

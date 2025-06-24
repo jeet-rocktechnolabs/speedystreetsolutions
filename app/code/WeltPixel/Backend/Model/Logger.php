@@ -14,9 +14,8 @@ class Logger extends \Magento\Framework\Logger\Monolog
 
     /**
      * Logger constructor.
-     *
      * @param ScopeConfigInterface $scopeConfig
-     * @param string $name
+     * @param array $name
      * @param array $handlers
      * @param array $processors
      */
@@ -31,48 +30,49 @@ class Logger extends \Magento\Framework\Logger\Monolog
     /**
      * Adds a log record at the WARNING level.
      *
-     * @param string $message The log message
-     * @param array $context The log context
-     * @return void
+     * This method allows for compatibility with common interfaces.
+     *
+     * @param  string  $message The log message
+     * @param  array   $context The log context
+     * @return Boolean Whether the record has been processed
      */
-    public function warning($message, array $context = []): void
+    public function warning($message, array $context = array())
     {
         $result = $this->_parseLogMessage($message, $context);
         if ($result !== false) {
-            parent::warning($message, $context);
+            return parent::warning($message, $context);
         }
+        return $result;
     }
 
     /**
      * Adds a log record at the INFO level.
      *
-     * @param string $message The log message
-     * @param array $context The log context
-     * @return void
+     * This method allows for compatibility with common interfaces.
+     *
+     * @param  string  $message The log message
+     * @param  array   $context The log context
+     * @return Boolean Whether the record has been processed
      */
-    public function info($message, array $context = []): void
+    public function info($message, array $context = array())
     {
         $result = $this->_parseLogMessage($message, $context);
         if ($result !== false) {
-            parent::info($message, $context);
+            return parent::info($message, $context);
         }
+        return $result;
     }
 
     /**
-     * Parses and determines if the log message should be logged based on configuration.
-     *
-     * @param string $message
+     * @param $message
      * @param array $context
-     * @return bool
+     * @return Boolean
      */
-    protected function _parseLogMessage($message, array $context): bool
+    protected function _parseLogMessage($message, $context)
     {
-        $isLogEnabled = $this->scopeConfig->getValue(
-            self::XML_PATH_WELTPIXEL_DEVELOPER_LOGGING,
-            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
-        );
+        $isLogEnabled = $this->scopeConfig->getValue(self::XML_PATH_WELTPIXEL_DEVELOPER_LOGGING, \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
         $pos = strpos($message, 'Broken reference');
-        if (!$isLogEnabled && $pos !== false) {
+        if (!$isLogEnabled && ($pos !== false) ) {
             return false;
         }
 
